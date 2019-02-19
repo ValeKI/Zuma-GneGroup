@@ -7,7 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 
 using namespace std;
-int bufferL=1024, bufferA=768;
+
 
 class SFONDO
 {

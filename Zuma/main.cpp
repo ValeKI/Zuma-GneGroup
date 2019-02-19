@@ -1,7 +1,8 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma prova
+    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma
 */
 #define IMMAGINE_SFONDO "sfondo.jpg"
+#define IMMAGINE_LOGO "logotrota.jpg"
 #include "Buffer.h"
 
 
@@ -23,8 +24,10 @@ int main()
 
     SFONDO lol;
     BUFFER b(lol.getDisplay(), IMMAGINE_SFONDO);
+
+    b.aggiungiImmagine(IMMAGINE_LOGO,5,5,5.5);
     al_flip_display();
-    al_rest(5);
+    al_rest(2);
 
     return 0;
 }   
