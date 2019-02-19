@@ -1,5 +1,5 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma
+    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma prova
 */
 #define IMMAGINE_SFONDO "sfondo.jpg"
 #include "Buffer.h"
