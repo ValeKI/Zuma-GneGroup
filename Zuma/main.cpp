@@ -23,7 +23,7 @@ int main()
     }
 
     SFONDO lol;
-    BUFFER b(lol.getDisplay(), IMMAGINE_SFONDO);
+    BUFFER b(IMMAGINE_SFONDO);
 
     b.aggiungiImmagine(IMMAGINE_LOGO,5,5,5.5);
     al_flip_display();

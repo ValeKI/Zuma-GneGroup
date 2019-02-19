@@ -10,7 +10,7 @@ class BUFFER
     }
 
     bool aggiungiImmagine(const char* immagine, int X, int Y, float scale);
-    BUFFER(ALLEGRO_DISPLAY* display, const char* immagine);
+    BUFFER(const char* immagine);
     bool stampaSfondo(ALLEGRO_DISPLAY* display);
     bool stampaBuffer(ALLEGRO_DISPLAY* display);
     

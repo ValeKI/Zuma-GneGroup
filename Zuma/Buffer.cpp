@@ -68,8 +68,9 @@ bool BUFFER::stampaBuffer(ALLEGRO_DISPLAY* display)
         return 1;
 }
 
-BUFFER::BUFFER(ALLEGRO_DISPLAY* display, const char* immagine)
+BUFFER::BUFFER(const char* immagine)
 {
+    ALLEGRO_DISPLAY* display=al_get_current_display();
         sfondo=immagine;
         stampaSfondo(display);
         stampaBuffer(display);
