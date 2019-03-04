@@ -96,8 +96,8 @@ bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
         al_get_bitmap_width(load),           // source width
         al_get_bitmap_height(load),          // source height
         X, Y,                                // target origin
-        min(int(al_get_bitmap_width(load)*scale), bufferL-X),
-        min(int(al_get_bitmap_height(load)*scale), bufferA-Y),        // target dimensions
+        al_get_bitmap_width(load)*scale,
+        al_get_bitmap_height(load)*scale,        // target dimensions
         0                                    // flags
     );
 
