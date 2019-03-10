@@ -38,6 +38,8 @@ bool BUFFER::stampaSfondo(ALLEGRO_DISPLAY* display)
         al_set_target_bitmap(prev_target); 
         al_destroy_bitmap(load);
 
+        return 1;
+
 }
 
 bool BUFFER::stampaBuffer(ALLEGRO_DISPLAY* display)
