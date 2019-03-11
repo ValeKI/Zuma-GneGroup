@@ -16,7 +16,7 @@ int main()
         cerr << "Failed to initialite allegro - 1";
         return -1;
     }
-
+    
     if(!al_init_image_addon())
     {
         cerr << "Failed to initialite image addon - 2 ";
