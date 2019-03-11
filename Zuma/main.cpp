@@ -28,9 +28,11 @@ int main()
     int x=0;
     for(;x<30; x++)
     {
-        b.aggiungiImmagine(string(IMMAGINE_LOGO+to_string(x%2)+".jpg").c_str(),384,250,1);
-    al_flip_display();
-    al_rest(0.2);
+        b.stampaSfondo();
+        b.aggiungiImmagine((string(IMMAGINE_LOGO+to_string(x%2)+".jpg")).c_str(),384,250,1);
+        b.stampaBuffer();
+        al_flip_display();
+        al_rest(0.2);
     }
 
 

@@ -11,8 +11,8 @@ class BUFFER
 
     bool aggiungiImmagine(const char* immagine, int X, int Y, float scale);
     BUFFER(const char* immagine);
-    bool stampaSfondo(ALLEGRO_DISPLAY* display);
-    bool stampaBuffer(ALLEGRO_DISPLAY* display);
+    bool stampaSfondo();
+    bool stampaBuffer();
     
     protected:
         int bufferL=1024, bufferA=768;

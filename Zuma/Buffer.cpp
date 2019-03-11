@@ -1,7 +1,8 @@
 #include "Buffer.h"
 
-bool BUFFER::stampaSfondo(ALLEGRO_DISPLAY* display)
+bool BUFFER::stampaSfondo()
 {
+    ALLEGRO_DISPLAY* display=al_get_current_display();
     const char*& immagine=sfondo;
     ALLEGRO_BITMAP *load;
     
@@ -42,8 +43,9 @@ bool BUFFER::stampaSfondo(ALLEGRO_DISPLAY* display)
 
 }
 
-bool BUFFER::stampaBuffer(ALLEGRO_DISPLAY* display)
+bool BUFFER::stampaBuffer()
 {
+    ALLEGRO_DISPLAY* display=al_get_current_display();
     int displayW= al_get_display_width(display);
     int displayH= al_get_display_height(display);
     int sx = displayW/bufferL;
@@ -72,14 +74,13 @@ bool BUFFER::stampaBuffer(ALLEGRO_DISPLAY* display)
 
 BUFFER::BUFFER(const char* immagine)
 {
-    ALLEGRO_DISPLAY* display=al_get_current_display();
         sfondo=immagine;
-        stampaSfondo(display);
-        stampaBuffer(display);
 }
 
 bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
 {
+    
+    //stampaSfondo();
     ALLEGRO_BITMAP *load;
     if(!(load=al_load_bitmap(immagine)   ))
     {
@@ -87,7 +88,7 @@ bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
         return 0;
     }
 
-    stampaSfondo(al_get_current_display());
+    
     ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
     al_set_target_bitmap(buffer);
 
@@ -107,7 +108,7 @@ bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
     al_set_target_bitmap(prev_target); 
     al_destroy_bitmap(load);
 
-    stampaBuffer(al_get_current_display());
+   // stampaBuffer();
 
     return 1;
 }
