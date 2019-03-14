@@ -104,8 +104,6 @@ bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
         0                                    // flags
     );
 
-    cout << string(immagine) << " la x e': " << X*(bufferL/1024) << " la y e': " << Y*(bufferA/768) << endl; 
-
 
     al_set_target_bitmap(prev_target); 
     al_destroy_bitmap(load);
