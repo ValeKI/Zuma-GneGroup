@@ -20,5 +20,4 @@ class BUFFER
         const char* sfondo;
 };
 
-
 #endif

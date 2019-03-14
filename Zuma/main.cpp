@@ -11,6 +11,7 @@
 int main()
 {
 
+
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";

@@ -98,11 +98,13 @@ bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
         0, 0,                                // source origin
         al_get_bitmap_width(load),           // source width
         al_get_bitmap_height(load),          // source height
-        X, Y,                                // target origin
-        al_get_bitmap_width(load)*scale,
-        al_get_bitmap_height(load)*scale,        // target dimensions
+        X*(bufferL/1024.), Y*(bufferA/768.),                                // target origin
+        al_get_bitmap_width(load)*scale*(bufferL/1024.),
+        al_get_bitmap_height(load)*scale*(bufferA/768.),    // target dimensions
         0                                    // flags
     );
+
+    cout << string(immagine) << " la x e': " << X*(bufferL/1024) << " la y e': " << Y*(bufferA/768) << endl; 
 
 
     al_set_target_bitmap(prev_target); 
