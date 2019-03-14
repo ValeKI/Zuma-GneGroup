@@ -31,8 +31,7 @@ SFONDO()
 
 ~SFONDO()
 {
-    al_destroy_display(display);
-    al_uninstall_system();  
+    al_destroy_display(display); 
 }
 
 ALLEGRO_DISPLAY* getDisplay() {return display;}
