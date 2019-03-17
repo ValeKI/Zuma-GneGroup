@@ -2,7 +2,7 @@
     g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
-#include "Buffer.h"
+#include "ScrittaMenu.h"
 #include <string>
 #include <allegro5/allegro5.h>
 

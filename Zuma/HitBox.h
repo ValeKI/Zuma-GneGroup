@@ -10,12 +10,12 @@ class HitBox
         int y;
         int altezza;
         int lunghezza;
+    protected:  
         string immagine;
 
     public:
 
-    HitBox(int _x, int _y, int _altezza, int _lunghezza, string _immagine)
-        x(_x), y(_y), altezza(_altezza), lunghezza(_lunghezza), immagine(_immagine) {}
+    HitBox(int _x, int _y, int _altezza, int _lunghezza, string _immagine):x(_x), y(_y), altezza(_altezza), lunghezza(_lunghezza), immagine(_immagine) {}
     
     void setImmagine(string immagine) { this->immagine = immagine;  }
     void setLunghezza(int lunghezza) { this->lunghezza = lunghezza;  }
