@@ -56,16 +56,18 @@ int main()
 
     bool ok=1, disegna=1;
     int x=0;
-    while(ok && x<=1000)
+    al_start_timer(timer);
+    while(ok )//&& x<=100)
     {
-        x++;
+        //x++;
 
         ALLEGRO_EVENT ev;
         al_wait_for_event(events, &ev);
 
         if(ev.type==ALLEGRO_EVENT_TIMER)
-            {disegna=1;}
-            
+            {
+                disegna=1;}
+
 
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -76,7 +78,7 @@ int main()
                 break;
             }
         }
-        else if (ev.type == ALLEGRO_KEY_UP)
+        else if (ev.type == ALLEGRO_EVENT_KEY_UP)
         {
             switch(ev.keyboard.keycode)
             {
@@ -99,7 +101,7 @@ int main()
             b.aggiungiImmagine((string("image/Tempo_"+to_string(0%2)+".jpg")).c_str(),340,450,1);
             b.aggiungiImmagine((string("image/Mosse_"+to_string(0%2)+".jpg")).c_str(),340,550,1);
             b.stampaBuffer();
-            al_rest(0.2);
+            //al_rest(0.2);
             al_flip_display();
         }
 
