@@ -1,5 +1,5 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
+    cd Zuma && g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "Buffer.h"
@@ -22,7 +22,6 @@ int main()
     ALLEGRO_EVENT_QUEUE *events = NULL;
     ALLEGRO_TIMER *timer = NULL;
     bool key[4] = { false, false, false, false };
-    bool redraw = true;
     
     if(!al_install_keyboard()) 
     {
@@ -48,62 +47,72 @@ int main()
     events = al_create_event_queue();
     if(!events) 
     {
-        cerr <<"failed to create event_queue!\n";
-        al_destroy_timer(timer);
+        cerr << "Failed to create event queue - 7";
         return -1;
     }
 
     al_register_event_source(events, al_get_timer_event_source(timer));
     al_register_event_source(events, al_get_keyboard_event_source());
-    al_start_timer(timer);
 
-    for(int x=0;x<10; x++)
+    bool ok=1, disegna=1;
+
+    while(ok)
     {
+
+        if(disegna && al_is_event_queue_empty(events) )
+        {
+            disegna=0;
+            b.stampaSfondo();
+            b.aggiungiImmagine(  (   string("image/Classica_"+to_string(int(key[KEY_UP]))+".jpg")    ).c_str(),340,350,1);
+            b.aggiungiImmagine((string("image/Tempo_"+to_string(0%2)+".jpg")).c_str(),340,450,1);
+            b.aggiungiImmagine((string("image/Mosse_"+to_string(0%2)+".jpg")).c_str(),340,550,1);
+            b.stampaBuffer();
+           al_flip_display();
+    //al_rest(0.2);
+        }
+
         ALLEGRO_EVENT ev;
-        
         al_wait_for_event(events, &ev);
 
-        /*if(ev.type == ALLEGRO_EVENT_TIMER)
+        if(ev.type==ALLEGRO_EVENT_TIMER)
+            disegna=1;
+
+        else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-            key[3]=key[2]=key[1]=key[0]=false;
-        }*/
-         if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            cout << "lallah";
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_UP:
-                key[KEY_UP]=true;
-                break;
-
-                case ALLEGRO_KEY_DOWN:
-                key[KEY_DOWN]=true;
-                break;
-                
-                case ALLEGRO_KEY_LEFT:
-                key[KEY_LEFT] = true;
-                break;
-                
-                case ALLEGRO_KEY_RIGHT:
-                key[KEY_RIGHT] = true;
+                key[KEY_UP]=1;
                 break;
             }
         }
-        int gh=0;
-        if (key[KEY_UP])
-          {  gh=1; }
+        else if (ev.type == ALLEGRO_KEY_UP)
+        {
+            switch(ev.keyboard.keycode)
+            {
+                case ALLEGRO_KEY_UP:
+                key[KEY_UP]=0;
+                break;
 
-        b.stampaSfondo();
-        b.aggiungiImmagine(  (   string("image/Classica_"+to_string(gh)+".jpg")    ).c_str(),340,350,1);
-        b.aggiungiImmagine((string("image/Tempo_"+to_string(0%2)+".jpg")).c_str(),340,450,1);
-        b.aggiungiImmagine((string("image/Mosse_"+to_string(0%2)+".jpg")).c_str(),340,550,1);
-        b.stampaBuffer();
-        al_flip_display();
-        al_rest(0.2);
+                case ALLEGRO_KEY_ESCAPE:
+                ok=0;
+                break;
+                
+            }
+        }
+
+
     }
 
 
 
 
+
+   
+    
+
+
+
+    al_destroy_timer(timer);
     return 0;
 }
