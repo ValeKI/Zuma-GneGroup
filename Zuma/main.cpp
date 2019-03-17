@@ -1,5 +1,5 @@
 /*
-    cd Zuma && g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
+    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "Buffer.h"
@@ -55,27 +55,17 @@ int main()
     al_register_event_source(events, al_get_keyboard_event_source());
 
     bool ok=1, disegna=1;
-
-    while(ok)
+    int x=0;
+    while(ok && x<=1000)
     {
-
-        if(disegna && al_is_event_queue_empty(events) )
-        {
-            disegna=0;
-            b.stampaSfondo();
-            b.aggiungiImmagine(  (   string("image/Classica_"+to_string(int(key[KEY_UP]))+".jpg")    ).c_str(),340,350,1);
-            b.aggiungiImmagine((string("image/Tempo_"+to_string(0%2)+".jpg")).c_str(),340,450,1);
-            b.aggiungiImmagine((string("image/Mosse_"+to_string(0%2)+".jpg")).c_str(),340,550,1);
-            b.stampaBuffer();
-           al_flip_display();
-    //al_rest(0.2);
-        }
+        x++;
 
         ALLEGRO_EVENT ev;
         al_wait_for_event(events, &ev);
 
         if(ev.type==ALLEGRO_EVENT_TIMER)
-            disegna=1;
+            {disegna=1;}
+            
 
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -99,6 +89,18 @@ int main()
                 break;
                 
             }
+        }
+
+        if(disegna && al_is_event_queue_empty(events) )
+        {
+            disegna=0;
+            b.stampaSfondo();
+            b.aggiungiImmagine(  (   string("image/Classica_"+to_string(int(key[KEY_UP]))+".jpg")    ).c_str(),340,350,1);
+            b.aggiungiImmagine((string("image/Tempo_"+to_string(0%2)+".jpg")).c_str(),340,450,1);
+            b.aggiungiImmagine((string("image/Mosse_"+to_string(0%2)+".jpg")).c_str(),340,550,1);
+            b.stampaBuffer();
+            al_rest(0.2);
+            al_flip_display();
         }
 
 
