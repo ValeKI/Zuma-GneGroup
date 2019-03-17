@@ -15,9 +15,8 @@ class BUFFER
     bool stampaBuffer();
     
     protected:
-        int bufferL=800, bufferA=600;
+        int bufferL=1024, bufferA=768;
         ALLEGRO_BITMAP* buffer;
-        const char* sfondo;
+        const char* sfondo; 
 };
-
 #endif

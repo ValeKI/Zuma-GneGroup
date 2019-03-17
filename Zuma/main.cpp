@@ -10,8 +10,6 @@ const float FPS = 60;
 enum MYKEYS{KEY_UP, KEY_DOWN, KEY_LEFT,KEY_RIGHT};
 int main()
 {
-
-
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";
@@ -57,7 +55,7 @@ int main()
     bool ok=1, disegna=1;
     int x=0;
     al_start_timer(timer);
-    while(ok )//&& x<=100)
+    while(ok)//&& x<=100)
     {
         //x++;
 
@@ -65,8 +63,9 @@ int main()
         al_wait_for_event(events, &ev);
 
         if(ev.type==ALLEGRO_EVENT_TIMER)
-            {
-                disegna=1;}
+        {
+            disegna=1;
+        }
 
 
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
