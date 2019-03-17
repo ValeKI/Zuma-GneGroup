@@ -15,12 +15,12 @@ class HitBox
     public:
 
     HitBox(int _x, int _y, int _altezza, int _lunghezza, string _immagine)
-        x(_x), y(_y), altezza(_altezza), immagine(_immagine) {}
+        x(_x), y(_y), altezza(_altezza), lunghezza(_lunghezza), immagine(_immagine) {}
     
     void setImmagine(string immagine) { this->immagine = immagine;  }
     void setLunghezza(int lunghezza) { this->lunghezza = lunghezza;  }
     void setAltezza(int altezza) {this->altezza = altezza;}
-    void setY(int y) { this->y = y;   }
+    void setY(int y) { this->y = y;}
     void setX(int x) { this->x = x;}
 
     string getImmagine() {return immagine;}
