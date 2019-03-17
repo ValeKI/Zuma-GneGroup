@@ -87,13 +87,17 @@ int main()
                 break;
 
                 case ALLEGRO_KEY_ESCAPE:
-                ok=0;
+                al_destroy_timer(timer);
+                return 0;
                 break;
                 
             }
         }
+        else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+         break;
+      }
 
-        if(disegna && al_is_event_queue_empty(events) )
+        if(ok && disegna && al_is_event_queue_empty(events) )
         {
             disegna=0;
             b.stampaSfondo();
@@ -109,14 +113,6 @@ int main()
     }
 
 
-
-
-
-   
     
-
-
-
-    al_destroy_timer(timer);
     return 0;
 }

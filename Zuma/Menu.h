@@ -4,6 +4,6 @@
 class Menu
 {
     
-}
+};
 
 #endif
