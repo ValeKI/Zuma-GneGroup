@@ -33,16 +33,19 @@ int main()
 
     SFONDO sfondo;
     BUFFER b(IMMAGINE_SFONDO);
-    HitBox* ciao= new HitBox("image/Moon.jpg",100,100,1);
+    HitBox* ciao= new ScrittaMenu("image/1_Tempo.jpg",100,100,1);
 
     //cout << ciao->getY();
-
+for(int i=0; i<20; i++)
+{
     b.stampaSfondo();
+    dynamic_cast<ScrittaMenu*>(ciao)->reazione();
     b.aggiungiImmagine(ciao);
     b.stampa(1);
     al_flip_display();
-    al_rest(1);
 
+    al_rest(0.01);
+}
     delete ciao;
     return 0;
 }
