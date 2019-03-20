@@ -1,22 +1,29 @@
 #ifndef BUFFER_H
 #define BUFFER_H
-#include "Sfondo.h"
-class BUFFER
+#include "HitBox.h"
+
+
+
+
+class BUFFER : public HitBox
 {
     public:
     ~BUFFER()
     {
-        al_destroy_bitmap(buffer);
+        if(buffer!=nullptr)
+            al_destroy_bitmap(buffer);
     }
 
-    bool aggiungiImmagine(const char* immagine, int X, int Y, float scale);
+
+    void aggiungiImmagine(HitBox*);
     BUFFER(const char* immagine);
+    BUFFER(string immagine);
     bool stampaSfondo();
-    bool stampaBuffer();
+
+    void stampa() override;
     
     protected:
-        int bufferL=1024, bufferA=768;
         ALLEGRO_BITMAP* buffer;
-        const char* sfondo; 
+
 };
 #endif

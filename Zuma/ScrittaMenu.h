@@ -5,7 +5,7 @@
 
 class ScrittaMenu : public HitBox
 {
-    ScrittaMenu(int _x, int _y, int _altezza, int _lunghezza, string _immagine):HitBox(_x,_y,_altezza,_lunghezza,_immagine){}
+    ScrittaMenu(int _x, int _y, string _immagine, int _scale):HitBox(_immagine,_x,_y,_scale){}
 
 
     void reazione()

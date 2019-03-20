@@ -1,114 +1,82 @@
 #include "Buffer.h"
 
+extern int wGlobal;
+extern int hGlobal;
+
 bool BUFFER::stampaSfondo()
 {
     ALLEGRO_DISPLAY* display=al_get_current_display();
-    const char*& immagine=sfondo;
-    ALLEGRO_BITMAP *load;
     
-        if(!(buffer=al_create_bitmap(bufferL ,bufferA)   ) )
-        {
-            cerr << "Error to create buffer bitmap - 4";
-            al_destroy_display(display);
-            return 0;
-        }
-    
-        if(!(load=al_load_bitmap(immagine)   ))
-        {
-            cerr << "Error to load the background - 5";
-            al_destroy_bitmap(buffer);
-            al_destroy_display(display);
-            return 0;
-        }
-
-        ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
-        al_set_target_bitmap(buffer);
-
-        al_draw_scaled_bitmap
-        (
-            load,
-            0, 0,                                // source origin
-            al_get_bitmap_width(load),           // source width
-            al_get_bitmap_height(load),          // source height
-            0, 0,                                // target origin
-            bufferL,
-            bufferA,                        // target dimensions
-            0                                    // flags
-        );
-
-        al_set_target_bitmap(prev_target); 
-        al_destroy_bitmap(load);
-
-        return 1;
-
-}
-
-bool BUFFER::stampaBuffer()
-{
-    ALLEGRO_DISPLAY* display=al_get_current_display();
-    int displayW= al_get_display_width(display);
-    int displayH= al_get_display_height(display);
-    int sx = displayW/bufferL;
-    int sy = displayH/bufferA;
-    int scale = min(sx,sy);
-    int scaleW= bufferL * scale;
-    int scaleH= bufferA * scale;
-    int scaleX= (displayW-scaleW)/2;
-    int scaleY= (displayH-scaleH)/2;
-    const char*& immagine=sfondo;
-    
-
-        al_draw_scaled_bitmap
-        (
-            buffer,
-            0, 0,                                // source origin
-            bufferL,                               // source width
-            bufferA,                               // source height
-            scaleX, scaleY,                      // target origin
-            scaleW, scaleH,                      // target dimensions
-            0                                    // flags
-        );
-
-        return 1;
-}
-
-BUFFER::BUFFER(const char* immagine)
-{
-        sfondo=immagine;
-}
-
-bool BUFFER::aggiungiImmagine(const char* immagine, int X, int Y, float scale)
-{
-    
-    //stampaSfondo();
-    ALLEGRO_BITMAP *load;
-    if(!(load=al_load_bitmap(immagine)   ))
+    if(!(buffer=al_create_bitmap(wGlobal ,hGlobal)   ) )
     {
-        cerr << "Error to load an image - 62";
+        cerr << "Error to create buffer bitmap - 4";
+        al_destroy_display(display);
         return 0;
-    }
-
+    }           
     
+    ricreaLoad();
+
     ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
     al_set_target_bitmap(buffer);
 
     al_draw_scaled_bitmap
     (
-        load,
+        getLoad(),
         0, 0,                                // source origin
-        al_get_bitmap_width(load),           // source width
-        al_get_bitmap_height(load),          // source height
-        X*(bufferL/1024.), Y*(bufferA/768.),                                // target origin
-        al_get_bitmap_width(load)*scale*(bufferL/1024.),
-        al_get_bitmap_height(load)*scale*(bufferA/768.),    // target dimensions
+        al_get_bitmap_width(getLoad()),           // source width
+        al_get_bitmap_height(getLoad()),          // source height
+        0, 0,                                // target origin
+        wGlobal,
+        hGlobal,                        // target dimensions
         0                                    // flags
     );
 
+    al_set_target_bitmap(prev_target); 
+    distruggiLoad();
+    return 1;
+}
+
+void BUFFER::stampa()
+{
+    ALLEGRO_DISPLAY* display=al_get_current_display();
+    int displayW= al_get_display_width(display);
+    int displayH= al_get_display_height(display);
+    int sx = displayW/wGlobal;
+    int sy = displayH/hGlobal;
+    int scale = min(sx,sy);
+    setLunghezza(wGlobal * scale);
+    setAltezza(hGlobal * scale);
+    setX((displayW-getLunghezza())/2 );
+    setY ( (displayH-getAltezza())/2 );
+
+
+    load=buffer;
+    HitBox::stampa();
+
+    load=nullptr;
+    
+}
+
+
+BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
+{
+    buffer=nullptr;
+}
+
+BUFFER::BUFFER(string immagine):HitBox(immagine.c_str(), 0, 0, 1 )
+{
+   buffer=nullptr;
+}
+
+void BUFFER::aggiungiImmagine(HitBox* hit)
+{
+    ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
+    al_set_target_bitmap(buffer);
+
+    hit->ricreaLoad();
+
+    hit->stampa();
 
     al_set_target_bitmap(prev_target); 
-    al_destroy_bitmap(load);
-
-   // stampaBuffer();
-
-    return 1;
+    hit->distruggiLoad();
 }
