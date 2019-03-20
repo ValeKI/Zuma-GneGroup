@@ -16,9 +16,12 @@ const float FPS = 60;
 enum MYKEYS{KEY_UP, KEY_DOWN, KEY_LEFT,KEY_RIGHT};
 int main()
 {
+   /* ::wGlobal=640;
+    ::hGlobal=480; */
+
     if(!al_init())
     {
-        cerr << "Failed to initialite allegro - 1";
+        cerr << "Failed to initialishishte allegro - 1";
         return -1;
     }
     
@@ -36,7 +39,7 @@ int main()
 
     b.stampaSfondo();
     b.aggiungiImmagine(ciao);
-    b.stampa();
+    b.stampa(1);
     al_flip_display();
     al_rest(1);
 

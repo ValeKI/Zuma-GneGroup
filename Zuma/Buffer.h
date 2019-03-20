@@ -20,7 +20,7 @@ class BUFFER : public HitBox
     BUFFER(string immagine);
     bool stampaSfondo();
 
-    void stampa() override;
+    void stampa(bool contr) override;
     
     protected:
         ALLEGRO_BITMAP* buffer;

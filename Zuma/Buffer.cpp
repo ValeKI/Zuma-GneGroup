@@ -36,7 +36,7 @@ bool BUFFER::stampaSfondo()
     return 1;
 }
 
-void BUFFER::stampa()
+void BUFFER::stampa(bool contr)
 {
     ALLEGRO_DISPLAY* display=al_get_current_display();
     int displayW= al_get_display_width(display);
@@ -51,7 +51,7 @@ void BUFFER::stampa()
 
 
     load=buffer;
-    HitBox::stampa();
+    HitBox::stampa(0);
 
     load=nullptr;
     
@@ -75,7 +75,7 @@ void BUFFER::aggiungiImmagine(HitBox* hit)
 
     hit->ricreaLoad();
 
-    hit->stampa();
+    hit->stampa(1);
 
     al_set_target_bitmap(prev_target); 
     hit->distruggiLoad();
