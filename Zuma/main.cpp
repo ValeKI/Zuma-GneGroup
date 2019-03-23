@@ -33,19 +33,33 @@ int main()
 
     SFONDO sfondo;
     BUFFER b(IMMAGINE_SFONDO);
-    HitBox* ciao= new ScrittaMenu("image/1_Tempo.jpg",100,100,1);
-
+    HitBox* tempo= new ScrittaMenu("image/1_Tempo.jpg",300,300,1);
+    HitBox* classica = new ScrittaMenu("image/1_Classica.jpg",300,425,1);
+    HitBox* mosse = new ScrittaMenu("image/1_Mosse.jpg",300,560,1);
     //cout << ciao->getY();
-for(int i=0; i<20; i++)
+for(int i=0; i<30; i++)
 {
     b.stampaSfondo();
-    dynamic_cast<ScrittaMenu*>(ciao)->reazione();
-    b.aggiungiImmagine(ciao);
+
+    dynamic_cast<ScrittaMenu*>(tempo)->reazione();
+    dynamic_cast<ScrittaMenu*>(classica)->reazione();
+    dynamic_cast<ScrittaMenu*>(mosse)->reazione();
+
+    b.aggiungiImmagine(tempo);
+    b.aggiungiImmagine(classica); 
+    b.aggiungiImmagine(mosse); 
+    
     b.stampa(1);
+    b.stampa(1);
+    b.stampa(1);
+   
+
     al_flip_display();
 
-    al_rest(0.01);
+    al_rest(0.1);
 }
-    delete ciao;
+    delete tempo;
+    delete classica;
+    delete mosse;
     return 0;
 }
