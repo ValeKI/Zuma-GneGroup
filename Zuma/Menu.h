@@ -42,6 +42,9 @@ class Menu // pero' devi leggerlo in inglese
                 switch(ev.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_UP:
+                    if(pos == 0)
+                        pos = 1;
+                    
                     pos=(pos+2)%3;
 
                     if(pos == 0)
