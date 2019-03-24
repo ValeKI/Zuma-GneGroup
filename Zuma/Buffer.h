@@ -16,6 +16,7 @@ class BUFFER : public HitBox
 
 
     void aggiungiImmagine(HitBox*);
+    BUFFER():HitBox("",0,0,1){buffer=nullptr;}
     BUFFER(const char* immagine);
     BUFFER(string immagine);
     bool stampaSfondo();

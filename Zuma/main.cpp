@@ -1,9 +1,17 @@
 /*
     g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
+
+    TO DO list:
+    event_queue ---  
+    collisione
+    menu
+
+
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "ScrittaMenu.h"
 #include "Buffer.h"
+#include "Event_queue.h"
 #include "Sfondo.h"
 #include <string>
 #include <allegro5/allegro_image.h>
@@ -12,9 +20,7 @@
 int wGlobal=1024;
 int hGlobal=768;
 
-const float FPS = 60;
-enum MYKEYS{KEY_UP, KEY_DOWN, KEY_LEFT,KEY_RIGHT};
-int main()
+int main(int argc, char **argv)
 {
    /* ::wGlobal=640;
     ::hGlobal=480; */
@@ -30,6 +36,7 @@ int main()
         cerr << "Failed to initialite image addon - 2 ";
         return -1;
     }
+
 
     SFONDO sfondo;
     BUFFER b(IMMAGINE_SFONDO);
