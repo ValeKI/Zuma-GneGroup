@@ -28,6 +28,8 @@ class HitBox
 
     HitBox(string _immagine, int _x, int _y, float scale);
     ~HitBox();
+
+
     virtual void stampa(bool contr);
 
 

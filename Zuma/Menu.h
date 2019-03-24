@@ -42,9 +42,9 @@ class Menu // pero' devi leggerlo in inglese
                 switch(ev.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_UP:
-                    pos=(pos-1)%3;
+                    pos=(pos+2)%3;
 
-                    if(pos == 3|| pos == 0)
+                    if(pos == 0)
                         pos = 3;
                     event_queue.flusha();
                     break;

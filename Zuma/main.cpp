@@ -2,9 +2,7 @@
     g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 
     TO DO list:
-    event_queue ---  
     collisione
-    menu
 
 
 */
