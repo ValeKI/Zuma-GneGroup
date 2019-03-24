@@ -81,8 +81,14 @@ class Event_queue
     {
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
-        al_flush_event_queue(event_queue);
+        //al_flush_event_queue(event_queue);
         return ev;
+    }
+
+    void flusha()
+    {
+
+        al_flush_event_queue(event_queue);
     }
 };
 

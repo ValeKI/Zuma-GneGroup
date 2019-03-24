@@ -37,14 +37,16 @@ class Menu // pero' devi leggerlo in inglese
         {
             ALLEGRO_EVENT ev = event_queue.evento();
             
-            //simona perri di falernaaaa(catanzaro) ship con Ricca ma lui vuole vanBon
-
             if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
             {
                 switch(ev.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_UP:
-                    pos=(pos-1)%3 + 1;
+                    pos=(pos-1)%3;
+
+                    if(pos == 3|| pos == 0)
+                        pos = 3;
+                    event_queue.flusha();
                     break;
 
                     case ALLEGRO_KEY_DOWN:
@@ -52,8 +54,11 @@ class Menu // pero' devi leggerlo in inglese
 
                     if(pos == 0)
                         pos = 3;
+                    
+                    event_queue.flusha();
                     break;
                 }
+
             }
             else if (ev.type == ALLEGRO_EVENT_KEY_UP)
             {
@@ -68,14 +73,13 @@ class Menu // pero' devi leggerlo in inglese
             for(int i=0; i<3; i++)
                 scritte[i]->reazione(0);
 
-            if(pos!=0)
+            if(pos>0)
                 scritte[pos-1]->reazione(1);
 
             for(int i=0; i<3; i++)
                 b.aggiungiImmagine(scritte[i]);
             
             b.stampa(1);
-
             al_flip_display();
         }
         event_queue.stop();
