@@ -59,6 +59,7 @@ void HitBox::ricreaLoad()
 {
     if((load==nullptr) && !(load=al_load_bitmap(immagine.c_str())   ))
     {
-        cerr << "Error to load an image - 62";
+        cerr << "Error to load an image - 62"<< immagine <<"uff" << x << " " << y << endl;
+        exit(-1);
     }
 }

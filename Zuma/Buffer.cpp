@@ -63,7 +63,7 @@ BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
     buffer=nullptr;
 }
 
-BUFFER::BUFFER(string immagine):HitBox(immagine.c_str(), 0, 0, 1 )
+BUFFER::BUFFER(string immagine):HitBox(immagine, 0, 0, 1 )
 {
    buffer=nullptr;
 }

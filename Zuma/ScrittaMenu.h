@@ -1,6 +1,7 @@
 #ifndef SCRITTAMENU_H
 #define SCRITTAMENU_H
 #include "HitBox.h"
+#include <string>
 
 
 class ScrittaMenu : public HitBox
@@ -15,7 +16,11 @@ class ScrittaMenu : public HitBox
             immagine[6]='1';
         else
             immagine[6]='0';
-        
+    }
+
+    void reazione(bool stato)
+    {
+        immagine[6]=to_string(stato)[0];
     }    
 };
 #endif

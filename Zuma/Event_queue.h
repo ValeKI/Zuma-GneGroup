@@ -19,6 +19,7 @@ class Event_queue
     public:
     Event_queue(float fps=60)
     {
+        FPS=fps;
         if(!al_install_keyboard()) 
         {
             cerr << "failed to initialize the keyboard!\n";
@@ -31,7 +32,11 @@ class Event_queue
             exit(-1);
         }
 
-        
+    }
+
+    ~Event_queue()
+    {
+        stop();
     }
 
     void start()
@@ -60,8 +65,15 @@ class Event_queue
 
     void stop()
     {
-        al_destroy_timer(timer);
-        al_destroy_event_queue(event_queue);
+        if(timer!=nullptr)
+            al_destroy_timer(timer);
+
+        if(event_queue!=nullptr)
+            al_destroy_event_queue(event_queue);
+
+        timer=nullptr;
+        event_queue=nullptr;
+
     }
 
 
