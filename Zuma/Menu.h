@@ -45,7 +45,7 @@ class Menu // pero' devi leggerlo in inglese
                     if(pos == 0)
                         pos = 1;
                     
-                    pos=(pos+2)%3;
+                    pos=(pos+1)%3+1;
 
                     if(pos == 0)
                         pos = 3;

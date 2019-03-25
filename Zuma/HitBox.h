@@ -32,6 +32,8 @@ class HitBox
 
     virtual void stampa(bool contr);
 
+    int collisione(HitBox obj);
+
 
     void distruggiLoad();
     void ricreaLoad();
