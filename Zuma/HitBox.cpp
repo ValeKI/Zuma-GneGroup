@@ -22,17 +22,17 @@ int HitBox::collisione(HitBox* obj)
     if
         (load!=nullptr &&
         (
-            (obj->y             > y && obj->y             < (y + altezza))
+            (obj->y             >= y && obj->y             <= (y + altezza))
             ||
-            (obj->y+obj->altezza > y && obj->y+obj->altezza < (y+altezza) )
+            (obj->y+obj->altezza >= y && obj->y+obj->altezza <= (y+altezza) )
         )
         )
     {
         if
         (
-            ( obj->x                    > x && obj->x               < (x+lunghezza/2) )
+            ( obj->x                    >= x && obj->x               <= (x+lunghezza/2) )
             ||
-            ( (obj->x+obj->lunghezza)      > x && (obj->x+obj->lunghezza) < (x+lunghezza/2) )    
+            ( (obj->x+obj->lunghezza)      >= x && (obj->x+obj->lunghezza) <= (x+lunghezza/2) )    
         )
 
             return -1; // sinistra
