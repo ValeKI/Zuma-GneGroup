@@ -32,7 +32,7 @@ class HitBox
 
     virtual void stampa(bool contr);
 
-    int collisione(HitBox obj);
+    int collisione(HitBox* obj);
 
 
     void distruggiLoad();
