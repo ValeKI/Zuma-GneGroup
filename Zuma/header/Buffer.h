@@ -8,19 +8,11 @@
 class BUFFER : public HitBox
 {
     public:
-    ~BUFFER()
-    {
-        if(buffer!=nullptr)
-            al_destroy_bitmap(buffer);
-    }
-
-
+    ~BUFFER();
     void aggiungiImmagine(HitBox*);
-    //BUFFER():HitBox("",0,0,1){buffer=nullptr;}
     BUFFER(const char* immagine);
     BUFFER(string immagine);
     bool stampaSfondo();
-
     void stampa(bool contr) override;
     
     protected:

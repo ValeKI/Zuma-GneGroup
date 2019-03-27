@@ -1,7 +1,13 @@
-#include "Buffer.h"
+#include "../header/Buffer.h"
 
 extern int wGlobal;
 extern int hGlobal;
+
+BUFFER::~BUFFER()
+{
+    if(buffer!=nullptr)
+        al_destroy_bitmap(buffer);
+}
 
 bool BUFFER::stampaSfondo()
 {

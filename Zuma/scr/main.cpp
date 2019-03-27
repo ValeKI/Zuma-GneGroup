@@ -7,11 +7,9 @@
 
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
-#include "ScrittaMenu.h"
-#include "Buffer.h"
-#include "Menu.h"
-#include "Event_queue.h"
-#include "Sfondo.h"
+#include "../header/ScrittaMenu.h"
+#include "../header/Menu.h"
+#include "../header/Sfondo.h"
 #include <string>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro5.h>

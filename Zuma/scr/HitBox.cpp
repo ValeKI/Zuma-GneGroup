@@ -1,4 +1,4 @@
-#include "HitBox.h"
+#include "../header/HitBox.h"
 
 extern int wGlobal;
 extern int hGlobal;
