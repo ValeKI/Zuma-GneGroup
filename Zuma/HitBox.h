@@ -26,7 +26,7 @@ class HitBox
 
     public:
 
-    HitBox(string _immagine, int _x, int _y, float scale);
+    HitBox(string _immagine="", int _x=0, int _y=0, float scale=0.);
     ~HitBox();
 
 

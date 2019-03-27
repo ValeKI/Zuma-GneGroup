@@ -39,8 +39,9 @@ class Event_queue
         stop();
     }
 
-    void start()
-    {
+    void start(float fps=60)
+    {   
+        FPS=fps;
         timer = al_create_timer(1.0 / FPS);
         if(!timer)
         { 
@@ -83,6 +84,11 @@ class Event_queue
         al_wait_for_event(event_queue, &ev);
         //al_flush_event_queue(event_queue);
         return ev;
+    }
+
+    bool empty()
+    {
+        return al_is_event_queue_empty(event_queue);
     }
 
     void flusha()

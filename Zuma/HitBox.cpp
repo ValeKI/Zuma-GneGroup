@@ -86,7 +86,15 @@ void HitBox::stampa(bool contr)
 }
 
 
-void HitBox::distruggiLoad(){if(load!=nullptr) {al_destroy_bitmap(load); load=nullptr;}}
+void HitBox::distruggiLoad()
+{
+    if(load!=nullptr) 
+    {
+        al_destroy_bitmap(load); 
+        load=nullptr;
+    }
+}
+
 void HitBox::ricreaLoad()
 {
     if((load==nullptr) && !(load=al_load_bitmap(immagine.c_str())   ))
