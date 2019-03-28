@@ -9,11 +9,8 @@ HitBox::HitBox(string _immagine, int _x, int _y, float scale)
     ricreaLoad();
     if(load!=nullptr)
     {
-        
         lunghezza = al_get_bitmap_width (load)*scale;
         altezza   = al_get_bitmap_height(load)*scale;
-        x         = x;
-        y         = y;
     }
 }
 
@@ -30,7 +27,7 @@ int HitBox::collisione(HitBox* obj)
     {
         if
         (
-            ( obj->x                    >= x && obj->x               <= (x+lunghezza/2) )
+            ( obj->x                       >= x && obj->x                  <= (x+lunghezza/2) )
             ||
             ( (obj->x+obj->lunghezza)      >= x && (obj->x+obj->lunghezza) <= (x+lunghezza/2) )    
         )
@@ -39,9 +36,9 @@ int HitBox::collisione(HitBox* obj)
 
         if
         (
-            ( obj->x                    > (x+lunghezza/2) && obj->x               < (x+lunghezza) )
+            ( obj->x                     >= (x+lunghezza/2) && obj->x                <= (x+lunghezza) )
             ||
-            ( obj->x+obj->lunghezza      > (x+lunghezza/2) && obj->x+obj->lunghezza < (x+lunghezza) )    
+            ( obj->x+obj->lunghezza      >= (x+lunghezza/2) && obj->x+obj->lunghezza <= (x+lunghezza) )    
         )
 
             return 1; // destra

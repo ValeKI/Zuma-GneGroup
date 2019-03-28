@@ -1,4 +1,5 @@
 #include "../header/Menu.h"
+#include "../header/Mouse.h"
 
 Menu::Menu(){}
 
@@ -15,8 +16,9 @@ void Menu::menu1()
     scritte.push_back(new ScrittaMenu("../image/0_Classica.jpg",300,300,1));
     scritte.push_back(new ScrittaMenu("../image/0_Tempo.jpg"   ,300,450,1));
     scritte.push_back(new ScrittaMenu("../image/0_Mosse.jpg"   ,300,560,1));
-
-    event_queue.start(8);
+    Mouse m;
+    HitBox GNE("../image/0_Classica.jpg",m.getX(),m.getY(),0.3);
+    event_queue.start(12);
     int pos=0, scelta=0;
     // 1 classica    2 tempo    3 mosse
 
@@ -24,7 +26,6 @@ void Menu::menu1()
     while(888)
     {
         ALLEGRO_EVENT ev = event_queue.evento();
-            
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
             if(key[KEY_UP])
@@ -101,15 +102,34 @@ void Menu::menu1()
                 break;
             }
         }
-
+        else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+        {
+            m.setX(ev.mouse.x);
+            m.setY(ev.mouse.y);
+            GNE.setX(m.getX());
+            GNE.setY(m.getY());
+            if(m.collisione(scritte[0]) == true)
+            {
+                key[KEY_UP]=true;
+                cout << "lol\n";
+            }
+            else
+            {
+                key[KEY_UP]=false;
+               // cout << "lol2\n";
+            }
+        }
         if(redraw && event_queue.empty())
         {
+            b.stampaSfondo();
             redraw=0;
             for(int i=0; i<3; i++)
                 scritte[i]->reazione(0);
 
             if(pos>0)
                 scritte[pos-1]->reazione(1);
+
+            b.aggiungiImmagine(&GNE);
 
             for(int i=0; i<3; i++)
                 b.aggiungiImmagine(scritte[i]);
