@@ -19,8 +19,8 @@ int hGlobal=768;
 
 int main(int argc, char **argv)
 {
-   /* ::wGlobal=640;
-    ::hGlobal=480; */
+/*     ::wGlobal=640;
+    ::hGlobal=480; */ 
 
     if(!al_init())
     {
