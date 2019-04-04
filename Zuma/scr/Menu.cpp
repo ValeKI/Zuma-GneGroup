@@ -17,8 +17,7 @@ void Menu::menu1()
     scritte.push_back(new ScrittaMenu("../image/0_Tempo.jpg"   ,300,450,1));
     scritte.push_back(new ScrittaMenu("../image/0_Mosse.jpg"   ,300,560,1));
     Mouse m;
-    HitBox GNE("../image/0_Classica.jpg",m.getX(),m.getY(),0.3);
-    event_queue.start(12);
+    event_queue.start(10);
     int pos=0, scelta=0;
     // 1 classica    2 tempo    3 mosse
 
@@ -102,20 +101,25 @@ void Menu::menu1()
                 break;
             }
         }
-        else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+        if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
             m.setX(ev.mouse.x);
             m.setY(ev.mouse.y);
-            GNE.setX(m.getX());
-            GNE.setY(m.getY());
             if(m.collisione(scritte[0]) == true)
             {
-                key[KEY_UP]=true;
-                cout << "lol\n";
+                pos=1;
+            }
+            else if(m.collisione(scritte[1]) == true)
+            {
+                pos=2;
+            }
+            else if(m.collisione(scritte[2]) == true)
+            {
+                pos=3;
             }
             else
             {
-                key[KEY_UP]=false;
+                pos=0;
                // cout << "lol2\n";
             }
         }
@@ -129,7 +133,7 @@ void Menu::menu1()
             if(pos>0)
                 scritte[pos-1]->reazione(1);
 
-            b.aggiungiImmagine(&GNE);
+           
 
             for(int i=0; i<3; i++)
                 b.aggiungiImmagine(scritte[i]);
