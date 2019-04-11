@@ -59,7 +59,7 @@ class Pallina: public HitBox
 
         int getPosizione() const
         {
-            return posizione;
+            return this->posizione;
         }
 
         DIREZIONE getDirezione() const

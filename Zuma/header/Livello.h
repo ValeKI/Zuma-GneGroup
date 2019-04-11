@@ -66,7 +66,7 @@ class Livello
                 }
 
                
-                pos-=30;
+                pos-=60;
             } 
             palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
         }
@@ -109,7 +109,7 @@ class Livello
             bool redraw=0;
             BUFFER b("../image/Moon.jpg");
             Mouse m;
-            generaPalline(20,3);
+            generaPalline(1,3);
             event_queue.start(60);
 
 
@@ -117,7 +117,16 @@ class Livello
             while(palline.at(0)->getPosizione()<int(coordinate.size()))
             {
                 ALLEGRO_EVENT ev = event_queue.evento();
-                if(ev.type == ALLEGRO_EVENT_TIMER)
+                
+                if (ev.type == ALLEGRO_EVENT_KEY_UP)
+                {
+                    switch(ev.keyboard.keycode)
+                    {
+                     case ALLEGRO_KEY_ESCAPE:
+                     exit(0);
+                     break;
+                    }
+                }else if(ev.type == ALLEGRO_EVENT_TIMER)
                 {
                     redraw=1;
                 }
@@ -133,27 +142,19 @@ class Livello
 
                        
 
-                        if(i->getPosizione()>=0 && i->getPosizione()<coordinate.size())
+                       /* if(i->getPosizione()>=0 && i->getPosizione()<coordinate.size())
                         {i->movimento(*coordinate.at(i->getPosizione()));
                         b.aggiungiImmagine2(i);
                             
-                        }
+                        }*/
                     }
             
                     b.stampa(1);
                     al_flip_display();
-                    event_queue.flusha();
+                   // event_queue.flusha();
                 
                 }
-                else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-                {
-                    switch(ev.keyboard.keycode)
-                    {
-                     case ALLEGRO_KEY_ESCAPE:
-                     exit(0);
-                     break;
-                    }
-                }
+               
             }
         }
         
