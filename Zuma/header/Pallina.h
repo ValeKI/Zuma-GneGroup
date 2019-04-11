@@ -14,7 +14,7 @@ class Pallina: public HitBox
         DIREZIONE direzione;
         
         public:
-        Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.1)
+        Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.06)
         {
             string imm;
             
@@ -98,7 +98,9 @@ class Pallina: public HitBox
         {
             setX(c.first);
             setY(c.second);
-        }     
+        }
+
+        ~Pallina(){}     
 };
 
 #endif

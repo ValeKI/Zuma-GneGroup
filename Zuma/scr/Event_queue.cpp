@@ -77,5 +77,5 @@ bool Event_queue::empty()
 
 void Event_queue::flusha()
 {
-    al_flush_event_queue(event_queue);
+    al_flush_event_queue(event_queue); //<3
 }

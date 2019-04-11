@@ -19,11 +19,11 @@ class Livello
 
         ~Livello()
         {
-            for(auto i:palline)
-                delete i;
+            for(int i=0; i<palline.size(); i++)
+                delete palline[i];
             
-            for(auto i:coordinate)
-                delete i;
+            for(int i=0; i<coordinate.size(); i++)
+                delete coordinate[i];
         }
 
         void generaPalline(int num, int tipi)
@@ -66,7 +66,7 @@ class Livello
                 }
 
                
-                pos-=60;
+                pos-=10;
             } 
             palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
         }
@@ -76,28 +76,34 @@ class Livello
             ifstream in;
             string line;
             in.open("../Percorso/Percorso_0.txt");
+            int ml=0;
 
             while(getline(in,line))
             {
-                string n;
-                int i=0,n1,n2;
-
-                while(line[i]!='-')
+                if(ml%5==0)
                 {
-                    n+=line[i++];
-                }
-                n1=atoi(n.c_str());
-                n="";
-                i++;
+                    string n;
+                    int i=0,n1,n2;
 
-                 while(line[i]!='\0')
-                {
-                    n+=line[i++];
-                }
-                n2=atoi(n.c_str());
-                n="";
+                    while(line[i]!='-')
+                    {
+                        n+=line[i++];
+                    }
+                    n1=atoi(n.c_str());
+                    n="";
+                    i++;
 
-                coordinate.push_back(new pair<int,int>(n1,n2));
+                    while(line[i]!='\0')
+                    {
+                        n+=line[i++];
+                    }
+                    n2=atoi(n.c_str());
+                    n="";
+
+                    coordinate.push_back(new pair<int,int>(n1,n2));
+                }
+
+                ml++;
             }
 
             in.close();
@@ -109,53 +115,66 @@ class Livello
             bool redraw=0;
             BUFFER b("../image/Moon.jpg");
             Mouse m;
-            generaPalline(1,3);
+            generaPalline(40,3);
             event_queue.start(60);
 
 
-
-            while(palline.at(0)->getPosizione()<int(coordinate.size()))
+            while(888)
             {
                 ALLEGRO_EVENT ev = event_queue.evento();
-                
-                if (ev.type == ALLEGRO_EVENT_KEY_UP)
-                {
-                    switch(ev.keyboard.keycode)
-                    {
-                     case ALLEGRO_KEY_ESCAPE:
-                     exit(0);
-                     break;
-                    }
-                }else if(ev.type == ALLEGRO_EVENT_TIMER)
-                {
-                    redraw=1;
-                }
-               
+
                 if(redraw && event_queue.empty())
                 {
                     b.stampaSfondo();   
                     redraw=0;
                     cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
+                    bool ESCIPLS=false;
                     for(auto i:palline)
                     {
                         i->avanza();
 
-                       
+                        if ( palline.at(0)->getPosizione()>=int(coordinate.size()) )
+                        {
+                            ESCIPLS=true;
+                            break;
+                        }    
 
-                       /* if(i->getPosizione()>=0 && i->getPosizione()<coordinate.size())
-                        {i->movimento(*coordinate.at(i->getPosizione()));
-                        b.aggiungiImmagine2(i);
-                            
-                        }*/
+                        if(i->getPosizione()>=0 && i->getPosizione()<coordinate.size())
+                        {
+                            i->movimento(*coordinate.at(i->getPosizione()));
+                            b.aggiungiImmagine2(i);
+                        }
                     }
-            
+                    if(ESCIPLS)
+                    {
+                        event_queue.stop();
+                        exit(0);
+                    }
                     b.stampa(1);
                     al_flip_display();
-                   // event_queue.flusha();
                 
+                } 
+                else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+                {
+                    switch(ev.keyboard.keycode)
+                    {
+                     case ALLEGRO_KEY_ESCAPE:
+                     event_queue.stop();
+                     exit(0);
+                     break;
+                    }
                 }
+                else if(ev.type == ALLEGRO_EVENT_TIMER)
+                {
+                    redraw=1;
+                }
+                else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+                    event_queue.flusha();
+                
                
             }
+
+            event_queue.stop();
         }
         
         
