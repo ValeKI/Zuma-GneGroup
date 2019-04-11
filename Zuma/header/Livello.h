@@ -58,6 +58,10 @@ class Livello
                 break;
 
                 case 4:
+                    palline.push_back(new Pallina(GIALLO,pos));
+                break;
+
+                case 5:
                     palline.push_back(new Pallina(VIOLA,pos));
                 break;
                 
@@ -66,7 +70,7 @@ class Livello
                 }
 
                
-                pos-=10;
+                pos-=3;
             } 
             palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
         }
@@ -115,7 +119,7 @@ class Livello
             bool redraw=0;
             BUFFER b("../image/Moon.jpg");
             Mouse m;
-            generaPalline(40,3);
+            generaPalline(100,6);
             event_queue.start(60);
 
 
@@ -154,7 +158,7 @@ class Livello
                     al_flip_display();
                 
                 } 
-                else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+                if (ev.type == ALLEGRO_EVENT_KEY_UP)
                 {
                     switch(ev.keyboard.keycode)
                     {
@@ -164,13 +168,14 @@ class Livello
                      break;
                     }
                 }
-                else if(ev.type == ALLEGRO_EVENT_TIMER)
+                if(ev.type == ALLEGRO_EVENT_TIMER)
                 {
                     redraw=1;
-                }
-                else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
                     event_queue.flusha();
-                
+                }
+                // else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+                  //  al_rest(0.007);
+                 
                
             }
 

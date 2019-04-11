@@ -4,7 +4,7 @@
 #include <utility>
 #include <string>
 enum DIREZIONE{AVANTI = 0, DIETRO, FERMO};
-enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA};
+enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA,GIALLO};
 class Pallina: public HitBox
 {
         private:
@@ -14,7 +14,7 @@ class Pallina: public HitBox
         DIREZIONE direzione;
         
         public:
-        Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.06)
+        Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.026)
         {
             string imm;
             
@@ -36,6 +36,14 @@ class Pallina: public HitBox
 
                 case(ARANCIONE):
                     imm="Ballorange.png";
+                break;
+
+                case(GIALLO):
+                    imm="Ballyellow.png";
+                break;
+
+                case(VIOLA):
+                    imm="Ballviolet.png";
                 break;
 
             }
