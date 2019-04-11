@@ -139,7 +139,7 @@ void Menu::menu1()
                 b.aggiungiImmagine(scritte[i]);
             
             b.stampa(1);
-                al_flip_display();
+            al_flip_display();
         }
     }
     event_queue.stop(); // si puo stoppare prima del gioco

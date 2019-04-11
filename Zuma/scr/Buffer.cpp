@@ -86,3 +86,16 @@ void BUFFER::aggiungiImmagine(HitBox* hit)
     al_set_target_bitmap(prev_target); 
     hit->distruggiLoad();
 }
+
+void BUFFER::aggiungiImmagine2(HitBox* hit)
+{
+    ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
+    al_set_target_bitmap(buffer);
+
+  //  hit->ricreaLoad();
+
+    hit->stampa(1);
+
+    al_set_target_bitmap(prev_target); 
+  //  hit->distruggiLoad();
+}

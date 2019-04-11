@@ -10,6 +10,7 @@ class BUFFER : public HitBox
     public:
     ~BUFFER();
     void aggiungiImmagine(HitBox*);
+    void aggiungiImmagine2(HitBox*);
     BUFFER(const char* immagine);
     BUFFER(string immagine);
     bool stampaSfondo();

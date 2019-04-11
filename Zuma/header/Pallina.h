@@ -40,7 +40,7 @@ class Pallina: public HitBox
 
             }
 
-            cout << "Imm e' " << imm << endl;
+            //cout << "Imm e' " << imm << endl;
 
             distruggiLoad();
             setImmagine("../image/" + imm);
@@ -96,8 +96,8 @@ class Pallina: public HitBox
 
         void movimento(const pair<int, int>& c)
         {
-            this -> setX(c.first);
-            this -> setY(c.second);
+            setX(c.first);
+            setY(c.second);
         }     
 };
 
