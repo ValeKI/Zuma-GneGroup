@@ -165,7 +165,7 @@ int main(int arg, char** str)
     
     for(int i=0; i<coordinate.size(); i++)
     {
-        in << coordinate[i].first << " " << coordinate[i].second << endl;
+        in << coordinate[i].first << "-" << coordinate[i].second << endl;
     }
     
     

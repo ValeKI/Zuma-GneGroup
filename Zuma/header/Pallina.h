@@ -2,17 +2,52 @@
 #define PALLINA_H
 #include "HitBox.h"
 #include <utility>
+#include <string>
 enum DIREZIONE{AVANTI = 0, DIETRO, FERMO};
+enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA};
 class Pallina: public HitBox
 {
         private:
-        ALLEGRO_COLOR colore;
+        COLORE colore;
         bool  bonus;
         int posizione;
         DIREZIONE direzione;
         
         public:
-        ALLEGRO_COLOR getColore() const
+        Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.1)
+        {
+            string imm;
+            
+            switch(colore)
+            {
+                case(ROSSO):
+                    imm="Ball.png";
+                break;
+
+                case(BLU):
+                    imm="Ballblue.png";
+                break;
+
+
+                case(VERDE):
+                    imm="Ballgreen.png";
+                break;
+
+
+                case(ARANCIONE):
+                    imm="Ballorange.png";
+                break;
+
+            }
+
+            cout << "Imm e' " << imm << endl;
+
+            distruggiLoad();
+            setImmagine("../image/" + imm);
+            ricreaLoad();
+        }
+
+        COLORE getColore() const
         {
             return colore;
         }
@@ -36,18 +71,34 @@ class Pallina: public HitBox
             direzione = dir;
         }
 
-        void movimento(const pair<int, int>& c)
+        void stop()
         {
-            if(direzione == 0 || direzione == 1)
-            {
-                this -> setX(c.first);
-                this -> setY(c.second);
-                 if (direzione == 0)posizione++;
-                else posizione--;
-            }
+            direzione = FERMO;
         }
 
-        
+        void inverti()
+        {
+
+            if(direzione == AVANTI)
+                direzione = DIETRO;
+            else if(direzione == DIETRO)
+                direzione = AVANTI;
+        }
+
+        void avanza()
+        {
+            if(direzione==AVANTI)
+                posizione++;
+            if(direzione==DIETRO)
+                posizione--;
+            // altrimenti FERMO
+        }
+
+        void movimento(const pair<int, int>& c)
+        {
+            this -> setX(c.first);
+            this -> setY(c.second);
+        }     
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include "../header/ScrittaMenu.h"
 #include "../header/Menu.h"
 #include "../header/Sfondo.h"
+#include "../header/Livello.h"
 #include <string>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro5.h>
@@ -36,9 +37,9 @@ int main(int argc, char **argv)
 
 
     SFONDO sfondo;
-    Menu prova;
+    Livello prova;
 
-    prova.menu1();
+    prova.livello_base();
 
 
   //  HitBox buh;
