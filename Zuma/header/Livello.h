@@ -81,13 +81,14 @@ class Livello
             string line;
             in.open("../Percorso/Percorso_0.txt");
             int ml=0;
+            int i=0,n1,n2;
 
             while(getline(in,line))
             {
                 if(ml%5==0)
                 {
                     string n;
-                    int i=0,n1,n2;
+                    i=0;
 
                     while(line[i]!='-')
                     {
@@ -119,33 +120,33 @@ class Livello
             bool redraw=0;
             BUFFER b("../image/Moon.jpg");
             Mouse m;
-            generaPalline(100,6);
-            event_queue.start(60);
-
-
+            generaPalline(200,6);
+            event_queue.start(30);
+            int flushh=0, sizeCoord=coordinate.size();
+            int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
             while(888)
             {
-                ALLEGRO_EVENT ev = event_queue.evento();
+                ev = event_queue.evento();
 
                 if(redraw && event_queue.empty())
                 {
                     b.stampaSfondo();   
                     redraw=0;
-                    cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
-                    bool ESCIPLS=false;
+                   // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
+                    ESCIPLS=false;
                     for(auto i:palline)
                     {
                         i->avanza();
 
-                        if ( palline.at(0)->getPosizione()>=int(coordinate.size()) )
+                        if ( palline.at(0)->getPosizione()>=sizeCoord )
                         {
                             ESCIPLS=true;
                             break;
                         }    
-
-                        if(i->getPosizione()>=0 && i->getPosizione()<coordinate.size())
+                        p=i->getPosizione();
+                        if(p>=0 && p<sizeCoord)
                         {
-                            i->movimento(*coordinate.at(i->getPosizione()));
+                            i->movimento(*coordinate[p]);
                             b.aggiungiImmagine2(i);
                         }
                     }
@@ -171,10 +172,12 @@ class Livello
                 if(ev.type == ALLEGRO_EVENT_TIMER)
                 {
                     redraw=1;
-                    event_queue.flusha();
                 }
-                // else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
-                  //  al_rest(0.007);
+                if(flushh++%300==0)
+                    event_queue.flusha();
+
+                if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+                    event_queue.flusha(); 
                  
                
             }

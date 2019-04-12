@@ -1,9 +1,6 @@
 /*
     g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 
-    TO DO list:
-    collisione
-
 
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"

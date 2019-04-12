@@ -94,16 +94,22 @@ void ordina(vector<pair<int,int> >& v)
         if(criterio(fasullo,v[0],v[i]))
             swap(v[i],v[1]);
     }
-
+    int many=0;
     for(int i=1; i<v.size()-2; i++)
-    {
+    {   
         for(int j=i+1; j<v.size(); j++)
         {
-            if(criterio(v[i-1],v[i],v[j])==true)
+            
+            if( criterio(v[i-1],v[i],v[j])==true)
             {
-                swap(v[i+1],v[j]); 
-                break; 
+                if(i>=455 && i<=475)
+                    cout << v[i].first << "-" << v[i].second << "  " << v[j].first << "-" 
+                    << v[j].second << " la i e' " << i << endl;
+
+                swap(v[i+1],v[j]);
+                
             }
+            
         }
     }
 }
