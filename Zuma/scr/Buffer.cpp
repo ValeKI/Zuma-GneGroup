@@ -1,5 +1,5 @@
 #include "../header/Buffer.h"
-
+#include <allegro5/allegro.h>
 extern int wGlobal;
 extern int hGlobal;
 
@@ -20,6 +20,7 @@ bool BUFFER::stampaSfondo()
         return 0;
     }           
     
+   
     ricreaLoad();
 
     ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
@@ -27,15 +28,15 @@ bool BUFFER::stampaSfondo()
 
     al_draw_scaled_bitmap
     (
-        getLoad(),
+        load,
         0, 0,                                // source origin
-        al_get_bitmap_width(getLoad()),           // source width
-        al_get_bitmap_height(getLoad()),          // source height
+        al_get_bitmap_width(load),           // source width
+        al_get_bitmap_height(load),          // source height
         0, 0,                                // target origin
         wGlobal,
         hGlobal,                        // target dimensions
         0                                    // flags
-    );
+    ); 
 
     al_set_target_bitmap(prev_target); 
     distruggiLoad();
@@ -55,6 +56,7 @@ void BUFFER::stampa(bool contr)
     setX((displayW-getLunghezza())/2 );
     setY ( (displayH-getAltezza())/2 );
 
+   // cout << getX() << endl;
 
     load=buffer;
     HitBox::stampa(0);

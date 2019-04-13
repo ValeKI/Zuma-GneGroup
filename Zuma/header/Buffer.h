@@ -16,6 +16,7 @@ class BUFFER : public HitBox
     bool stampaSfondo();
     void stampa(bool contr) override;
     
+    
     protected:
         ALLEGRO_BITMAP* buffer;
 

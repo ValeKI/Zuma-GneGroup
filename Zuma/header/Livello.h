@@ -75,89 +75,67 @@ class Livello
             palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
         }
 
-        void caricaCoordinate()
-        {
-            ifstream in;
-            string line;
-            in.open("../Percorso/Percorso_0.txt");
-            int ml=0;
-            int i=0,n1,n2;
-
-            while(getline(in,line))
-            {
-                if(ml%5==0)
-                {
-                    string n;
-                    i=0;
-
-                    while(line[i]!='-')
-                    {
-                        n+=line[i++];
-                    }
-                    n1=atoi(n.c_str());
-                    n="";
-                    i++;
-
-                    while(line[i]!='\0')
-                    {
-                        n+=line[i++];
-                    }
-                    n2=atoi(n.c_str());
-                    n="";
-
-                    coordinate.push_back(new pair<int,int>(n1,n2));
-                }
-
-                ml++;
-            }
-
-            in.close();
-        }
+        void caricaCoordinate();
 
         void livello_base()
         {
             
             bool redraw=0;
-            BUFFER b("../image/Moon.jpg");
+            BUFFER b("../image/Sfondo.jpg");
+            
             Mouse m;
-            generaPalline(200,6);
-            event_queue.start(30);
+            generaPalline(100,6);
+            event_queue.start(200);
             int flushh=0, sizeCoord=coordinate.size();
             int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
-            while(888)
+            
+            HitBox ciao("../image/0_Classica.jpg",0,0,0.2);
+
+            b.stampaSfondo();
+            while(palline[0]->getPosizione()<sizeCoord)
             {
+                
                 ev = event_queue.evento();
 
-                if(redraw && event_queue.empty())
+                if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
                 {
-                    b.stampaSfondo();   
+                    m.setX(ev.mouse.x);
+                    m.setY(ev.mouse.y);
+                    ciao.setX(m.getX());
+                    ciao.setY(m.getY());
+                }
+
+                if(redraw && event_queue.empty())
+                {  
                     redraw=0;
+                    
+                    b.stampa(1);    
+
+                    ciao.distruggiLoad();
+                    if(m.collisione(palline[0])!=0)
+                        ciao.setImmagine("../image/1_Classica.jpg");
+                    else
+                         ciao.setImmagine("../image/0_Classica.jpg");
+                    ciao.ricreaLoad();
+
+                    ciao.stampa(1);
+                    
                    // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
-                    ESCIPLS=false;
+                    
                     for(auto i:palline)
                     {
                         i->avanza();
-
-                        if ( palline.at(0)->getPosizione()>=sizeCoord )
-                        {
-                            ESCIPLS=true;
-                            break;
-                        }    
                         p=i->getPosizione();
+                        
                         if(p>=0 && p<sizeCoord)
                         {
                             i->movimento(*coordinate[p]);
-                            b.aggiungiImmagine2(i);
+                            i->stampa(1);
                         }
-                    }
-                    if(ESCIPLS)
-                    {
-                        event_queue.stop();
-                        exit(0);
-                    }
-                    b.stampa(1);
+
+                    }       
                     al_flip_display();
-                
+                    al_clear_to_color(al_map_rgb(0,0,0));
                 } 
                 if (ev.type == ALLEGRO_EVENT_KEY_UP)
                 {
@@ -173,11 +151,9 @@ class Livello
                 {
                     redraw=1;
                 }
-                if(flushh++%300==0)
+                if((flushh++)%400==0)
                     event_queue.flusha();
-
-                if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
-                    event_queue.flusha(); 
+                
                  
                
             }

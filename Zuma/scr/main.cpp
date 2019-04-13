@@ -16,10 +16,10 @@ int wGlobal=1024;
 int hGlobal=768;
 
 int main(int argc, char **argv)
-{
-   /* ::wGlobal=800;
-    ::hGlobal=600; */
-
+{ /* 
+    ::wGlobal=100;
+    ::hGlobal=100;  
+ */
     if(!al_init())
     {
         cerr << "Failed to initialishishte allegro - 1";

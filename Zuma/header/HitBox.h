@@ -21,6 +21,11 @@ class HitBox
         int lunghezza;
         
         protected:  
+        int displayW;    
+        int displayH;
+        int scale2;
+
+
         string immagine;
         ALLEGRO_BITMAP *load;
 

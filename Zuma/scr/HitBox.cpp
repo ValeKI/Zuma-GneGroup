@@ -5,6 +5,13 @@ extern int hGlobal;
 
 HitBox::HitBox(string _immagine, int _x, int _y, float scale) 
 {
+    ALLEGRO_DISPLAY* display=al_get_current_display();
+    displayW= al_get_display_width(display);
+    displayH= al_get_display_height(display);
+    int sx = displayW/wGlobal;
+    int sy = displayH/hGlobal;
+    scale2 = min(sx,sy);
+
     x=_x; y=_y; immagine=_immagine; load=nullptr;
     ricreaLoad();
     if(load!=nullptr)
@@ -63,10 +70,12 @@ void HitBox::stampa(bool contr)
 
     if(contr)
     {
-        stampaX*=(wGlobal/1024.);
-        stampaY*=(hGlobal/768.);
-        stampaL*=(wGlobal/1024.);
-        stampaA*=(hGlobal/768.);
+        stampaX= (stampaX+(displayW-(wGlobal * scale2))/2 );
+        stampaY= (stampaY+((displayH-(hGlobal * scale2))/2 ));
+        stampaL*=( (wGlobal*scale2)/1024.);
+        stampaA*=( (hGlobal*scale2)/768.);
+
+      //  cout << (displayW-(wGlobal * scale2))/2  << endl ;
     }
 
     al_draw_scaled_bitmap

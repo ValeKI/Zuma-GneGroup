@@ -12,10 +12,15 @@ class Pallina: public HitBox
         bool  bonus;
         int posizione;
         DIREZIONE direzione;
-        
+        int displayW;    
+        int displayH;
+        int scale;
+
         public:
         Pallina(COLORE c, int pos):colore(c),bonus(false),posizione(pos),direzione(AVANTI), HitBox("../image/Ball.png", 0, 0, 0.026)
         {
+            
+
             string imm;
             
             switch(colore)
@@ -102,11 +107,7 @@ class Pallina: public HitBox
             // altrimenti FERMO
         }
 
-        void movimento(const pair<int, int>& c)
-        {
-            setX(c.first);
-            setY(c.second);
-        }
+        void movimento(const pair<int, int>& c);
 
         ~Pallina(){}     
 };

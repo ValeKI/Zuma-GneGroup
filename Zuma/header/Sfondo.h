@@ -25,8 +25,7 @@ class SFONDO
             cerr << "Error to create the display - 3";
             exit(-1);
         }
-
-
+        
     }
 
     ~SFONDO()
