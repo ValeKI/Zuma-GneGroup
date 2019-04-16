@@ -81,11 +81,11 @@ class Livello
         {
             
             bool redraw=0;
-            BUFFER b("../image/Sfondo.jpg");
+            BUFFER b("../image/Moon.jpg");
             
             Mouse m;
             generaPalline(100,6);
-            event_queue.start(10);
+            event_queue.start(120);
             int flushh=0, sizeCoord=coordinate.size();
             int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
             

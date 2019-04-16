@@ -16,13 +16,13 @@ int wGlobal=1024;
 int hGlobal=768;
 
 int main(int argc, char **argv)
-{ /* 
-    ::wGlobal=100;
-    ::hGlobal=100;  
- */
+{  
+   /*  ::wGlobal=200;
+    ::hGlobal=100;  */ 
+ 
     if(!al_init())
     {
-        cerr << "Failed to initialishishte allegro - 1";
+        cerr << "Failed to initialite allegro - 1";
         return -1;
     }
     
@@ -34,9 +34,9 @@ int main(int argc, char **argv)
 
 
     SFONDO sfondo;
-    Menu m;
+    Livello m;
 
-    m.menu1();
+    m.livello_base();
 
 
   //  HitBox buh;
