@@ -113,9 +113,6 @@ class Livello
 
                     ciao.distruggiLoad();
                     if(m.collisione(palline[0])!=0){
-                        cout << palline[0]->getStampaX() << " " << palline[0]->getStampaY()<<endl;
-                        cout << m.getX() << " " << m.getY() << endl << endl;
-
                         ciao.setImmagine("../image/1_Classica.jpg");}
                     else
                          ciao.setImmagine("../image/0_Classica.jpg");

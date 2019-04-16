@@ -72,8 +72,8 @@ void HitBox::stampa(bool contr)
     {
         stampaX= (stampaX+(displayW-(wGlobal * scale2))/2 );
         stampaY= (stampaY+((displayH-(hGlobal * scale2))/2 ));
-        stampaL*=( (wGlobal*scale2)/1024.);
-        stampaA*=( (hGlobal*scale2)/768.);
+        stampaL= stampaL*( (wGlobal*scale2)/1024.);
+        stampaA= stampaA*( (hGlobal*scale2)/768.);
 
       //  cout << (displayW-(wGlobal * scale2))/2  << endl ;
     }

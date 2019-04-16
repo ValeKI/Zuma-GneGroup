@@ -3,9 +3,13 @@
 #include "HitBox.h"
 #include <utility>
 #include <string>
+
 enum DIREZIONE{AVANTI = 0, DIETRO, FERMO};
+
 enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA,GIALLO};
-class Pallina: public HitBox
+
+
+class Pallina:public HitBox
 {
         private:
         COLORE colore;

@@ -29,7 +29,7 @@ int Mouse::getX() {return x;}
 
 bool Mouse::collisione(HitBox* obj)
 {
-    return ((y >= obj->getStampaY() && y <= (obj->getStampaY() + obj->getStampaA()   ) ) &&
+    return ((y >= obj->getStampaY() && y <= (obj->getStampaY() + obj->getStampaA() ) ) &&
             (x >= obj->getStampaX() && x <= (obj->getStampaX() + obj->getStampaL() ) )   );
             
 }

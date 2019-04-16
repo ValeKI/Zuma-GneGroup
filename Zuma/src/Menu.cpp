@@ -13,7 +13,7 @@ void Menu::menu1()
     bool redraw=0;
     BUFFER b("../image/Sfondo.jpg");
 
-    scritte.push_back(new ScrittaMenu("../image/0_Classica.jpg",300,300,1));
+    scritte.push_back(new ScrittaMenu("../image/0_Classica.jpg",300,325,1));
     scritte.push_back(new ScrittaMenu("../image/0_Tempo.jpg"   ,300,450,1));
     scritte.push_back(new ScrittaMenu("../image/0_Mosse.jpg"   ,300,560,1));
     Mouse m;
@@ -76,7 +76,7 @@ void Menu::menu1()
             }
 
         }
-        else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+        if (ev.type == ALLEGRO_EVENT_KEY_UP)
         {
             switch(ev.keyboard.keycode)
             {
@@ -107,6 +107,11 @@ void Menu::menu1()
             m.setY(ev.mouse.y);
             if(m.collisione(scritte[0]) == true)
             {
+                cout << m.getX() << " " << m.getY() << endl;
+                cout << scritte[0]->getStampaX() << " " << scritte[0]->getStampaY() << endl;
+                cout << scritte[0]->getStampaX() + scritte[0]->getStampaL() << " " << 
+                scritte[0]->getStampaY() + scritte[0]->getStampaA() << endl << endl;
+                
                 pos=1;
             }
             else if(m.collisione(scritte[1]) == true)
@@ -125,21 +130,25 @@ void Menu::menu1()
         }
         if(redraw && event_queue.empty())
         {
-            b.stampaSfondo();
+            
             redraw=0;
+
+            b.stampa(1);
+
             for(int i=0; i<3; i++)
                 scritte[i]->reazione(0);
 
             if(pos>0)
                 scritte[pos-1]->reazione(1);
 
-           
+            
 
             for(int i=0; i<3; i++)
-                b.aggiungiImmagine(scritte[i]);
+                scritte[i]->stampa(1);
             
-            b.stampa(1);
+            
             al_flip_display();
+            al_clear_to_color(al_map_rgb(0,0,0));
         }
     }
     event_queue.stop(); // si puo stoppare prima del gioco
