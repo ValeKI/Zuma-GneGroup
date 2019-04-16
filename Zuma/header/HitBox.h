@@ -54,6 +54,13 @@ class HitBox
     int getAltezza() { return altezza;}
     int getY() {return y;}
     int getX() {return x;}
+
+    int getStampaX(){return (x+(displayW-(wGlobal * scale2))/2 ); }
+    int getStampaY(){return (y+(displayH-(hGlobal * scale2))/2 ); }
+    int getStampaL(){return lunghezza*( (wGlobal*scale2)/1024.);}
+    int getStampaA(){return altezza*( (hGlobal*scale2)/768.);}
+
+
     ALLEGRO_BITMAP* getLoad() {return load;}
 };
 

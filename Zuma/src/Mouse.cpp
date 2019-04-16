@@ -16,11 +16,11 @@ Mouse::Mouse():x(0),y(0)
 
 void Mouse::setY(int _y) 
 { 
-    y=_y-((displayH-(hGlobal * scale))/2 );
+    y=_y;//-((displayH-(hGlobal * scale))/2 );
 }
 void Mouse::setX(int _x) 
 { 
-    x=_x-((displayW-(wGlobal * scale))/2 );  
+    x=_x;//-((displayW-(wGlobal * scale))/2 );  
 }
 int Mouse::getY() {return y;}
 int Mouse::getX() {return x;}
@@ -29,7 +29,7 @@ int Mouse::getX() {return x;}
 
 bool Mouse::collisione(HitBox* obj)
 {
-    return ((y >= obj->getY() && y <= (obj->getY() + obj->getAltezza()   ) ) &&
-            (x >= obj->getX() && x <= (obj->getX() + obj->getLunghezza() ) )   );
+    return ((y >= obj->getStampaY() && y <= (obj->getStampaY() + obj->getStampaA()   ) ) &&
+            (x >= obj->getStampaX() && x <= (obj->getStampaX() + obj->getStampaL() ) )   );
             
 }

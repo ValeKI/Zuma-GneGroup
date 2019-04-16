@@ -34,9 +34,9 @@ int main(int argc, char **argv)
 
 
     SFONDO sfondo;
-    Livello prova;
+    Menu m;
 
-    prova.livello_base();
+    m.menu1();
 
 
   //  HitBox buh;

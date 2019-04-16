@@ -85,7 +85,7 @@ class Livello
             
             Mouse m;
             generaPalline(100,6);
-            event_queue.start(200);
+            event_queue.start(10);
             int flushh=0, sizeCoord=coordinate.size();
             int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
             
@@ -112,13 +112,16 @@ class Livello
                     b.stampa(1);    
 
                     ciao.distruggiLoad();
-                    if(m.collisione(palline[0])!=0)
-                        ciao.setImmagine("../image/1_Classica.jpg");
+                    if(m.collisione(palline[0])!=0){
+                        cout << palline[0]->getStampaX() << " " << palline[0]->getStampaY()<<endl;
+                        cout << m.getX() << " " << m.getY() << endl << endl;
+
+                        ciao.setImmagine("../image/1_Classica.jpg");}
                     else
                          ciao.setImmagine("../image/0_Classica.jpg");
                     ciao.ricreaLoad();
 
-                    ciao.stampa(1);
+                    ciao.stampa(0);
                     
                    // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
                     
