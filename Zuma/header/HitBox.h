@@ -14,18 +14,14 @@ enum MYKEYS{KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_ESC, KEY_SPACE};
 
 class HitBox
 {
-    private:
+    protected: 
         int x;
         int y;
         int altezza;
         int lunghezza;
-        
-        protected:  
         int displayW;    
         int displayH;
         int scale2;
-
-
         string immagine;
         ALLEGRO_BITMAP *load;
 

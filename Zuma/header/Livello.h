@@ -8,6 +8,7 @@
 #include "Event_queue.h"
 #include "Buffer.h"
 #include "Mouse.h"
+#include "Rana.h"
 class Livello 
 {
     private:
@@ -84,13 +85,12 @@ class Livello
             BUFFER b("../image/Moon.jpg");
             
             Mouse m;
+            Rana rana(512,384);
             generaPalline(100,6);
-            event_queue.start(120);
+            event_queue.start(30);
             int flushh=0, sizeCoord=coordinate.size();
             int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
             
-            HitBox ciao("../image/0_Classica.jpg",0,0,0.2);
-
             b.stampaSfondo();
             while(palline[0]->getPosizione()<sizeCoord)
             {
@@ -101,8 +101,7 @@ class Livello
                 {
                     m.setX(ev.mouse.x);
                     m.setY(ev.mouse.y);
-                    ciao.setX(m.getX());
-                    ciao.setY(m.getY());
+                   
                 }
 
                 if(redraw && event_queue.empty())
@@ -111,15 +110,7 @@ class Livello
                     
                     b.stampa(1);    
 
-                    ciao.distruggiLoad();
-                    if(m.collisione(palline[0])!=0){
-                        ciao.setImmagine("../image/1_Classica.jpg");}
-                    else
-                         ciao.setImmagine("../image/0_Classica.jpg");
-                    ciao.ricreaLoad();
-
-                    ciao.stampa(0);
-                    
+                                   
                    // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
                     
                     for(auto i:palline)
@@ -133,7 +124,8 @@ class Livello
                             i->stampa(1);
                         }
 
-                    }       
+                    }
+                    rana.stampa(m.getX(), m.getY());       
                     al_flip_display();
                     al_clear_to_color(al_map_rgb(0,0,0));
                 } 
