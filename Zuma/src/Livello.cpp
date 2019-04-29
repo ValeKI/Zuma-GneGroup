@@ -23,7 +23,7 @@ void Livello::caricaCoordinate()
 
     while(getline(in,line))
     {
-        if(ml%8==0)
+        if(ml%1==0)
         {
             string n;
             i=0;
