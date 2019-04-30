@@ -7,8 +7,8 @@
 class ScrittaMenu : public HitBox
 {
     public:
-    ScrittaMenu(string _immagine, int _x, int _y, int _scale);
+        ScrittaMenu(string _immagine, int _x, int _y, int _scale);
  
-    void reazione(bool stato);
+        void reazione(bool stato);
 };
 #endif

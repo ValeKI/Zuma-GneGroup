@@ -8,15 +8,15 @@
 class Menu // pero' devi leggerlo in inglese
 {
     private:
-    vector<ScrittaMenu*> scritte;
-    Event_queue event_queue;
-    bool key[6]= {false,false,false,false,false,false};
+        vector<ScrittaMenu*> scritte;
+        Event_queue event_queue;
+        bool key[6]= {false,false,false,false,false,false};
 
     public:
-    Menu();
-    ~Menu();
-    void menu1();
-    void distruggiScritte();
+        Menu();
+        ~Menu();
+        void menu1();
+        void distruggiScritte();
     
 };
 

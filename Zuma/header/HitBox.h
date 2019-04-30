@@ -5,6 +5,11 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
 
+/* 
+    !!!!!!!!!!!!
+        COSTRUTTORE VUOTO
+ */
+
 using namespace std;
 
 extern int wGlobal;
@@ -27,37 +32,31 @@ class HitBox
 
     public:
 
-    HitBox(string _immagine, int _x, int _y, float scale);
-    ~HitBox();
+        HitBox(string _immagine, int _x, int _y, float scale);
+        ~HitBox();
 
+        virtual void stampa(bool contr);
+        int collisione(HitBox* obj);
 
-    virtual void stampa(bool contr);
+        void distruggiLoad();
+        void ricreaLoad();
 
-    int collisione(HitBox* obj);
-
-
-    void distruggiLoad();
-    void ricreaLoad();
-
-    void setImmagine(string immagine) { this->immagine = immagine;  }
-    void setLunghezza(int lunghezza) { this->lunghezza = lunghezza;  }
-    void setAltezza(int altezza) {this->altezza = altezza;}
-    void setY(int y) { this->y = y;}
-    void setX(int x) { this->x = x;}
-
-    string getImmagine() {return immagine;}
-    int getLunghezza() { return lunghezza;}
-    int getAltezza() { return altezza;}
-    int getY() {return y;}
-    int getX() {return x;}
-
-    int getStampaX(){return (x+(displayW-(wGlobal * scale2))/2 ); }
-    int getStampaY(){return (y+(displayH-(hGlobal * scale2))/2 ); }
-    int getStampaL(){return lunghezza*( (wGlobal*scale2)/1024.);}
-    int getStampaA(){return altezza*( (hGlobal*scale2)/768.);}
-
-
-    ALLEGRO_BITMAP* getLoad() {return load;}
+        void setImmagine(string);
+        void setLunghezza(int);
+        void setAltezza(int);
+        void setY(int);
+        void setX(int);
+    
+        string getImmagine();
+        int getLunghezza();
+        int getAltezza();
+        int getY();
+        int getX();
+        int getStampaX();
+        int getStampaY();
+        int getStampaL();
+        int getStampaA();
+        ALLEGRO_BITMAP* getLoad();
 };
 
 #endif

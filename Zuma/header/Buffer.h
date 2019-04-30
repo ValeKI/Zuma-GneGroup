@@ -8,16 +8,17 @@
 class BUFFER : public HitBox
 {
     public:
-    ~BUFFER();
-    void aggiungiImmagine(HitBox*);
-    void aggiungiImmagine2(HitBox*);
-    BUFFER(const char* immagine);
-    BUFFER(string immagine);
-    bool stampaSfondo();
-    void stampa(bool contr) override;
+        //BUFFER();
+        BUFFER(const char* immagine);
+        BUFFER(string immagine);
+        ~BUFFER();
+
+        void aggiungiImmagine(HitBox*);
+        bool stampaSfondo();
+        void stampa(bool contr) override;
     
     
-    protected:
+    private:
         ALLEGRO_BITMAP* buffer;
 
 };

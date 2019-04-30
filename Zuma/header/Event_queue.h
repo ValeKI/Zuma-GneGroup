@@ -11,19 +11,20 @@
 class Event_queue
 {
     private:
-    float FPS; //= 60;
-    ALLEGRO_EVENT_QUEUE *event_queue;
-    ALLEGRO_TIMER *timer;
+        float FPS; //= 60;
+        ALLEGRO_EVENT_QUEUE *event_queue;
+        ALLEGRO_TIMER *timer;
     
 
     public:
-    Event_queue(float fps=60);
-    ~Event_queue();
-    void start(float fps=60);
-    void stop();
-    ALLEGRO_EVENT evento();
-    bool empty();
-    void flusha();
+        Event_queue(float fps=60);
+        ~Event_queue();
+        void start(float fps=60);
+        void stop();
+        void flusha();
+        ALLEGRO_EVENT evento();
+        bool empty();
+    
 };
 
 #endif

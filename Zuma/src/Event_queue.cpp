@@ -62,6 +62,11 @@ void Event_queue::stop()
 
 }
 
+void Event_queue::flusha()
+{
+    al_flush_event_queue(event_queue); //<3
+}
+
 
 ALLEGRO_EVENT Event_queue::evento()
 {
@@ -73,9 +78,4 @@ ALLEGRO_EVENT Event_queue::evento()
 bool Event_queue::empty()
 {
     return al_is_event_queue_empty(event_queue);
-}
-
-void Event_queue::flusha()
-{
-    al_flush_event_queue(event_queue); //<3
 }

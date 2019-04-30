@@ -18,18 +18,24 @@ void Mouse::setY(int _y)
 { 
     y=_y;//-((displayH-(hGlobal * scale))/2 );
 }
+
 void Mouse::setX(int _x) 
 { 
     x=_x;//-((displayW-(wGlobal * scale))/2 );  
 }
-int Mouse::getY() {return y;}
-int Mouse::getX() {return x;}
 
+int Mouse::getY() 
+{
+    return y;
+}
 
+int Mouse::getX() 
+{
+    return x;
+}
 
 bool Mouse::collisione(HitBox* obj)
 {
     return ((y >= obj->getStampaY() && y <= (obj->getStampaY() + obj->getStampaA() ) ) &&
-            (x >= obj->getStampaX() && x <= (obj->getStampaX() + obj->getStampaL() ) )   );
-            
+            (x >= obj->getStampaX() && x <= (obj->getStampaX() + obj->getStampaL() ) )   );            
 }

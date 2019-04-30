@@ -5,19 +5,19 @@
 class Mouse
 {
     private:
-    int x;
-    int y;
-    int displayW;
-    int displayH;
-    int scale;
+        int x;
+        int y;
+        int displayW;
+        int displayH;
+        int scale;
 
     public:
-    Mouse();
-    void setY(int);
-    void setX(int);
-    int getY();
-    int getX();
-    bool collisione(HitBox*);
+        Mouse();
+        void setY(int);
+        void setX(int);
+        int getY();
+        int getX();
+        bool collisione(HitBox*);
 
 };
 

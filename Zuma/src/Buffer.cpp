@@ -3,11 +3,42 @@
 extern int wGlobal;
 extern int hGlobal;
 
+
+BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
+{
+    buffer=nullptr;
+}
+
+BUFFER::BUFFER(string immagine):HitBox(immagine, 0, 0, 1 )
+{
+   buffer=nullptr;
+}
+
+
 BUFFER::~BUFFER()
 {
     if(buffer!=nullptr)
         al_destroy_bitmap(buffer);
 }
+
+
+
+
+
+
+void BUFFER::aggiungiImmagine(HitBox* hit)
+{
+    ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
+    al_set_target_bitmap(buffer);
+
+    hit->ricreaLoad();
+
+    hit->stampa(1);
+
+    al_set_target_bitmap(prev_target); 
+    hit->distruggiLoad();
+}
+
 
 bool BUFFER::stampaSfondo()
 {
@@ -65,39 +96,3 @@ void BUFFER::stampa(bool contr)
     
 }
 
-
-BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
-{
-    buffer=nullptr;
-}
-
-BUFFER::BUFFER(string immagine):HitBox(immagine, 0, 0, 1 )
-{
-   buffer=nullptr;
-}
-
-void BUFFER::aggiungiImmagine(HitBox* hit)
-{
-    ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
-    al_set_target_bitmap(buffer);
-
-    hit->ricreaLoad();
-
-    hit->stampa(1);
-
-    al_set_target_bitmap(prev_target); 
-    hit->distruggiLoad();
-}
-
-void BUFFER::aggiungiImmagine2(HitBox* hit)
-{
-    ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
-    al_set_target_bitmap(buffer);
-
-  //  hit->ricreaLoad();
-
-    hit->stampa(1);
-
-    al_set_target_bitmap(prev_target); 
-  //  hit->distruggiLoad();
-}

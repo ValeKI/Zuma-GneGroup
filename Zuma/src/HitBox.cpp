@@ -21,6 +21,42 @@ HitBox::HitBox(string _immagine, int _x, int _y, float scale)
     }
 }
 
+HitBox::~HitBox()
+{
+    distruggiLoad();
+}
+
+
+void HitBox::stampa(bool contr)
+{
+   // cout << endl << immagine << x << " " << y << " " << altezza << " " << lunghezza << endl;
+
+    int stampaX=x, stampaY=y, stampaL=lunghezza, stampaA=altezza;
+
+    if(contr)
+    {
+        stampaX= (stampaX+(displayW-(wGlobal * scale2))/2 );
+        stampaY= (stampaY+((displayH-(hGlobal * scale2))/2 ));
+        stampaL= stampaL*( (wGlobal*scale2)/1024.);
+        stampaA= stampaA*( (hGlobal*scale2)/768.);
+
+      //  cout << (displayW-(wGlobal * scale2))/2  << endl ;
+    }
+
+    al_draw_scaled_bitmap
+    (
+        load,
+        0, 0,                                // source origin
+        al_get_bitmap_width(load),           // source width
+        al_get_bitmap_height(load),          // source height
+        stampaX, stampaY,                                // target origin
+        stampaL,
+        stampaA,    // target dimensions
+        0                                    // flags
+    );
+}
+
+
 int HitBox::collisione(HitBox* obj)
 {
     if
@@ -54,44 +90,6 @@ int HitBox::collisione(HitBox* obj)
 }
 
 
-HitBox::~HitBox()
-{
-    distruggiLoad();
-}
-
-    
-
-
-void HitBox::stampa(bool contr)
-{
-   // cout << endl << immagine << x << " " << y << " " << altezza << " " << lunghezza << endl;
-
-    int stampaX=x, stampaY=y, stampaL=lunghezza, stampaA=altezza;
-
-    if(contr)
-    {
-        stampaX= (stampaX+(displayW-(wGlobal * scale2))/2 );
-        stampaY= (stampaY+((displayH-(hGlobal * scale2))/2 ));
-        stampaL= stampaL*( (wGlobal*scale2)/1024.);
-        stampaA= stampaA*( (hGlobal*scale2)/768.);
-
-      //  cout << (displayW-(wGlobal * scale2))/2  << endl ;
-    }
-
-    al_draw_scaled_bitmap
-    (
-        load,
-        0, 0,                                // source origin
-        al_get_bitmap_width(load),           // source width
-        al_get_bitmap_height(load),          // source height
-        stampaX, stampaY,                                // target origin
-        stampaL,
-        stampaA,    // target dimensions
-        0                                    // flags
-    );
-}
-
-
 void HitBox::distruggiLoad()
 {
     if(load!=nullptr) 
@@ -108,4 +106,93 @@ void HitBox::ricreaLoad()
         cerr << "Error to load an image "<< immagine << " " << x << " " << endl;
         exit(-1);
     }
+}
+
+void HitBox::setImmagine(string immagine) 
+{ 
+    this->immagine = immagine;  
+}
+
+
+void HitBox::setLunghezza(int lunghezza) 
+{ 
+    this->lunghezza = lunghezza;  
+}
+
+
+void HitBox::setAltezza(int altezza) 
+{
+    this->altezza = altezza;
+}
+
+
+void HitBox::setY(int y) 
+{
+    this->y = y;
+}
+
+
+void HitBox::setX(int x) 
+{ 
+    this->x = x;
+}
+
+
+string HitBox::getImmagine() 
+{
+    return immagine;
+}
+
+
+int HitBox::getLunghezza() 
+{ 
+    return lunghezza;
+}
+
+
+int HitBox::getAltezza() 
+{ 
+    return altezza;
+}
+
+
+int HitBox::getY() 
+{
+    return y;
+}
+
+
+int HitBox::getX() 
+{
+    return x;
+}
+
+
+int HitBox::getStampaX()
+{
+    return (x+(displayW-(wGlobal * scale2))/2 ); 
+}
+
+
+int HitBox::getStampaY()
+{
+    return (y+(displayH-(hGlobal * scale2))/2 ); 
+}
+
+
+int HitBox::getStampaL()
+{
+    return lunghezza*( (wGlobal*scale2)/1024.);
+}
+
+
+int HitBox::getStampaA()
+{
+    return altezza*( (hGlobal*scale2)/768.);
+}
+
+
+ALLEGRO_BITMAP* HitBox::getLoad() 
+{
+    return load;
 }

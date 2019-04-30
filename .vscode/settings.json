@@ -4,7 +4,11 @@
         "limits": "cpp",
         "*.tcc": "cpp",
         "ostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp",
+        "utility": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
