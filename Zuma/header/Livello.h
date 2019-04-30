@@ -71,7 +71,7 @@ class Livello
                 }
 
                
-                pos-=25;
+                pos-=20;
             } 
             palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
         }
