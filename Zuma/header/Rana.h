@@ -1,6 +1,7 @@
 #ifndef RANA_H
 #define RANA_H
 #include "Pallina.h"
+#include <cmath>
 
 class Rana: public HitBox
 {
@@ -10,7 +11,7 @@ class Rana: public HitBox
         double scale;
         double seno;
         double coseno;
-        Pallina** pallina;
+        PallinaRana** pallina;
         
         
     public:

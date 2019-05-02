@@ -1,5 +1,5 @@
 #include "../header/Rana.h"
-#include <cmath>
+
 //"../image/Rana.png"
 extern int wGlobal;
 extern int hGlobal;

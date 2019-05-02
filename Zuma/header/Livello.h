@@ -4,17 +4,16 @@
 #include <ctime>
 #include <cstdlib>
 #include <fstream>
-#include "Pallina.h"
 #include "Event_queue.h"
 #include "Buffer.h"
 #include "Mouse.h"
 #include "Rana.h"
-
+#include "PallinaRana.h"
 class Livello 
 {
     private:
         vector<Pallina*> palline;
-        vector<Pallina*> spari;
+        vector<PallinaRana*> spari;
         vector<pair<int, int>* > coordinate;
         Event_queue event_queue;
     public:

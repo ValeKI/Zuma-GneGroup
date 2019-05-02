@@ -11,7 +11,7 @@ enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA,GIALLO};
 
 class Pallina:public HitBox
 {
-    private:
+    protected:
         COLORE colore;
         int posizione;
         DIREZIONE direzione;
