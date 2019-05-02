@@ -58,7 +58,7 @@ void Livello::generaPalline(int num, int tipi)
         }
 
                
-        pos-=20;
+        pos-=palline[0]->getStampaL();
     } 
     
     palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
@@ -70,7 +70,6 @@ void Livello::caricaCoordinate()
     ifstream in;
     string line;
     in.open("../Percorso/Percorso_0.txt");
-    int ml=0;
     int i=0,n1,n2;
 
     ALLEGRO_DISPLAY* display=al_get_current_display();
@@ -83,32 +82,27 @@ void Livello::caricaCoordinate()
 
     while(getline(in,line))
     {
-        if(ml%1==0)
+        string n;
+        i=0;
+
+        while(line[i]!='-')
         {
-            string n;
-            i=0;
+            n+=line[i++];
+        }
+        n1=atoi(n.c_str())*( (wGlobal*scale)/1024.);
+        n="";
+        i++;
+        while(line[i]!='\0')
+        {
+            n+=line[i++];
+        }
+        n2=atoi(n.c_str())*( (hGlobal*scale)/768.);
+        n="";
 
-            while(line[i]!='-')
-            {
-                n+=line[i++];
-            }
-            n1=atoi(n.c_str())*( (wGlobal*scale)/1024.);
-            n="";
-            i++;
-                   while(line[i]!='\0')
-                    {
-                        n+=line[i++];
-                    }
-                    n2=atoi(n.c_str())*( (hGlobal*scale)/768.);
-                    n="";
+        coordinate.push_back(new pair<int,int>(n1,n2));
+    }
 
-                    coordinate.push_back(new pair<int,int>(n1,n2));
-                }
-
-                ml++;
-            }
-
-            in.close();
+    in.close();
 }
 
 void Livello::livello_base()

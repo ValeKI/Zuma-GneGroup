@@ -14,6 +14,7 @@ class Livello
 {
     private:
         vector<Pallina*> palline;
+        vector<Pallina*> spari;
         vector<pair<int, int>* > coordinate;
         Event_queue event_queue;
     public:

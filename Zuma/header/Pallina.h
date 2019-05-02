@@ -13,15 +13,15 @@ class Pallina:public HitBox
 {
     private:
         COLORE colore;
-        bool  bonus;
         int posizione;
         DIREZIONE direzione;
         int displayW;    
         int displayH;
         int scale;
+        int velocita;
 
     public:
-        Pallina(COLORE, int);
+        Pallina(COLORE, int = 0);
         ~Pallina();
 
         void avanza();
@@ -30,7 +30,6 @@ class Pallina:public HitBox
         void inverti();
 
         COLORE getColore() const;
-        bool getBonus() const;
         int getPosizione() const;
         DIREZIONE getDirezione() const;
         void setDirezione(DIREZIONE);

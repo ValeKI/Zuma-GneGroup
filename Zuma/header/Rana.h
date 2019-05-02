@@ -10,12 +10,12 @@ class Rana: public HitBox
         double scale;
         double seno;
         double coseno;
-        Pallina* pallina;
+        Pallina** pallina;
         
         
     public:
-        Rana(int a = 0,int b = 0);
-        void stampa(int mx, int my);
+        Rana(int,int);
+        void stampa(int, int);
         
 };
 
