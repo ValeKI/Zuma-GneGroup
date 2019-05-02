@@ -15,6 +15,14 @@ class PallinaRana: public Pallina
         PallinaRana(COLORE);
         void spara(int, int, int, int);
         void movimento();
+        void setX(int a)
+        {
+            x=a-lunghezza/2;
+        }
+        void setY(int a)
+        {
+            y=a-altezza/2;
+        }
 
 };
 #endif

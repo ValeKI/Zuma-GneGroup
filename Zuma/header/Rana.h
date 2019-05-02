@@ -1,6 +1,9 @@
 #ifndef RANA_H
 #define RANA_H
-#include "Pallina.h"
+#include "PallinaRana.h"
+#include <cstdlib>
+#include <ctime>
+
 #include <cmath>
 
 class Rana: public HitBox
@@ -11,12 +14,13 @@ class Rana: public HitBox
         double scale;
         double seno;
         double coseno;
-        PallinaRana** pallina;
+        PallinaRana** palline;
         
         
     public:
         Rana(int,int);
         void stampa(int, int);
+        ~Rana();
         
 };
 

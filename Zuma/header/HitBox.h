@@ -44,8 +44,8 @@ class HitBox
         void setImmagine(string);
         void setLunghezza(int);
         void setAltezza(int);
-        void setY(int);
-        void setX(int);
+        virtual void setY(int);
+        virtual void setX(int);
     
         string getImmagine();
         int getLunghezza();

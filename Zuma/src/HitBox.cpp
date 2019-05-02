@@ -31,7 +31,7 @@ void HitBox::stampa(bool contr)
 {
    // cout << endl << immagine << x << " " << y << " " << altezza << " " << lunghezza << endl;
 
-    int stampaX=x, stampaY=y, stampaL=lunghezza, stampaA=altezza;
+    double stampaX=x, stampaY=y, stampaL=lunghezza, stampaA=altezza;
 
     if(contr)
     {
