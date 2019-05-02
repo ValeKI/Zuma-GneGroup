@@ -31,9 +31,6 @@ void Rana::stampa(int mx, int my)
         segno = M_PI/2 + M_PI;
 
     palline[0]->Pallina::movimento(pair<int, int>(cx,cy) );
-    cout << "Pallina " << palline[0]->getStampaX() << " " << palline[0]->getStampaX() << endl;
-    cout << "Centro: " << cx << " " << cy << endl << endl;    
-    
 
     palline[0]->stampa(1);
     
