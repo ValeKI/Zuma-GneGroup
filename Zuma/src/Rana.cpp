@@ -1,4 +1,5 @@
 #include "../header/Rana.h"
+#include <unistd.h>
 
 //"../image/Rana.png"
 extern int wGlobal;
@@ -30,7 +31,8 @@ void Rana::stampa(int mx, int my)
     if(seno <= 0 && coseno < 0 || coseno < 0 && seno >= 0)
         segno = M_PI/2 + M_PI;
 
-    palline[0]->Pallina::movimento(pair<int, int>(cx,cy) );
+    palline[0]->setX(stampaX);
+    palline[0]->setY(stampaY);
 
     palline[0]->stampa(1);
     
@@ -44,6 +46,14 @@ void Rana::stampa(int mx, int my)
         (atan(seno/coseno) + segno)    ,
         0
     );
+
+    palline[0]->spara(stampaX,stampaY,mx,my);
+    while(palline[0]->getX()>=0 && palline[0]->getY()>=0 && palline[0]->getX()<1024 && palline[0]->getY()<768)
+    {
+        palline[0]->stampa(0);
+        palline[0]->movimento();
+    }
+
 }
 
 Rana::~Rana()

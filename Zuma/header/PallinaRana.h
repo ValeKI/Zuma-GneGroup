@@ -3,13 +3,13 @@
 #include "Pallina.h"
 #include <cmath>
 
-const int MODULO = 1;
+const int MODULO = 20;
 
 class PallinaRana: public Pallina
 {
     private: 
-        int vx;
-        int vy;
+        float vx;
+        float vy;
         pair<int, int> punto;
     public:
         PallinaRana(COLORE);
