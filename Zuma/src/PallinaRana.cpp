@@ -17,6 +17,7 @@ void PallinaRana::spara(int a, int b, int mx, int my)
 void PallinaRana::movimento()
 {
     posizione++;
+    cout << x << " " << y << endl;
     setX( (vx * posizione/MODULO) + punto.first);
     setY( (vy * posizione/MODULO) + punto.second);
     

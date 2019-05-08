@@ -4,7 +4,7 @@ extern int wGlobal;
 extern int hGlobal;
 
 
-Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(1), HitBox("../image/Ball.png", 0, 0, 0.026)
+Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(1), HitBox("../image/Ball.png", 0, 0, 0.036)
 {
     string imm;
             
@@ -92,6 +92,11 @@ COLORE Pallina::getColore() const
 int Pallina::getPosizione() const
 {
     return this->posizione;
+}
+
+void Pallina::setPosizione(int p)
+{
+    posizione = p;
 }
 
 

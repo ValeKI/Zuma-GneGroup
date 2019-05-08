@@ -109,7 +109,7 @@ void Livello::livello_base()
 {
             
     bool redraw=0;
-    BUFFER b("../image/Moon.jpg");
+    BUFFER b("../image/Sfondo.jpg");
             
     Mouse m;
     Rana rana(512,384);

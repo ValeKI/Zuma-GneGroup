@@ -32,6 +32,7 @@ class Pallina:public HitBox
         COLORE getColore() const;
         int getPosizione() const;
         DIREZIONE getDirezione() const;
+        void setPosizione(int );
         void setDirezione(DIREZIONE);
     
 };
