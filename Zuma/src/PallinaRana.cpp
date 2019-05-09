@@ -3,7 +3,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-PallinaRana::PallinaRana(COLORE c):Pallina(c){setVelocita(10);}
+PallinaRana::PallinaRana(COLORE c):Pallina(c,0){setVelocita(10);}
 
 void PallinaRana::direziona(int a, int b, int mx, int my)
 {
@@ -26,16 +26,20 @@ void PallinaRana::movimento()
     setY( (vy * posizione/MODULO) + punto.second);   
 }
 
-bool PallinaRana::nelloSchermo() const
+bool PallinaRana::nonNelloSchermo() const
 {
+    cout << "X della pallina " << getX() << endl;
+    cout << "X dello schermo" << al_get_display_width(al_get_current_display()) << endl << endl;
     return 
     (
-        getX()> ((displayW-(wGlobal * scale2))/2)
-        &&
-        getY()> ((displayH-(hGlobal * scale2))/2) 
-        &&
-        getX()+getLunghezza()<((displayW-(wGlobal * scale2))/2+1024) 
-        &&
-        getY()+getAltezza()<((displayH-(hGlobal * scale2))/2 +768)
+        getX()-9< ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
+        ||
+        getX()+getStampaL()+9>=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal) 
+        
+        ||
+        
+        getY()-9< ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
+        ||
+        getY()+getAltezza()+9>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
     );
 }

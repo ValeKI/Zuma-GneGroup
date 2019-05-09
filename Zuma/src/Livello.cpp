@@ -143,7 +143,7 @@ void Livello::livello_base()
 
               for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
             {
-                if( (*it)->getX()<b.getX() )
+                if( (*it)->nonNelloSchermo() )
                 {
 
                     //cout << "djjyj\n";

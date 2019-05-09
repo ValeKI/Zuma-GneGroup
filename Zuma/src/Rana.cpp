@@ -49,6 +49,7 @@ void Rana::stampa(int mx, int my)
  
     palline[1]->direziona(stampaX,stampaY,mx,my);
         
+    cout << "DisplayW " << displayW << endl;
         
     palline[1]->setPosizione(143*scale);
     palline[1]->movimento();

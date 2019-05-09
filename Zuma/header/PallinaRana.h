@@ -27,7 +27,7 @@ class PallinaRana: public Pallina
         PallinaRana(COLORE);
         void direziona(int, int, int, int);
         void movimento();
-        bool nelloSchermo() const;
+        bool nonNelloSchermo() const;
         void setX(int a)
         {
             x=a-lunghezza/2;
