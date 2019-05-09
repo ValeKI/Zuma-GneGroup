@@ -34,6 +34,7 @@ class Pallina:public HitBox
         DIREZIONE getDirezione() const;
         void setPosizione(int );
         void setDirezione(DIREZIONE);
+        void setVelocita(int);
     
 };
 

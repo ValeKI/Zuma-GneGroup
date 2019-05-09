@@ -20,6 +20,7 @@ class Rana: public HitBox
     public:
         Rana(int,int);
         void stampa(int, int);
+        PallinaRana* getPallina();
         ~Rana();
         
 };

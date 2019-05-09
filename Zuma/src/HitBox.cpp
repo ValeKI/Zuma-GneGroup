@@ -138,61 +138,61 @@ void HitBox::setX(int x)
 }
 
 
-string HitBox::getImmagine() 
+string HitBox::getImmagine()  const
 {
     return immagine;
 }
 
 
-int HitBox::getLunghezza() 
+int HitBox::getLunghezza()  const
 { 
     return lunghezza;
 }
 
 
-int HitBox::getAltezza() 
+int HitBox::getAltezza()  const
 { 
     return altezza;
 }
 
 
-int HitBox::getY() 
+int HitBox::getY()  const
 {
     return y;
 }
 
 
-int HitBox::getX() 
+int HitBox::getX()  const
 {
     return x;
 }
 
 
-int HitBox::getStampaX()
+int HitBox::getStampaX() const
 {
     return (x+(displayW-(wGlobal * scale2))/2 ); 
 }
 
 
-int HitBox::getStampaY()
+int HitBox::getStampaY()  const
 {
     return (y+(displayH-(hGlobal * scale2))/2 ); 
 }
 
 
-int HitBox::getStampaL()
+int HitBox::getStampaL()  const
 {
     return lunghezza*( (wGlobal*scale2)/1024.);
 }
 
 
-int HitBox::getStampaA()
+int HitBox::getStampaA() const
 {
     return altezza*( (hGlobal*scale2)/768.);
 }
 
 
-ALLEGRO_BITMAP* HitBox::getLoad() 
+ALLEGRO_BITMAP* HitBox::getLoad()  const
 {
     return load;
 }

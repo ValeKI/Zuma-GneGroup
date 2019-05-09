@@ -1,8 +1,11 @@
 #include "../header/PallinaRana.h"
 
-PallinaRana::PallinaRana(COLORE c):Pallina(c){}
+extern int wGlobal;
+extern int hGlobal;
 
-void PallinaRana::spara(int a, int b, int mx, int my)
+PallinaRana::PallinaRana(COLORE c):Pallina(c){setVelocita(10);}
+
+void PallinaRana::direziona(int a, int b, int mx, int my)
 {
     posizione=1;
     vx = mx - a;
@@ -12,13 +15,27 @@ void PallinaRana::spara(int a, int b, int mx, int my)
     vy = float(vy*scalare);
     punto.first = a;
     punto.second = b;
-}
+} 
+
+
 
 void PallinaRana::movimento()
 {
-    posizione++;
-    cout << x << " " << y << endl;
+    posizione+=velocita;
     setX( (vx * posizione/MODULO) + punto.first);
-    setY( (vy * posizione/MODULO) + punto.second);
-    
+    setY( (vy * posizione/MODULO) + punto.second);   
+}
+
+bool PallinaRana::nelloSchermo() const
+{
+    return 
+    (
+        getX()> ((displayW-(wGlobal * scale2))/2)
+        &&
+        getY()> ((displayH-(hGlobal * scale2))/2) 
+        &&
+        getX()+getLunghezza()<((displayW-(wGlobal * scale2))/2+1024) 
+        &&
+        getY()+getAltezza()<((displayH-(hGlobal * scale2))/2 +768)
+    );
 }

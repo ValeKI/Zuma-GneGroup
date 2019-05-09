@@ -47,16 +47,16 @@ class HitBox
         virtual void setY(int);
         virtual void setX(int);
     
-        string getImmagine();
-        int getLunghezza();
-        int getAltezza();
-        int getY();
-        int getX();
-        int getStampaX();
-        int getStampaY();
-        int getStampaL();
-        int getStampaA();
-        ALLEGRO_BITMAP* getLoad();
+        string getImmagine() const;
+        int getLunghezza() const;
+        int getAltezza() const;
+        int getY() const;
+        int getX() const;
+        int getStampaX() const;
+        int getStampaY() const;
+        int getStampaL() const;
+        int getStampaA() const;
+        ALLEGRO_BITMAP* getLoad() const;
 };
 
 #endif

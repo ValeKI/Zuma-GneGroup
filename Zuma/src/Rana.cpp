@@ -5,7 +5,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.4)
+Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
     srand(time(0));
     cx = a*( (wGlobal*scale2)/1024.); 
@@ -47,13 +47,21 @@ void Rana::stampa(int mx, int my)
         0
     );
  
-    palline[1]->spara(stampaX,stampaY,mx,my);
+    palline[1]->direziona(stampaX,stampaY,mx,my);
         
         
-    palline[1]->setPosizione(150*scale);
+    palline[1]->setPosizione(143*scale);
     palline[1]->movimento();
     palline[1]->stampa(0);
  
+}
+
+PallinaRana* Rana::getPallina()
+{
+    PallinaRana* p=palline[1];
+    palline[1] = palline[0];
+    palline[0] = new PallinaRana(COLORE(rand()%6));
+    return p;
 }
 
 Rana::~Rana()

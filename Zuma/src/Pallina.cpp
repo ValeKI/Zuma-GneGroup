@@ -110,3 +110,8 @@ void Pallina::setDirezione(DIREZIONE dir)
 {
     direzione = dir;
 }
+
+void Pallina::setVelocita(int x)
+{
+    velocita=x;
+}

@@ -129,14 +129,37 @@ void Livello::livello_base()
             m.setX(ev.mouse.x);
             m.setY(ev.mouse.y);           
         }
-
+        if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+        {
+            spari.push_back(rana.getPallina());
+        }
         if(redraw && event_queue.empty())
         {  
             redraw=0;
                     
             b.stampa(1);    
 
-                           
+            rana.stampa(m.getX(), m.getY());  
+
+              for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
+            {
+                if( (*it)->getX()<b.getX() )
+                {
+
+                    //cout << "djjyj\n";
+                    delete *it;
+                    it=spari.erase(it);
+                    break;
+                }
+            } 
+  
+
+            for(auto i:spari)
+            {
+                i->movimento();
+                i->stampa(0);
+            } 
+
             // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;
                     
             for(auto i:palline)
@@ -151,7 +174,7 @@ void Livello::livello_base()
                 }
             }
             
-            rana.stampa(m.getX(), m.getY());       
+                 
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));
         }
