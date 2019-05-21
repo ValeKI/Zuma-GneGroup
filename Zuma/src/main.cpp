@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 {  
     ::wGlobal=100;
     ::hGlobal=100;   
-  
+   
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";

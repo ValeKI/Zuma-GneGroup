@@ -41,7 +41,15 @@ int PallinaRana::getStampaA() const
 
 void PallinaRana::stampa(bool contr)
 {
+    double stampaL=lunghezza, stampaA=altezza;
+    
+    lunghezza= stampaL*( (wGlobal*scale2)/1024.);
+    altezza= stampaA*( (hGlobal*scale2)/768.);
+    
     Pallina::stampa(0);
+
+    lunghezza=stampaL;
+    altezza=stampaL;
 }
 
 
@@ -56,7 +64,7 @@ void PallinaRana::movimento()
 
 bool PallinaRana::nonNelloSchermo() const
 {
-    return 
+     return 
     (
         getX()-9< ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
         ||
@@ -67,5 +75,7 @@ bool PallinaRana::nonNelloSchermo() const
         getY()-9< ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
         ||
         getY()+getAltezza()+9>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
-    );
+    ); 
+
+    cout << getX() << " " << PallinaRana::getX() << ((displayW-(wGlobal * scale2))/2) << endl;
 }

@@ -144,15 +144,15 @@ void Livello::livello_base()
             for(int i=0; i<palline.size(); i++)
                 for(int j=0; j<spari.size(); j++)
                 {
-                    if(palline[i]->collisione(spari[j]) )
+                   /*  if(palline[i]->collisione(spari[j]) )
                         palline[i]->setColore(GIALLO);
-
+  */
                 }
 
 
             for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
             {
-                 if(false) //(*it)->collisione(&b) )
+                 if((*it)->nonNelloSchermo() )
                 {
 
                     //cout << "djjyj\n";

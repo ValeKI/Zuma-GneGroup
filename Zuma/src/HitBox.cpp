@@ -91,9 +91,22 @@ bool HitBox::collisione(HitBox* obj)
     */
 
    return(load!=nullptr && 
+   (
         (getStampaX() >= obj->getStampaX()) && (getStampaX() <= obj->getStampaX() + obj->getStampaL()) &&
         (getStampaY() >= obj->getStampaY()) && (getStampaY() <= obj->getStampaY() + obj->getStampaA())
-   
+        ||
+        (getStampaX()+getStampaL() >= obj->getStampaX()) && (getStampaX()+getStampaL() <= obj->getStampaX() + obj->getStampaL()) &&
+        (getStampaY() >= obj->getStampaY()) && (getStampaY() <= obj->getStampaY() + obj->getStampaA())
+        ||
+        (getStampaX()+getStampaL() >= obj->getStampaX()) && (getStampaX()+getStampaL() <= obj->getStampaX() + obj->getStampaL()) &&
+        (getStampaY()+getStampaA() >= obj->getStampaY()) && (getStampaY()+getStampaA() <= obj->getStampaY() + obj->getStampaA())
+        ||
+        (getStampaX() >= obj->getStampaX()) && (getStampaX() <= obj->getStampaX() + obj->getStampaL()) &&
+        (getStampaY()+getStampaA() >= obj->getStampaY()) && (getStampaY()+getStampaA() <= obj->getStampaY() + obj->getStampaA())
+
+
+
+   )
    );
 
 }
