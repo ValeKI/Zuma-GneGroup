@@ -36,7 +36,7 @@ class HitBox
         ~HitBox();
 
         virtual void stampa(bool contr);
-        int collisione(HitBox* obj);
+        bool collisione(HitBox* obj);
 
         void distruggiLoad();
         void ricreaLoad();
@@ -52,10 +52,10 @@ class HitBox
         int getAltezza() const;
         int getY() const;
         int getX() const;
-        int getStampaX() const;
-        int getStampaY() const;
-        int getStampaL() const;
-        int getStampaA() const;
+        virtual int getStampaX() const;
+        virtual int getStampaY() const;
+        virtual int getStampaL() const;
+        virtual int getStampaA() const;
         ALLEGRO_BITMAP* getLoad() const;
 };
 

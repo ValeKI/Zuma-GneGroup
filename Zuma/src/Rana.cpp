@@ -31,8 +31,8 @@ void Rana::stampa(int mx, int my)
     if(seno <= 0 && coseno < 0 || coseno < 0 && seno >= 0)
         segno = M_PI/2 + M_PI;
 
-    palline[0]->setX(cx);
-    palline[0]->setY(cy);
+    palline[0]->setX(stampaX);
+    palline[0]->setY(stampaY);
 
     palline[0]->stampa(1);
     
@@ -47,14 +47,17 @@ void Rana::stampa(int mx, int my)
         0
     );
  
-    palline[1]->direziona(stampaX,stampaY,mx,my);
+    palline[1]->direziona(stampaX, stampaY,mx,my);
+    
+    //out << "DisplayW " << displayW << endl;
         
-    cout << "DisplayW " << displayW << endl;
-        
-    palline[1]->setPosizione(143*scale);
+    palline[1]->setPosizione(143 * (            (wGlobal*hGlobal)/(1024.*768.)            ) *scale);
+    
+   // cout << palline[1]->getPosizione() << endl;
+    
     palline[1]->movimento();
-    palline[1]->stampa(0);
- 
+    palline[1]->stampa(1);
+
 }
 
 PallinaRana* Rana::getPallina()

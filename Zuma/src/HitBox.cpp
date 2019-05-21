@@ -57,8 +57,9 @@ void HitBox::stampa(bool contr)
 }
 
 
-int HitBox::collisione(HitBox* obj)
+bool HitBox::collisione(HitBox* obj)
 {
+    /*
     if
         (load!=nullptr &&
         (
@@ -75,7 +76,7 @@ int HitBox::collisione(HitBox* obj)
             ( (obj->x+obj->lunghezza)      >= x && (obj->x+obj->lunghezza) <= (x+lunghezza/2) )    
         )
 
-            return -1; // sinistra
+            return 1; // sinistra
 
         if
         (
@@ -87,6 +88,14 @@ int HitBox::collisione(HitBox* obj)
             return 1; // destra
     }
     return 0;
+    */
+
+   return(load!=nullptr && 
+        (getStampaX() >= obj->getStampaX()) && (getStampaX() <= obj->getStampaX() + obj->getStampaL()) &&
+        (getStampaY() >= obj->getStampaY()) && (getStampaY() <= obj->getStampaY() + obj->getStampaA())
+   
+   );
+
 }
 
 

@@ -4,10 +4,9 @@ extern int wGlobal;
 extern int hGlobal;
 
 
-Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(1), HitBox("../image/Ball.png", 0, 0, 0.036)
+void Pallina::setColore(COLORE colore)
 {
     string imm;
-            
     switch(colore)
     {
         case(ROSSO):
@@ -43,6 +42,11 @@ Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),v
     distruggiLoad();
     setImmagine("../image/" + imm);
     ricreaLoad();
+}
+
+Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(1), HitBox("../image/Ball.png", 0, 0, 0.036)
+{
+    setColore(colore);
 }
 
 
@@ -89,12 +93,12 @@ COLORE Pallina::getColore() const
 
 
 
-int Pallina::getPosizione() const
+double Pallina::getPosizione() const
 {
     return this->posizione;
 }
 
-void Pallina::setPosizione(int p)
+void Pallina::setPosizione(double p)
 {
     posizione = p;
 }

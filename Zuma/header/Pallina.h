@@ -13,7 +13,7 @@ class Pallina:public HitBox
 {
     protected:
         COLORE colore;
-        int posizione;
+        double posizione;
         DIREZIONE direzione;
         int displayW;    
         int displayH;
@@ -30,11 +30,12 @@ class Pallina:public HitBox
         void inverti();
 
         COLORE getColore() const;
-        int getPosizione() const;
+        double getPosizione() const;
         DIREZIONE getDirezione() const;
-        void setPosizione(int );
+        void setPosizione(double );
         void setDirezione(DIREZIONE);
         void setVelocita(int);
+        void setColore(COLORE);
     
 };
 

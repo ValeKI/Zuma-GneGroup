@@ -1,5 +1,5 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
+ g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
 
 
 */
@@ -16,10 +16,10 @@ int wGlobal=1024;
 int hGlobal=768;
 
 int main(int argc, char **argv)
-{  /* 
-     ::wGlobal=800;
-    ::hGlobal=600;   
-  */
+{  
+    ::wGlobal=100;
+    ::hGlobal=100;   
+  
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";
@@ -37,9 +37,6 @@ int main(int argc, char **argv)
     Livello m;
 
     m.livello_base();
-
-
-  //  HitBox buh;
     
     return 0;
 }

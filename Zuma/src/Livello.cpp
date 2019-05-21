@@ -141,23 +141,32 @@ void Livello::livello_base()
 
             rana.stampa(m.getX(), m.getY());  
 
-              for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
+            for(int i=0; i<palline.size(); i++)
+                for(int j=0; j<spari.size(); j++)
+                {
+                    if(palline[i]->collisione(spari[j]) )
+                        palline[i]->setColore(GIALLO);
+
+                }
+
+
+            for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
             {
-                if( (*it)->nonNelloSchermo() )
+                 if(false) //(*it)->collisione(&b) )
                 {
 
                     //cout << "djjyj\n";
                     delete *it;
                     it=spari.erase(it);
                     break;
-                }
+                } 
             } 
   
 
             for(auto i:spari)
             {
                 i->movimento();
-                i->stampa(0);
+                i->stampa(1);
             } 
 
             // cout << palline.at(0)->getPosizione() << " " << coordinate.size() << endl;

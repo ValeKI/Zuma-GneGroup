@@ -28,6 +28,12 @@ class PallinaRana: public Pallina
         void direziona(int, int, int, int);
         void movimento();
         bool nonNelloSchermo() const;
+
+        void stampa(bool contr);
+        int getStampaX() const;
+        int getStampaY() const;
+        int getStampaL() const;
+        int getStampaA() const;
         void setX(int a)
         {
             x=a-lunghezza/2;

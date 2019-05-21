@@ -22,10 +22,6 @@ BUFFER::~BUFFER()
 }
 
 
-
-
-
-
 void BUFFER::aggiungiImmagine(HitBox* hit)
 {
     ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
