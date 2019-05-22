@@ -31,8 +31,8 @@ void Rana::stampa(int mx, int my)
     if(seno <= 0 && coseno < 0 || coseno < 0 && seno >= 0)
         segno = M_PI/2 + M_PI;
 
-    palline[0]->setX(stampaX);
-    palline[0]->setY(stampaY);
+    palline[0]->setX(cx);
+    palline[0]->setY(cy);
 
     palline[0]->stampa(1);
     

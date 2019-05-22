@@ -15,9 +15,6 @@ class Pallina:public HitBox
         COLORE colore;
         double posizione;
         DIREZIONE direzione;
-        int displayW;    
-        int displayH;
-        int scale;
         int velocita;
 
     public:

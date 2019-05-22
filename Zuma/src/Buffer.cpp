@@ -3,6 +3,23 @@
 extern int wGlobal;
 extern int hGlobal;
 
+bool BUFFER::collisione(HitBox* obj)
+{
+   
+    return 
+    (
+        obj->getStampaX()-obj->getStampaL()/3.> ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
+        &&
+        obj->getStampaX()+obj->getStampaL()+obj->getStampaL()/3.<=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal*scale2) 
+        
+        &&
+        
+        obj->getStampaY()-obj->getStampaA()/3. > ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
+        &&
+        obj->getStampaY()+obj->getStampaA()+obj->getStampaA()/3.<=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal*scale2) 
+    );
+}
+
 
 BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
 {
@@ -72,14 +89,9 @@ bool BUFFER::stampaSfondo()
 
 void BUFFER::stampa(bool contr)
 {
-    ALLEGRO_DISPLAY* display=al_get_current_display();
-    int displayW= al_get_display_width(display);
-    int displayH= al_get_display_height(display);
-    int sx = displayW/wGlobal;
-    int sy = displayH/hGlobal;
-    int scale = min(sx,sy);
-    setLunghezza(wGlobal * scale);
-    setAltezza(hGlobal * scale);
+   
+    setLunghezza(wGlobal * scale2);
+    setAltezza(hGlobal * scale2);
     setX((displayW-getLunghezza())/2 );
     setY ( (displayH-getAltezza())/2 );
 

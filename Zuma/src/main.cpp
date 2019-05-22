@@ -1,7 +1,5 @@
 /*
- g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma
-
-
+    cd  Zuma/src && g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma && cd ../..
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/ScrittaMenu.h"
@@ -16,10 +14,10 @@ int wGlobal=1024;
 int hGlobal=768;
 
 int main(int argc, char **argv)
-{  
-    ::wGlobal=100;
-    ::hGlobal=100;   
-   
+{   
+    /* ::wGlobal=100;
+    ::hGlobal=100;  */  
+    
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";

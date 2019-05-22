@@ -16,6 +16,7 @@ class BUFFER : public HitBox
         void aggiungiImmagine(HitBox*);
         bool stampaSfondo();
         void stampa(bool contr) override;
+        bool collisione(HitBox* obj) override;
         
     
     private:

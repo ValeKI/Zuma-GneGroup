@@ -36,7 +36,7 @@ class HitBox
         ~HitBox();
 
         virtual void stampa(bool contr);
-        bool collisione(HitBox* obj);
+        virtual bool collisione(HitBox* obj);
 
         void distruggiLoad();
         void ricreaLoad();
@@ -46,6 +46,8 @@ class HitBox
         void setAltezza(int);
         virtual void setY(int);
         virtual void setX(int);
+        virtual void setStampaY(int);
+        virtual void setStampaX(int);
     
         string getImmagine() const;
         int getLunghezza() const;

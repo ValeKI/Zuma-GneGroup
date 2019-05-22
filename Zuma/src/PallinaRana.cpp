@@ -14,11 +14,11 @@ void PallinaRana::direziona(int a, int b, int mx, int my)
     float scalare = MODULO/sqrt(pow(vx, 2) + pow(vy, 2));
     vx = float(vx*scalare);
     vy = float(vy*scalare);
-    punto.first = a  ;
+    punto.first = a;
     punto.second = b;
 }
 
-int PallinaRana::getStampaX() const
+/*  int PallinaRana::getStampaX() const
 {
     return getX();
 }
@@ -37,45 +37,41 @@ int PallinaRana::getStampaL() const
 int PallinaRana::getStampaA() const
 {
     return getAltezza();
-}
+} 
+ */
 
-void PallinaRana::stampa(bool contr)
+void PallinaRana::setStampaX(int a)
 {
-    double stampaL=lunghezza, stampaA=altezza;
-    
-    lunghezza= stampaL*( (wGlobal*scale2)/1024.);
-    altezza= stampaA*( (hGlobal*scale2)/768.);
-    
-    Pallina::stampa(0);
-
-    lunghezza=stampaL;
-    altezza=stampaL;
+    HitBox::setStampaX(a-lunghezza/2);
 }
-
-
+        
+void PallinaRana::setStampaY(int a)
+{
+    HitBox::setStampaY(a-altezza/2);
+}
 
 
 void PallinaRana::movimento()
 {
     posizione+=velocita;
-    setX( (vx * posizione/MODULO) + punto.first);
-    setY( (vy * posizione/MODULO) + punto.second);   
+    setStampaX( (vx * posizione/MODULO) + punto.first);
+    setStampaY( (vy * posizione/MODULO) + punto.second);   
 }
 
 bool PallinaRana::nonNelloSchermo() const
 {
+   
      return 
     (
-        getX()-9< ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
+        getStampaX()-getStampaL()/3.< ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
         ||
-        getX()+getStampaL()+9>=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal) 
+        getStampaX()+getStampaL()+getStampaL()/3.>=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal) 
         
         ||
         
-        getY()-9< ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
+        getStampaY()-getStampaA()/3.< ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
         ||
-        getY()+getAltezza()+9>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
+        getStampaY()+getAltezza()+getStampaA()/3.>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
     ); 
 
-    cout << getX() << " " << PallinaRana::getX() << ((displayW-(wGlobal * scale2))/2) << endl;
 }

@@ -37,7 +37,6 @@ void Pallina::setColore(COLORE colore)
 
     }
 
-            //cout << "Imm e' " << imm << endl;
 
     distruggiLoad();
     setImmagine("../image/" + imm);
