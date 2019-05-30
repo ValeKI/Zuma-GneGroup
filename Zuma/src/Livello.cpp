@@ -7,11 +7,7 @@ Livello::Livello(){}
 
 Livello::~Livello()
 {
-    for(int i=0; i<palline.size(); i++)
-        delete palline[i];
-            
-    for(int i=0; i<coordinate.size(); i++)
-        delete coordinate[i];
+    delete serpy;
 }
 
 void Livello::generaPalline(int num, int tipi)
@@ -107,21 +103,30 @@ void Livello::caricaCoordinate()
 
 void Livello::livello_base()
 {
-            
+    serpy = new Serpente();
+    gestoreSpari= new GestoreSpari();
+    
+    serpy.generaPalline(100,6);
+
+
     bool redraw=0;
     BUFFER b("../image/Sfondo.jpg");
             
     Mouse m;
     Rana rana(512,384);
-    generaPalline(100,6);
+    
     event_queue.start(30);
-    int flushh=0, sizeCoord=coordinate.size();
-    int p; ALLEGRO_EVENT ev; bool ESCIPLS=0;
+    
+    
+    int flushh=0, sizeCoord=serpy.getSizeCoordinate();
+    int p; 
+    ALLEGRO_EVENT ev; 
+    bool ESCIPLS=0;
             
     b.stampaSfondo();
+    
     while(palline[0]->getPosizione()<sizeCoord)
-    {
-                
+    {            
         ev = event_queue.evento();
 
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
@@ -133,6 +138,7 @@ void Livello::livello_base()
         {
             spari.push_back(rana.getPallina());
         }
+
         if(redraw && event_queue.empty())
         {  
             redraw=0;
@@ -142,19 +148,7 @@ void Livello::livello_base()
             rana.stampa(m.getX(), m.getY());  
 
             for(int j=0; j<spari.size(); j++)
-                for(int i=0; i<palline.size(); i++)
-                {
-                    if(palline[i]->getPosizione()>0 && palline[i]->collisione(spari[j]) )
-                    {
-                        palline[i]->setColore(GIALLO);
-                       
-                        delete spari[j];
-                        spari.erase(spari.begin()+j);
-                       
-                        break;
-                    }
-  
-                }
+                serpy.toccaSparo(spari[j]);
 
 
             for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
@@ -174,17 +168,7 @@ void Livello::livello_base()
                 i->stampa(1);
             } 
          
-            for(auto i:palline)
-            {
-                i->avanza();
-                p=i->getPosizione();
-                        
-                if(p>=0 && p<sizeCoord)
-                {
-                    i->movimento(*coordinate[p]);
-                    i->stampa(1);
-                }
-            }
+            serpy.stampa();
             
                  
             al_flip_display();

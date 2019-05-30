@@ -8,16 +8,18 @@
 #include "Buffer.h"
 #include "Mouse.h"
 #include "Rana.h"
-#include "Serpente.h"
+#include "GestoreSpari.h"
+
 #include "PallinaRana.h"
 class Livello 
 {
     private:
-        Serpente serpy;
+        Serpente* serpy;
+        GestoreSpari* gestoreSpari;
 
-        vector<Pallina*> palline;
+        
         vector<PallinaRana*> spari;
-        vector<pair<int, int>* > coordinate;
+        
         Event_queue event_queue;
     public:
         Livello();
