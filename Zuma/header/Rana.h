@@ -3,7 +3,6 @@
 #include "PallinaRana.h"
 #include <cstdlib>
 #include <ctime>
-
 #include <cmath>
 
 class Rana: public HitBox

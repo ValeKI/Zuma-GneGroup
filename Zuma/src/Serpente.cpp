@@ -40,6 +40,8 @@ void Serpente::caricaCoordinate()
     in.close();
 }
 
+
+
 void Serpente::generaPalline(int num, int tipi)
 {
     caricaCoordinate();
@@ -83,8 +85,10 @@ void Serpente::generaPalline(int num, int tipi)
                 break;
         }
 
-               
-        pos-=palline[0]->getLunghezza();
+        if(i==0)
+            distanzaPalline = palline[0]->getLunghezza();
+
+        pos-=distanzaPalline;
     } 
     
     palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
@@ -92,6 +96,7 @@ void Serpente::generaPalline(int num, int tipi)
 
 void Serpente::stampa()
 {
+    int p, sizeCoord=getSizeCoordinate();
     for(auto i:palline)
     {
         i->avanza();
@@ -128,4 +133,9 @@ void Serpente::toccaSparo(Pallina* sparo)
             palline[i]->setColore(GIALLO);
             //inserimento           
         }  
+}
+
+int Serpente::getPosizionePrimaPallina()
+{
+    return palline[0]->getPosizione();
 }

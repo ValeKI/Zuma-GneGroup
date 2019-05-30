@@ -118,3 +118,9 @@ void Pallina::setVelocita(int x)
 {
     velocita=x;
 }
+
+
+bool Pallina::collegate(Pallina p,int d)
+{   
+    return (getPosizione()-p.getPosizione() == d || p.getPosizione()-getPosizione() == d);
+}

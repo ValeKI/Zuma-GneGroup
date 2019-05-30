@@ -14,6 +14,15 @@ class PallinaRana: public Pallina
         float scalare;
         pair<int, int> punto;
     public:
+
+        float getVx() const;
+        float getVy() const;
+        float getScalare() const;
+        pair<int,int> getPunto() const;
+
+
+
+        PallinaRana(const PallinaRana&);
         PallinaRana(COLORE);
         void direziona(int, int, int, int);
         void movimento();

@@ -33,6 +33,10 @@ class Pallina:public HitBox
         void setDirezione(DIREZIONE);
         void setVelocita(int);
         void setColore(COLORE);
+
+        bool collegate(Pallina,int);
+
+        
     
 };
 

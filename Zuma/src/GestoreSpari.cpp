@@ -26,9 +26,16 @@ void GestoreSpari::nelloSchermo(BUFFER& b)
     { 
         if( !b.collisione(*it) )
         {
+            cout << "no pls simo lov\n";
             delete *it;
             it=spari.erase(it);
             break;
         }  
     }
+}
+
+GestoreSpari::~GestoreSpari()
+{
+    for(int i=0; i<spari.size(); i++)
+        delete spari[i];
 }

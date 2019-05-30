@@ -62,7 +62,8 @@ void Rana::stampa(int mx, int my)
 
 PallinaRana* Rana::getPallina()
 {
-    PallinaRana* p=palline[1];
+    PallinaRana* p = palline[1];
+    
     palline[1] = palline[0];
     palline[0] = new PallinaRana(COLORE(rand()%6));
     return p;

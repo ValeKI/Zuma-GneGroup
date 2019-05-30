@@ -5,6 +5,14 @@ extern int hGlobal;
 
 PallinaRana::PallinaRana(COLORE c):Pallina(c,0){setVelocita(10);}
 
+PallinaRana::PallinaRana(const PallinaRana& p):
+Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.getScalare()),punto(p.getPunto())
+{
+    setStampaX(p.getStampaX());
+    setStampaY(p.getStampaY());
+    setVelocita(10);
+}
+
 void PallinaRana::direziona(int a, int b, int mx, int my)
 {
     //mx=my=0;
@@ -17,28 +25,6 @@ void PallinaRana::direziona(int a, int b, int mx, int my)
     punto.first = a;
     punto.second = b;
 }
-
-/*  int PallinaRana::getStampaX() const
-{
-    return getX();
-}
-
-int PallinaRana::getStampaY() const
-{
-    return getY();
-}
-
-int PallinaRana::getStampaL() const
-{
-    return getLunghezza();
-}
-
-
-int PallinaRana::getStampaA() const
-{
-    return getAltezza();
-} 
- */
 
 void PallinaRana::setStampaX(int a)
 {
@@ -74,4 +60,25 @@ bool PallinaRana::nonNelloSchermo() const
         getStampaY()+getAltezza()+getStampaA()/3.>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
     ); 
 
+}
+
+
+float PallinaRana::getVx() const
+{
+    return vx;
+}
+
+float PallinaRana::getVy() const
+{
+    return vy;
+}
+
+float PallinaRana::getScalare() const
+{
+    return scalare;
+}
+
+pair<int,int> PallinaRana::getPunto() const
+{
+    return punto;
 }
