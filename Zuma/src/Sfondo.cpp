@@ -19,11 +19,6 @@ SFONDO::SFONDO()
         exit(-1);
     }
 
-    cout << mode.width << " " << mode.height << endl;
-    cout << al_get_display_width( al_get_current_display() ) << " " << al_get_display_height( al_get_current_display() ) << endl;
-
-    cout << "\a";
-
     ::wGlobal = (3*al_get_display_width( al_get_current_display() ))/4;
     ::hGlobal = (768*::wGlobal)/1024;
 

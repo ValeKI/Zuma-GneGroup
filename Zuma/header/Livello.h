@@ -8,10 +8,13 @@
 #include "Buffer.h"
 #include "Mouse.h"
 #include "Rana.h"
+#include "Serpente.h"
 #include "PallinaRana.h"
 class Livello 
 {
     private:
+        Serpente serpy;
+
         vector<Pallina*> palline;
         vector<PallinaRana*> spari;
         vector<pair<int, int>* > coordinate;
