@@ -118,12 +118,3 @@ void Pallina::setVelocita(int x)
 {
     velocita=x;
 }
-
-
-bool collegate(Pallina p1,Pallina p2,int d)
-{   
-    return (
-    (getPosizione()-p.getPosizione() == d && getPosizione()-p.getPosizione() >=0)
-    || 
-    (p.getPosizione()-getPosizione() == d && p.getPosizione()-getPosizione() >=0));
-}

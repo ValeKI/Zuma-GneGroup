@@ -5,10 +5,17 @@ void GestoreSpari::inserisciSparo(PallinaRana* sparo)
     spari.push_back(sparo);
 }
 
-void GestoreSpari::collisioneSparo(Serpente& serpy)
+bool GestoreSpari::collisioneSparo(Serpente& serpy)
 {
     for(int j=0; j<spari.size(); j++)
-        serpy.toccaSparo(spari[j]);
+    {
+        if(serpy.toccaSparo(spari[j]))
+        {
+            spari.erase(spari.begin()+j);
+            return true;
+        }
+    }
+    return false;
 }
 
 void GestoreSpari::stampa()
@@ -21,18 +28,20 @@ void GestoreSpari::stampa()
 }
 
 void GestoreSpari::nelloSchermo(BUFFER& b)
-{
-    for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
-    { 
-        if( !b.collisione(*it) )
+{ 
+   for(<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
+    {
+        if(!b.collisione(*it) )
         {
-            cout << "no pls simo lov\n";
             delete *it;
             it=spari.erase(it);
             break;
-        }  
+        }
     }
-}
+}  
+    
+    
+
 
 GestoreSpari::~GestoreSpari()
 {
