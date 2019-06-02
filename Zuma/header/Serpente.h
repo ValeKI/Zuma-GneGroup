@@ -20,7 +20,9 @@ class Serpente
         ~Serpente();
         int getSizeCoordinate();
         void toccaSparo(Pallina* sparo);
-
+        void gestisciMovimento();
+        int cambiaDirezioneDa(int,DIREZIONE);
+        int cambiaDirezioneFinoA(int, DIREZIONE);
 
 
 };

@@ -120,7 +120,10 @@ void Pallina::setVelocita(int x)
 }
 
 
-bool Pallina::collegate(Pallina p,int d)
+bool collegate(Pallina p1,Pallina p2,int d)
 {   
-    return (getPosizione()-p.getPosizione() == d || p.getPosizione()-getPosizione() == d);
+    return (
+    (getPosizione()-p.getPosizione() == d && getPosizione()-p.getPosizione() >=0)
+    || 
+    (p.getPosizione()-getPosizione() == d && p.getPosizione()-getPosizione() >=0));
 }

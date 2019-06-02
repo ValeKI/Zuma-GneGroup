@@ -15,7 +15,6 @@ Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.ge
 
 void PallinaRana::direziona(int a, int b, int mx, int my)
 {
-    //mx=my=0;
     posizione=1;
     vx = mx - a;
     vy = my - b;

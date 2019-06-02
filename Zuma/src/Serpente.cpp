@@ -97,8 +97,14 @@ void Serpente::generaPalline(int num, int tipi)
 void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
+    
+    gestisciMovimento();
+
+    
     for(auto i:palline)
     {
+        
+
         i->avanza();
         p=i->getPosizione();
                         
@@ -138,4 +144,42 @@ void Serpente::toccaSparo(Pallina* sparo)
 int Serpente::getPosizionePrimaPallina()
 {
     return palline[0]->getPosizione();
+}
+
+
+void Serpente::gestisciMovimento()
+{
+    for(int i=cambiaDirezioneDa(palline.size()-1,AVANTI);i>0;i++)
+        if(!collegate(*palline[i],*palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
+        {
+            cambiaDirezioneFinoA(i,FERMO);
+            i=cambiaDirezioneDa(i+1,DIETRO);
+        }
+}
+
+int Serpente::cambiaDirezioneDa(int in ,DIREZIONE d)
+{
+    int i=in;
+
+    for(;((i>=0)&&(i==0||collegate(*palline[i],*palline[i-1],distanzaPalline)));i--)
+        palline[i]->setDirezione(d);
+
+    if(!(i>=0))
+        palline[i]->setDirezione(d);
+
+    return i;
+
+}
+
+int Serpente::cambiaDirezioneFinoA(int fin, DIREZIONE d)
+{
+    int i=fin;
+
+    for(;((i>palline.size())&&(i==size-1||collegate(*palline[i],*palline[i+1],distanzaPalline)));i++)
+        palline[i]->setDirezione(d);
+
+    if(!(i>palline.size()))
+        palline[i]->setDirezione(d);
+
+    return i;
 }
