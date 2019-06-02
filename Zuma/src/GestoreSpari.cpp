@@ -29,7 +29,7 @@ void GestoreSpari::stampa()
 
 void GestoreSpari::nelloSchermo(BUFFER& b)
 { 
-   for(<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
+   for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
     {
         if(!b.collisione(*it) )
         {

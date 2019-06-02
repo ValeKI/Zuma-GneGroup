@@ -165,7 +165,7 @@ int Serpente::getPosizionePrimaPallina()
 
 void Serpente::gestisciMovimento()
 {
-    for(int i=cambiaDirezioneDa(palline.size()-1,AVANTI);i<palline.size()-1;i++)
+    for(int i=0;i<palline.size()-1;i++)
         if(!collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
         {
             cambiaDirezioneFinoA(i,FERMO);
