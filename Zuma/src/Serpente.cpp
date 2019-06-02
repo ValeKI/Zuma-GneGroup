@@ -147,8 +147,8 @@ bool Serpente::toccaSparo(Pallina* sparo)
         {
            // palline[i]->setColore(GIALLO);
 
-            cambiaDirezioneFinoA(i+1,DIETRO);
-            i=cambiaDirezioneDa(i,FERMO);
+            cambiaDirezioneADestraDi(i-1,FERMO);
+            cambiaDirezioneASinistraDi(i,DIETRO);
 
             return true;
 
@@ -168,33 +168,46 @@ void Serpente::gestisciMovimento()
     for(int i=0;i<palline.size()-1;i++)
         if(!collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
         {
-            cambiaDirezioneFinoA(i,FERMO);
-            i=cambiaDirezioneDa(i+1,DIETRO);
+            cambiaDirezioneADestraDi(i,DIETRO);
+            i=cambiaDirezioneASinistraDi(i+1,FERMO);
         }
 }
 
-int Serpente::cambiaDirezioneDa(int in ,DIREZIONE d)
+int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 {
     int i=in;
 
-    for(;((i>0)&&(collegate(palline[i+1],palline[i],distanzaPalline)));i--)
+    //cout << "A destra di " << i << endl;
+
+    if(i>=0 && i<=palline.size())
+    {    palline[i]->setDirezione(d);
+
+    for(;((i<palline.size())  && (i>0)&&(collegate(palline[i],palline[i-1],distanzaPalline)));i--)
         palline[i]->setDirezione(d);
 
-    if(collegate(palline[i],palline[i+1],distanzaPalline))
+    if(i<palline.size() && collegate(palline[i],palline[i+1],distanzaPalline))
         palline[i]->setDirezione(d);
+    
+    }
+    
     return i;
 
 }
 
-int Serpente::cambiaDirezioneFinoA(int fin, DIREZIONE d)
+int Serpente::cambiaDirezioneASinistraDi(int fin, DIREZIONE d) // piu' piccolo
 {
     int i=fin;
 
-    for(;((i<palline.size()-1)&&(collegate(palline[i],palline[i+1],distanzaPalline)));i++)
+    //cout << "A sinistra di " << i << endl;
+
+    if(i>=0 && i<=palline.size())
+    {    palline[i]->setDirezione(d);
+
+    for(;(  (i>=0)  && (i<palline.size()-1)&&(collegate(palline[i],palline[i+1],distanzaPalline)));i++)
         palline[i]->setDirezione(d);
 
-    if(collegate(palline[i-1],palline[i],distanzaPalline))
+    if(i>0 && collegate(palline[i],palline[i-1],distanzaPalline))
         palline[i]->setDirezione(d);
-
+    }
     return i;
 }

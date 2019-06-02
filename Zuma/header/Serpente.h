@@ -21,8 +21,8 @@ class Serpente
         int getSizeCoordinate();
         bool toccaSparo(Pallina* sparo);
         void gestisciMovimento();
-        int cambiaDirezioneDa(int,DIREZIONE);
-        int cambiaDirezioneFinoA(int, DIREZIONE);
+        int cambiaDirezioneASinistraDi(int,DIREZIONE);
+        int cambiaDirezioneADestraDi(int, DIREZIONE);
 
 
 };
