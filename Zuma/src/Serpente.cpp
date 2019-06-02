@@ -147,8 +147,8 @@ bool Serpente::toccaSparo(Pallina* sparo)
         {
            // palline[i]->setColore(GIALLO);
 
-            cambiaDirezioneFinoA(i,DIETRO);
-            i=cambiaDirezioneDa(i+1,FERMO);
+            cambiaDirezioneFinoA(i+1,DIETRO);
+            i=cambiaDirezioneDa(i,FERMO);
 
             return true;
 
@@ -177,10 +177,10 @@ int Serpente::cambiaDirezioneDa(int in ,DIREZIONE d)
 {
     int i=in;
 
-    for(;((i>0)&&(collegate(palline[i],palline[i-1],distanzaPalline)));i--)
+    for(;((i>0)&&(collegate(palline[i+1],palline[i],distanzaPalline)));i--)
         palline[i]->setDirezione(d);
 
-    if(collegate(palline[i+1],palline[i],distanzaPalline))
+    if(collegate(palline[i],palline[i+1],distanzaPalline))
         palline[i]->setDirezione(d);
     return i;
 
