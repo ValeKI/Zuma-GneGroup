@@ -1,7 +1,6 @@
 #ifndef GESTORESPARI_H
 #define GESTORESPARI_H
 #include "PallinaRana.h"
-#include "GestoreSpari.h"
 #include "Buffer.h"
 #include "Serpente.h"
 #include <string>
@@ -17,6 +16,8 @@ class GestoreSpari
         void nelloSchermo(BUFFER&);
         void stampa();
         ~GestoreSpari();
+        PallinaRana* getPallinaRana(int i);
+        Pallina* rimuoviPallina(int i);
 };
 
 #endif

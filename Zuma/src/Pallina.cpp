@@ -43,7 +43,7 @@ void Pallina::setColore(COLORE colore)
     ricreaLoad();
 }
 
-Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(1), HitBox("../image/Ball.png", 0, 0, 0.036)
+Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(VELOCITA), HitBox("../image/Ball.png", 0, 0, 0.036)
 {
     setColore(colore);
 }

@@ -1,15 +1,23 @@
 #include "../header/GestoreSpari.h"
 
+PallinaRana* GestoreSpari::getPallinaRana(int i){ return spari[i];}
 void GestoreSpari::inserisciSparo(PallinaRana* sparo)
 {
     spari.push_back(sparo);
+}
+
+Pallina* GestoreSpari::rimuoviPallina(int i) 
+{
+    Pallina* p = spari[i];
+    spari.erase(spari.begin()+i);
+    return p;
 }
 
 bool GestoreSpari::collisioneSparo(Serpente& serpy)
 {
     for(int j=0; j<spari.size(); j++)
     {
-        if(serpy.toccaSparo(spari[j]))
+        if(serpy.toccaSparo(spari[j], j))
         {
             spari.erase(spari.begin()+j);
             return true;
