@@ -15,7 +15,7 @@ Pallina* GestoreSpari::rimuoviPallina(int i)
 
 void GestoreSpari::collisioneSparo(Serpente& serpy)
 {
-    for(int j=0; j<spari.size(); j++)
+    for(int j=spari.size()-1; j>=0; j--)
     {
         if(serpy.toccaSparo(spari[j], j))
         {    
