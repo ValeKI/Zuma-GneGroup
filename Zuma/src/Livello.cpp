@@ -57,9 +57,9 @@ void Livello::livello_base()
 
             rana.stampa(m.getX(), m.getY());  
 
-
-            if(!(gestoreSpari->collisioneSparo(*serpy)) )
-                serpy->gestisciMovimento();
+            serpy->gestisciMovimento();
+            gestoreSpari->collisioneSparo(*serpy) ;
+            
 
             
             gestoreSpari->nelloSchermo(b);

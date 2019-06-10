@@ -114,12 +114,12 @@ void Serpente::stampa()
     {
         
 
-        i->avanza();
+        i->Pallina::avanza();
         p=i->getPosizione();
                         
         if(p>=0 && p<sizeCoord)
         {
-            i->movimento(*coordinate[p]);
+            i->Pallina::movimento(*coordinate[p]);
             i->stampa(1);
         }
     }
@@ -139,25 +139,76 @@ int Serpente::getSizeCoordinate()
 {
     return coordinate.size();
 }
-bool Serpente::cercaIndice(int c, bool first)
+int Serpente::cercaIndice(int c, bool first)
 {
-    for (auto i: coppiaSpari)
-        if ((i->first == c && first ) || (i->second == c && !first)  )
-            return true;
-    return false;
+    for (int i = 0; i < coppiaSpari.size(); i++)
+        if ((coppiaSpari[i]->first == c && first ) || (coppiaSpari[i]->second == c && !first)  )
+            return i ;
+    return -1;
 }
+
 bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
-    if (!cercaIndice(j, false))
+    int indiceCS = cercaIndice(j, false);
+    if (indiceCS==-1)
     {
+        // attenzione !cercaindice()
         for(int i=0; i<palline.size(); i++)
-         if(!cercaIndice(i, true)&&  palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
+         if(palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
         {
+            sparo->setVelocita(0);
             coppiaSpari.push_back(new pair<int, int> (i,j));
+        }    //inserimento           
+         
+    }
+    else 
+    {
+        int primo = coppiaSpari[indiceCS]->first;
+        int secondo = coppiaSpari[indiceCS]->second;
+
+        if(primo != coppiaSpari.size()-1)
+        {
+            int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
+            int v =  Pallina::VELOCITA * 3;
+        
+           // if ( (differenzaPosizioni + v ) > distanzaPalline*2)
+           //     v = differenzaPosizioni - distanzaPalline*2;
+            
+            cout <<"distanzaPalline: "<< distanzaPalline*2 << endl;
+cout <<  primo <<" "<< secondo <<" " << differenzaPosizioni << endl;
+
+            if (differenzaPosizioni >= distanzaPalline*2)
+            {
+
+                
+                cambiaDirVel(primo, palline[primo]->getDirezione(),Pallina::VELOCITA);
+                delete coppiaSpari[indiceCS];
+                coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
+                sparo->setPosizione(palline[primo+1]->getPosizione()+distanzaPalline);
+                sparo->setVelocita(Pallina::VELOCITA);
+
+                if(primo==0)
+                    primo++;
+
+                palline.insert(palline.begin()+(primo-1),dynamic_cast<Pallina*>(sparo));   
+                return true;
+            } 
+            else 
+                {
+                    cambiaDirVel(primo, AVANTI,v);
+                }
+        }
+        else
+        {
+            
+            delete coppiaSpari[indiceCS];
+            coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
+            palline.push_back(sparo);
             return true;
-            //inserimento           
-        } 
-    } 
+        }
+        
+    }
+
     return false;
 }
 
@@ -195,44 +246,11 @@ void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
 void Serpente::gestisciMovimento()
 {
     for(int i=cambiaDirezioneADestraDi(palline.size()-1, AVANTI);i<palline.size()-1;i++)
-        if(!collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
+        if(cercaIndice (i,true)==-1 && !collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
         {
             cambiaDirezioneADestraDi(i,DIETRO);
             i=cambiaDirezioneASinistraDi(i+1,FERMO);
         }
-    
-    for(int i = 0; i < coppiaSpari.size(); i++)
-    {
-        int primo = coppiaSpari[i]->first;
-        int secondo = coppiaSpari[i]->second;
-
-        if(primo != coppiaSpari.size()-1)
-    {
-        int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
-        
-
-
-
-        int v =  Pallina::VELOCITA * 3;
-        
-        if ( (differenzaPosizioni + v ) > distanzaPalline)
-            v = differenzaPosizioni - distanzaPalline;
-        
-
-
-        if (differenzaPosizioni == distanzaPalline)
-        {
-            coppiaSpari.erase(coppiaSpari.begin() + i--);
-
-             
-        } 
-        else cambiaDirVel(primo, AVANTI,v);
-
-
-    }
-
-
-    }    
 }
 
 int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande

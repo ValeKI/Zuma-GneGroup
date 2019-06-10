@@ -13,17 +13,16 @@ Pallina* GestoreSpari::rimuoviPallina(int i)
     return p;
 }
 
-bool GestoreSpari::collisioneSparo(Serpente& serpy)
+void GestoreSpari::collisioneSparo(Serpente& serpy)
 {
     for(int j=0; j<spari.size(); j++)
     {
         if(serpy.toccaSparo(spari[j], j))
-        {
+        {    
             spari.erase(spari.begin()+j);
-            return true;
+            j=0;
         }
     }
-    return false;
 }
 
 void GestoreSpari::stampa()

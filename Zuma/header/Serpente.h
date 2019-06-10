@@ -23,7 +23,7 @@ class Serpente
         void gestisciMovimento();
         int cambiaDirezioneASinistraDi(int,DIREZIONE);
         int cambiaDirezioneADestraDi(int, DIREZIONE);
-        bool cercaIndice(int c, bool first);
+        int cercaIndice(int c, bool first);
         void cambiaDirVel( int , DIREZIONE, int );
 
 

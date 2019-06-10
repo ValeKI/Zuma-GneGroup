@@ -12,7 +12,7 @@ class GestoreSpari
         vector<PallinaRana*> spari;
     public:
         void inserisciSparo(PallinaRana* sparo);
-        bool collisioneSparo(Serpente& serpy);
+        void collisioneSparo(Serpente& serpy);
         void nelloSchermo(BUFFER&);
         void stampa();
         ~GestoreSpari();

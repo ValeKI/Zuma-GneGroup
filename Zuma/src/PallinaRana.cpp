@@ -38,6 +38,7 @@ void PallinaRana::setStampaY(int a)
 
 void PallinaRana::movimento()
 {
+    
     posizione+=velocita;
     setStampaX( (vx * posizione/MODULO) + punto.first);
     setStampaY( (vy * posizione/MODULO) + punto.second);   
