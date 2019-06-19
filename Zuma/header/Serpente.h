@@ -10,9 +10,12 @@ class Serpente
     private:
         vector<Pallina*> palline;
         vector<pair<int, int>* > coordinate;
+        Pallina* finta;
         int distanzaPalline;
         vector<pair<int, int>* > coppiaSpari;
     public:
+        Serpente();
+        bool collideInTesta(HitBox* pallina);
         int getPosizionePrimaPallina();
         void caricaCoordinate();
         void generaPalline(int num, int tipi);

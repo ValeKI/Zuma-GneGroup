@@ -17,6 +17,8 @@ Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 
 void Rana::stampa(int mx, int my)
 {
+    if(tempo%10!=0)
+        tempo++;
     double stampaX=cx, stampaY=cy;
 
     stampaX= stampaX+(displayW-(wGlobal * scale2))/2 ;
@@ -62,10 +64,15 @@ void Rana::stampa(int mx, int my)
 
 PallinaRana* Rana::getPallina()
 {
-    PallinaRana* p = palline[1];
+    PallinaRana* p = nullptr;
+    if(tempo%10==0)
+    {
+        p = palline[1];
     
-    palline[1] = palline[0];
-    palline[0] = new PallinaRana(COLORE(rand()%6));
+        palline[1] = palline[0];
+        palline[0] = new PallinaRana(COLORE(rand()%6));
+    }
+    tempo++;
     return p;
 }
 

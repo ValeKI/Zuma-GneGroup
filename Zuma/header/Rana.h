@@ -8,6 +8,7 @@
 class Rana: public HitBox
 {
     private:
+        int tempo = 0;
         int cx;
         int cy;
         double scale;

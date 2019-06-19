@@ -3,7 +3,8 @@
 PallinaRana* GestoreSpari::getPallinaRana(int i){ return spari[i];}
 void GestoreSpari::inserisciSparo(PallinaRana* sparo)
 {
-    spari.push_back(sparo);
+    if(sparo!=nullptr)
+        spari.push_back(sparo);
 }
 
 Pallina* GestoreSpari::rimuoviPallina(int i) 

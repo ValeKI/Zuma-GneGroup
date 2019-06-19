@@ -16,7 +16,7 @@ void Livello::livello_base()
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(100,6);
+    serpy->generaPalline(10,6);
 
 
     bool redraw=0;
@@ -25,7 +25,7 @@ void Livello::livello_base()
     Mouse m;
     Rana rana(512,384);
     
-    event_queue.start(30);
+    event_queue.start(60);
     
     
     int flushh=0,  sizeCoord=serpy->getSizeCoordinate();
@@ -57,9 +57,9 @@ void Livello::livello_base()
 
             rana.stampa(m.getX(), m.getY());  
            
-            serpy->gestisciMovimento();
-            gestoreSpari->collisioneSparo(*serpy);
             
+            gestoreSpari->collisioneSparo(*serpy);
+            serpy->gestisciMovimento();
 
             
             gestoreSpari->nelloSchermo(b);
