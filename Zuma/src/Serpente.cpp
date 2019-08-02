@@ -157,6 +157,7 @@ Serpente::Serpente()
 
 bool Serpente::collideInTesta(HitBox* obj)
 {
+    finta->setPosizione(palline.front()->getPosizione() + distanzaPalline);
     finta->Pallina::movimento(*coordinate[finta->getPosizione()]);
     return(finta->collisione(obj));
 }
@@ -169,13 +170,16 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
 
     if (indiceCS==-2)
     {
-        for(int i=0; i<palline.size(); i++)
-            if(palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
-            {
+        for(int i=-1; i<int(palline.size()); i++)
+        {
+             if(i==-1 && collideInTesta(sparo)||
+            i!=-1 && palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
+            {                
                 sparo->setVelocita(0);
                 coppiaSpari.push_back(new pair<int, int> (i,j));
                 break;
-            }           
+            }
+        }
          
     }
     else 
@@ -185,7 +189,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
         int primo = coppiaSpari[indiceCS]->first;
         int secondo = coppiaSpari[indiceCS]->second;
 
-        if(primo != palline.size()-1)
+        if(primo != palline.size()-1 && primo!=-1)
         {
            
 
@@ -216,6 +220,8 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
 
                 palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
 
+                scoppiaPalline(primo+1);
+
                 return true;
             } 
             else 
@@ -224,7 +230,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
             }
 
         }
-        else
+        else if (primo == palline.size()-1) 
         {
             
             delete coppiaSpari[indiceCS];
@@ -234,8 +240,23 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
             sparo->setVelocita(Pallina::VELOCITA);
 
             palline.push_back(dynamic_cast<Pallina*>(sparo));
+
+            scoppiaPalline(palline.size()-1);
             return true;
         }
+        else
+        {
+            delete coppiaSpari[indiceCS];
+            coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
+            
+            sparo->setPosizione(palline[0]->getPosizione()+distanzaPalline);
+            sparo->setVelocita(Pallina::VELOCITA);
+
+            palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
+            scoppiaPalline(0);
+            return true;
+        }
+        
         
     }
 
@@ -269,19 +290,45 @@ void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
     }
 }
 
+void Serpente::scoppiaPalline(int p)
+{
+    COLORE colore = palline[p]->getColore();
+    int in=p;
+    int fin=p;
 
-int num = 0;
+    for(;in>=0 && int(palline[in]->getColore())==int(colore) ;in--);
+    for(;fin<palline.size() && int(palline[fin]->getColore())==int(colore); fin++);
+    
+    in++;
+    fin--;
+    if(in!=fin && fin-in>=2)
+    {
+        for(int i=in; i<=fin; i++)
+        {
+            delete palline[i];
+        } 
+
+        palline.erase(palline.begin()+in,palline.begin()+(fin+1));
+    }
+
+
+}
+
+void Serpente::stop()
+{
+    for(int i=0; i<palline.size(); i++)
+    {
+        palline[i]->setDirezione(FERMO);
+    }
+}
 
 void Serpente::gestisciMovimento()
 {
-
-    
-    
+    stop();
     for(int i=cambiaDirezioneADestraDi(palline.size()-1, AVANTI);i<palline.size()-1;i++)
     {
         if(cercaIndice (i,true)==-1 && !collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
         {
-            
             cambiaDirezioneADestraDi(i,DIETRO);
             i=cambiaDirezioneASinistraDi(i+1,FERMO);
         }
@@ -297,7 +344,9 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
     //cout << "A destra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
-    {    palline[i]->setDirezione(d);
+    {   
+        
+        palline[i]->setDirezione(d);
 
     for(;((i<palline.size())  && (i>0) && (collegate(palline[i] ,palline[i-1], distanzaPalline)));i--)
         palline[i]->setDirezione(d);

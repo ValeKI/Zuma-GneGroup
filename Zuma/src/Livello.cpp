@@ -16,7 +16,7 @@ void Livello::livello_base()
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(10,6);
+    serpy->generaPalline(100,6);
 
 
     bool redraw=0;
@@ -57,9 +57,9 @@ void Livello::livello_base()
 
             rana.stampa(m.getX(), m.getY());  
            
-            
-            gestoreSpari->collisioneSparo(*serpy);
             serpy->gestisciMovimento();
+            gestoreSpari->collisioneSparo(*serpy);
+            
 
             
             gestoreSpari->nelloSchermo(b);

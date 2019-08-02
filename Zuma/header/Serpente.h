@@ -14,6 +14,8 @@ class Serpente
         int distanzaPalline;
         vector<pair<int, int>* > coppiaSpari;
     public:
+        void stop();
+        void scoppiaPalline(int p);
         Serpente();
         bool collideInTesta(HitBox* pallina);
         int getPosizionePrimaPallina();
