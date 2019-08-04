@@ -6,18 +6,79 @@
 #include <vector>
 #include <cmath>
 
-
 using namespace std;
+
+void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q);
+bool criterio(pair<int,int> prec, pair<int,int> x, pair<int,int> succ);
+void ordina(vector<pair<int,int> >& v);
+
+
+// prima il nuovo file che voglio creare, dopo dove trovo l'immagine pgm
+int main(int arg, char** str)
+{
+    int righe, colonne, lunghezza_num;
+    int** matriceMisteriosa;
+    vector<pair<int,int> > coordinate;
+    pair<int,int> var;
+
+    ReadImage(str[2] ,&matriceMisteriosa, colonne, righe, lunghezza_num);
+
+
+    //riempie coordinate e primaC e ultima C
+    for(int i=0; i<righe; i++)
+        for(int j=0; j<colonne; j++)
+            if(matriceMisteriosa[i][j]!=217)
+            {    
+                var.second=i;
+                var.first=j;
+                if(matriceMisteriosa[i][j]==255)
+                    coordinate.insert(coordinate.begin(),var);
+                else
+                    coordinate.push_back(var);
+                
+            }
+    //  cout << "Le colonne sono " << colonne << "\nLe righe sono " << righe << endl;
+    ordina(coordinate);
+    /* for(int i=0; i<coordinate.size(); i++)
+    {
+        cout << coordinate[i].first << " " << coordinate[i].second << " --- ";
+        if(i%10==9)
+            cout << endl;
+    }  */
+  
+    for(int i=0; i<righe; i++)
+        delete[] matriceMisteriosa[i];
+    delete[] matriceMisteriosa;
+
+    /*
+        CREARE IL FILE NEL QUALE SARA' SCRITTO IL VECTOR COORDINATE
+    */
+    // cout << str[1];
+    ofstream in;
+    string filename=str[1];
+    //cin >> filename;
+
+    in.open( (filename+".txt").c_str() );
+    
+    for(int i=0; i<coordinate.size(); i++)
+    {
+        in << coordinate[i].first << "-" << coordinate[i].second << endl;
+    }
+    
+    
+    in.close();
+
+    return 0;
+}
 
 void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q)
 {
     int i, j;
     unsigned char *image;
     char header [100], *ptr;
+
     ifstream ifp;
-
     ifp.open(fname, ios::in); 
-
     if (!ifp) 
     {
         cout << "Can't read image: " << fname << endl;
@@ -87,110 +148,18 @@ bool criterio(pair<int,int> prec, pair<int,int> x, pair<int,int> succ)
 
 void ordina(vector<pair<int,int> >& v)
 {
-
+    //cerca il secondo
     for(int i=1; i<v.size()-1; i++)
     {
-        pair<int,int> fasullo(-1,-1);
-        if(criterio(fasullo,v[0],v[i]))
+        pair<int,int> fake(-1,-1);
+        if(criterio(fake,v[0],v[i]))
             swap(v[i],v[1]);
-    }
+    } 
+
+    // ordina tutti
     int many=0;
     for(int i=1; i<v.size()-2; i++)
-    {   
         for(int j=i+1; j<v.size(); j++)
-        {
-            
             if( criterio(v[i-1],v[i],v[j])==true)
-            {
-                if(i>=455 && i<=475)
-                    cout << v[i].first << "-" << v[i].second << "  " << v[j].first << "-" 
-                    << v[j].second << " la i e' " << i << endl;
-
                 swap(v[i+1],v[j]);
-                
-            }
-            
-        }
-    }
-}
-
-// prima il nuovo file che voglio creare, dopo dove trovo l'immagine pgm
-int main(int arg, char** str)
-{
-    int righe, colonne, lunghezza_num;
-    int** matriceMisteriosa;
-    vector<pair<int,int> > coordinate;
-    pair<int,int> var;
-
-    ReadImage(str[2] ,&matriceMisteriosa, colonne, righe, lunghezza_num);
-
-
-    //riempie coordinate e primaC e ultima C
-    for(int i=0; i<righe; i++)
-        for(int j=0; j<colonne; j++)
-            if(matriceMisteriosa[i][j]!=217)
-            {
-                    
-                var.second=i;
-                var.first=j;
-                coordinate.push_back(var);
-                if(matriceMisteriosa[i][j]==255)
-                {
-                    coordinate.insert(coordinate.begin(),var);
-                 //   cout << coordinate.front().first << endl;
-                }
-            }
-
-
-  //  cout << "Le colonne sono " << colonne << "\nLe righe sono " << righe << endl;
-
-    
-    ordina(coordinate);
-
-     
-    /* for(int i=0; i<coordinate.size(); i++)
-    {
-        cout << coordinate[i].first << " " << coordinate[i].second << " --- ";
-        if(i%10==9)
-            cout << endl;
-    }  */
-  
-    for(int i=0; i<righe; i++)
-        delete[] matriceMisteriosa[i];
-    delete[] matriceMisteriosa;
-
-/*
-    CREARE IL FILE NEL QUALE SARA' SCRITTO IL VECTOR COORDINATE
-*/
-   // cout << str[1];
-    ofstream in;
-    string filename=str[1];
-    //cin >> filename;
-
-    in.open( (filename+".txt").c_str() );
-    
-    for(int i=0; i<coordinate.size(); i++)
-    {
-        in << coordinate[i].first << "-" << coordinate[i].second << endl;
-    }
-    
-    
-    in.close();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
 }
