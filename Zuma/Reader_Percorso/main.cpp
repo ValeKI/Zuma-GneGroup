@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q);
+void ReadImage(const char fname[], int**& fimage, int& M, int& N, int& Q);
 bool criterio(pair<int,int> prec, pair<int,int> x, pair<int,int> succ);
 void ordina(vector<pair<int,int> >& v);
 
@@ -21,7 +21,7 @@ int main(int arg, char** str)
     vector<pair<int,int> > coordinate;
     pair<int,int> var;
 
-    ReadImage(str[2] ,&matriceMisteriosa, colonne, righe, lunghezza_num);
+    ReadImage(str[2] ,matriceMisteriosa, colonne, righe, lunghezza_num);
 
 
     //riempie coordinate e primaC e ultima C
@@ -71,7 +71,7 @@ int main(int arg, char** str)
     return 0;
 }
 
-void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q)
+void ReadImage(const char fname[], int**& fimage, int& M, int& N, int& Q)
 {
     int i, j;
     unsigned char *image;
@@ -107,9 +107,9 @@ void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q)
 
     image = (unsigned char *) new unsigned char [M*N];
 
-    *fimage = new int* [N];
+    fimage = new int* [N];
     for(i=0; i<N; i++)
-        (*fimage)[i] = new int[M];
+        fimage[i] = new int[M];
 
     ifp.read( reinterpret_cast<char *>(image), (M*N)*sizeof(unsigned char));
 
@@ -127,14 +127,16 @@ void ReadImage(const char fname[], int ***fimage, int& M, int& N, int& Q)
 
     for(i=0; i<N; i++)
         for(j=0; j<M; j++)
-	        (*fimage)[i][j]=(int)image[i*M+j];
+	        fimage[i][j]=(int)image[i*M+j];
+
+    delete[] image;
 }
 
 /* 
     * * *
     * x *
     * * *
- */
+*/
 
 bool criterio(pair<int,int> prec, pair<int,int> x, pair<int,int> succ)
 {
