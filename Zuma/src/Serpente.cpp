@@ -8,7 +8,6 @@ bool collegate(Pallina* p1,Pallina* p2,int d)
     (p2->getPosizione()-p1->getPosizione() == d && p2->getPosizione()-p1->getPosizione() >=0));
 }
 
-
 void Serpente::caricaCoordinate()
 {
     ifstream in;
@@ -48,8 +47,6 @@ void Serpente::caricaCoordinate()
 
     in.close();
 }
-
-
 
 void Serpente::generaPalline(int num, int tipi)
 {
@@ -139,12 +136,13 @@ int Serpente::getSizeCoordinate()
 {
     return coordinate.size();
 }
+
 int Serpente::cercaIndice(int c, bool first)
 {
     for (int i = 0; i < coppiaSpari.size(); i++)
         if ((coppiaSpari[i]->first == c && first ) || (coppiaSpari[i]->second == c && !first)  )
         {
-            return i ;
+            return i;
         }
     return -2;
 }
@@ -153,7 +151,6 @@ Serpente::Serpente()
 {
     finta = new Pallina (COLORE(0), 0);
 }
-
 
 bool Serpente::collideInTesta(HitBox* obj)
 {
@@ -166,8 +163,6 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
     int indiceCS = cercaIndice(j, false);
     
-
-
     if (indiceCS==-2)
     {
         for(int i=-1; i<int(palline.size()); i++)
@@ -201,16 +196,16 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                 v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
             
 
-            if(differenzaPosizioni > distanzaPalline*2)
-            {
-                cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
-                return false;
-            }
+            
 
 
-            if (differenzaPosizioni == distanzaPalline*2)
+            if (differenzaPosizioni >= distanzaPalline*2)
             {
                 cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
+                if(differenzaPosizioni > distanzaPalline*2)
+                {
+                    cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
+                }
                 
                 delete coppiaSpari[indiceCS];
                 coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
@@ -325,16 +320,13 @@ void Serpente::stop()
 void Serpente::gestisciMovimento()
 {
     stop();
-    for(int i=cambiaDirezioneADestraDi(palline.size()-1, AVANTI);i<palline.size()-1;i++)
-    {
-        if(cercaIndice (i,true)==-1 && !collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
+    cambiaDirezioneADestraDi(palline.size()-1, AVANTI);
+    for(int i=0;i<palline.size()-1;i++)
+        if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
         {
             cambiaDirezioneADestraDi(i,DIETRO);
             i=cambiaDirezioneASinistraDi(i+1,FERMO);
         }
-    }
-        
-    
 }
 
 int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
@@ -344,16 +336,15 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
     //cout << "A destra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
-    {   
+    {  
+        palline[i]->setDirezione(d);
+
+        for(;((i<palline.size())  && (i>0) && (collegate(palline[i] ,palline[i-1], distanzaPalline)));i--)
+            palline[i]->setDirezione(d);
+
+        if(i<palline.size()-1 && i>=0 && collegate(palline[i],palline[i+1],distanzaPalline))
+            palline[i]->setDirezione(d);
         
-        palline[i]->setDirezione(d);
-
-    for(;((i<palline.size())  && (i>0) && (collegate(palline[i] ,palline[i-1], distanzaPalline)));i--)
-        palline[i]->setDirezione(d);
-
-    if(i<palline.size()-1 && i>=0 && collegate(palline[i],palline[i+1],distanzaPalline))
-        palline[i]->setDirezione(d);
-    
     }
     
     return i;
@@ -367,13 +358,14 @@ int Serpente::cambiaDirezioneASinistraDi(int fin, DIREZIONE d) // piu' piccolo
     //cout << "A sinistra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
-    {    palline[i]->setDirezione(d);
-
-    for(;(  (i>=0)  && (i<palline.size()-1) &&(collegate(palline[i],palline[i+1],distanzaPalline)));i++)
+    {    
         palline[i]->setDirezione(d);
 
-    if(i>0 && collegate(palline[i],palline[i-1],distanzaPalline))
-        palline[i]->setDirezione(d);
+        for(;(  (i>=0)  && (i<palline.size()-1) &&(collegate(palline[i],palline[i+1],distanzaPalline)));i++)
+            palline[i]->setDirezione(d);
+
+        if(i>0 && collegate(palline[i],palline[i-1],distanzaPalline))
+            palline[i]->setDirezione(d);
     }
     return i;
 }

@@ -58,18 +58,13 @@ void Livello::livello_base()
             rana.stampa(m.getX(), m.getY());  
            
             serpy->gestisciMovimento();
-            gestoreSpari->collisioneSparo(*serpy);
-            
 
-            
+            gestoreSpari->collisioneSparo(*serpy);
             gestoreSpari->nelloSchermo(b);
             gestoreSpari->stampa();       
             
-            
-            
             serpy->stampa();
             
-                 
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));
         }
