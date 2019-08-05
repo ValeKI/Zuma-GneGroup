@@ -121,14 +121,13 @@ void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
     
-    
+    fixVelocita();
     for(auto i:palline)
-    {
+    { 
         i->Pallina::avanza();
         p=i->getPosizione();
         if(p>=0 && p<sizeCoord)
-        {
-            fixVelocita();                
+        {               
             i->Pallina::movimento(*coordinate[p]);
             i->stampa(1);
         }
