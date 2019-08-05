@@ -43,6 +43,22 @@ void Pallina::setColore(COLORE colore)
     ricreaLoad();
 }
 
+int Pallina::posFutura() const
+{
+    int p2;
+
+    if(direzione==AVANTI)
+        p2=posizione+velocita;
+    if(direzione==DIETRO)
+        p2=posizione-velocita;
+    return p2;
+}
+
+int Pallina::getVelocita() const
+{
+    return velocita;
+}
+
 Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(VELOCITA), HitBox("../image/Ball.png", 0, 0, 0.036)
 {
     setColore(colore);

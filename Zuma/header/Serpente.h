@@ -14,6 +14,7 @@ class Serpente
         int distanzaPalline;
         vector<pair<int, int>* > coppiaSpari;
     public:
+        void fixVelocita();
         void stop();
         void scoppiaPalline(int p);
         Serpente();
@@ -30,8 +31,6 @@ class Serpente
         int cambiaDirezioneADestraDi(int, DIREZIONE);
         int cercaIndice(int c, bool first);
         void cambiaDirVel( int , DIREZIONE, int );
-
-
 };
 
 

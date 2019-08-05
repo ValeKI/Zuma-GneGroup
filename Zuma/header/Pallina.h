@@ -19,7 +19,7 @@ class Pallina:public HitBox
 
     public:
         
-        const static int VELOCITA = 1;
+        const static int VELOCITA = 2;
 
         Pallina(COLORE, int = 0);
         ~Pallina();
@@ -32,6 +32,8 @@ class Pallina:public HitBox
         COLORE getColore() const;
         double getPosizione() const;
         DIREZIONE getDirezione() const;
+        int posFutura() const;
+        int getVelocita() const;
         void setPosizione(double );
         void setDirezione(DIREZIONE);
         void setVelocita(int);

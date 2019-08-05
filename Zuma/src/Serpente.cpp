@@ -8,6 +8,23 @@ bool collegate(Pallina* p1,Pallina* p2,int d)
     (p2->getPosizione()-p1->getPosizione() == d && p2->getPosizione()-p1->getPosizione() >=0));
 }
 
+void Serpente::fixVelocita()
+{
+    int sizeCoord = coordinate.size();
+    for(int i=palline.size()-1;i>0;i--)
+    {
+        if(palline[i]->getPosizione()>=0 && palline[i]->getPosizione()<sizeCoord)
+        {
+            if(i!=0 && palline[i-1]->getPosizione()-palline[i]->getPosizione()<distanzaPalline)
+            {
+                cout << "aaa\n";
+                palline[i-1]->setPosizione(palline[i]->getPosizione()+distanzaPalline);
+            }
+        }
+    }
+
+}
+
 void Serpente::caricaCoordinate()
 {
     ifstream in;
@@ -92,7 +109,7 @@ void Serpente::generaPalline(int num, int tipi)
         }
 
         if(i==0)
-            distanzaPalline = palline[0]->getStampaL();
+            distanzaPalline = palline[0]->getStampaL()*2;
 
         pos-=distanzaPalline;
     } 
@@ -104,16 +121,14 @@ void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
     
-   // gestisciMovimento();
+    
     for(auto i:palline)
     {
-        
-
         i->Pallina::avanza();
         p=i->getPosizione();
-                        
         if(p>=0 && p<sizeCoord)
         {
+            fixVelocita();                
             i->Pallina::movimento(*coordinate[p]);
             i->stampa(1);
         }
@@ -123,12 +138,19 @@ void Serpente::stampa()
 
 Serpente::~Serpente()
 {
+    cout << "ok1\n";
     for(int i=0; i<palline.size(); i++)
         delete palline[i];
-            
+
+    cout << "ok2\n";
     for(int i=0; i<coordinate.size(); i++)
         delete coordinate[i];
 
+    cout << "ok3\n";
+    for(int i=0; i<coppiaSpari.size(); i++)
+        delete coppiaSpari[i];
+
+    cout << "ok4\n";
     delete finta;
 }
 
@@ -195,17 +217,9 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
             if ( (differenzaPosizioni + v ) > distanzaPalline*2)
                 v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
             
-
-            
-
-
             if (differenzaPosizioni >= distanzaPalline*2)
             {
                 cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
-                if(differenzaPosizioni > distanzaPalline*2)
-                {
-                    cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
-                }
                 
                 delete coppiaSpari[indiceCS];
                 coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
@@ -322,17 +336,21 @@ void Serpente::gestisciMovimento()
     stop();
     cambiaDirezioneADestraDi(palline.size()-1, AVANTI);
     for(int i=0;i<palline.size()-1;i++)
-        if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline) && palline[i]->getColore() == palline[i+1]->getColore() )
+    {
+        palline[i]->setVelocita(Pallina::VELOCITA);
+        if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
         {
+            cout << "one\n";
             cambiaDirezioneADestraDi(i,DIETRO);
             i=cambiaDirezioneASinistraDi(i+1,FERMO);
         }
+    }
 }
 
 int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 {
     int i=in;
-
+    int j=0;
     //cout << "A destra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
@@ -340,12 +358,17 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
         palline[i]->setDirezione(d);
 
         for(;((i<palline.size())  && (i>0) && (collegate(palline[i] ,palline[i-1], distanzaPalline)));i--)
+        {
+            j++;
             palline[i]->setDirezione(d);
-
+        }
         if(i<palline.size()-1 && i>=0 && collegate(palline[i],palline[i+1],distanzaPalline))
             palline[i]->setDirezione(d);
         
     }
+
+    if(d==DIETRO)
+    cout << "j: " << j << endl;
     
     return i;
 
