@@ -5,7 +5,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-int coloriPalline = 2;
+int coloriPalline = 6;
 
 Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
