@@ -18,8 +18,7 @@ void Serpente::fixVelocita()
         {
             if(i!=0 && palline[i-1]->getPosizione()-palline[i]->getPosizione()<distanzaPalline)
             {
-                cout << "aaa\n";
-                palline[i-1]->setPosizione(palline[i]->getPosizione()+distanzaPalline);
+                palline[i-1]->setPosizione(palline[i]->getPosizione()+distanzaPalline+palline[i-1]->getVelocita());
             }
         }
     }
@@ -132,8 +131,7 @@ void Serpente::stampa()
             i->Pallina::movimento(*coordinate[p]);
             i->stampa(1);
         }
-    }
-            
+    }    
 }
 
 Serpente::~Serpente()
