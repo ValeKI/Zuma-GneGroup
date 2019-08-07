@@ -8,12 +8,14 @@
 class Serpente
 {
     private:
+        vector<Pallina*> coloreUguale;
         vector<Pallina*> palline;
         vector<pair<int, int>* > coordinate;
         Pallina* finta;
         int distanzaPalline;
         vector<pair<int, int>* > coppiaSpari;
     public:
+        bool empty();
         void fixVelocita();
         void stop();
         void scoppiaPalline(int p);

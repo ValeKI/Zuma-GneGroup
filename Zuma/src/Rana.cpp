@@ -5,14 +5,16 @@
 extern int wGlobal;
 extern int hGlobal;
 
+int coloriPalline = 2;
+
 Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
     srand(time(0));
     cx = a*( (wGlobal*scale2)/1024.); 
     cy = b*( (hGlobal*scale2)/768.);
     palline = new PallinaRana*[2];
-    palline[0] = new PallinaRana(COLORE(rand()%6));
-    palline[1] = new PallinaRana(COLORE(rand()%6));
+    palline[0] = new PallinaRana(COLORE(rand()%coloriPalline));
+    palline[1] = new PallinaRana(COLORE(rand()%coloriPalline));
 }
 
 void Rana::stampa(int mx, int my)
@@ -70,7 +72,7 @@ PallinaRana* Rana::getPallina()
         p = palline[1];
     
         palline[1] = palline[0];
-        palline[0] = new PallinaRana(COLORE(rand()%6));
+        palline[0] = new PallinaRana(COLORE(rand()%coloriPalline));
     }
     tempo++;
     return p;

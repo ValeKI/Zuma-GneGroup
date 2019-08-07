@@ -1,4 +1,5 @@
 #include "../header/Serpente.h"
+#include <algorithm>
 
 bool collegate(Pallina* p1,Pallina* p2,int d)
 {   
@@ -137,19 +138,15 @@ void Serpente::stampa()
 
 Serpente::~Serpente()
 {
-    cout << "ok1\n";
     for(int i=0; i<palline.size(); i++)
         delete palline[i];
 
-    cout << "ok2\n";
     for(int i=0; i<coordinate.size(); i++)
         delete coordinate[i];
 
-    cout << "ok3\n";
     for(int i=0; i<coppiaSpari.size(); i++)
         delete coppiaSpari[i];
 
-    cout << "ok4\n";
     delete finta;
 }
 
@@ -180,8 +177,14 @@ bool Serpente::collideInTesta(HitBox* obj)
     return(finta->collisione(obj));
 }
 
+bool Serpente::empty()
+{
+    return palline.empty();
+}
+
 bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
+
     int indiceCS = cercaIndice(j, false);
     
     if (indiceCS==-2)
@@ -330,18 +333,30 @@ void Serpente::stop()
     }
 }
 
+
 void Serpente::gestisciMovimento()
 {
     stop();
-    cambiaDirezioneADestraDi(palline.size()-1, AVANTI);
-    for(int i=0;i<palline.size()-1;i++)
+    if(!palline.empty())
     {
-        palline[i]->setVelocita(Pallina::VELOCITA);
-        if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
+        cambiaDirezioneADestraDi(palline.size()-1, AVANTI);
+        for(int i=0;i<palline.size()-1;i++)
         {
-            cout << "one\n";
-            cambiaDirezioneADestraDi(i,DIETRO);
-            i=cambiaDirezioneASinistraDi(i+1,FERMO);
+            palline[i]->setVelocita(Pallina::VELOCITA);
+            if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
+            {
+                if(find(coloreUguale.begin(), coloreUguale.end(), palline[i]) == coloreUguale.end())
+                    coloreUguale.push_back(palline[i]);
+                cambiaDirezioneADestraDi(i,DIETRO);
+                i=cambiaDirezioneASinistraDi(i+1,FERMO);
+            }
+
+            for(int j=0; j<coloreUguale.size(); j++)
+                if(coloreUguale[j] == palline[i] && collegate(palline[i],palline[i+1],distanzaPalline))
+                {    
+                    scoppiaPalline(i);
+                    coloreUguale.erase(coloreUguale.begin()+j);
+                }
         }
     }
 }
@@ -350,7 +365,6 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 {
     int i=in;
     int j=0;
-    //cout << "A destra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
     {  
@@ -366,9 +380,6 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
         
     }
 
-    if(d==DIETRO)
-    cout << "j: " << j << endl;
-    
     return i;
 
 }
@@ -376,8 +387,6 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 int Serpente::cambiaDirezioneASinistraDi(int fin, DIREZIONE d) // piu' piccolo
 {
     int i=fin;
-
-    //cout << "A sinistra di " << i << endl;
 
     if(i>=0 && i<=palline.size())
     {    
