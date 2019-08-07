@@ -109,7 +109,7 @@ void Serpente::generaPalline(int num, int tipi)
         }
 
         if(i==0)
-            distanzaPalline = palline[0]->getStampaL()*2;
+            distanzaPalline = palline[0]->getLunghezza();
 
         pos-=distanzaPalline;
     } 

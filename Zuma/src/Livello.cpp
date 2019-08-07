@@ -7,8 +7,7 @@ Livello::Livello(){}
 
 Livello::~Livello()
 {
-    delete serpy;
-    delete gestoreSpari;
+
 }
 
 void Livello::livello_base()
@@ -16,7 +15,7 @@ void Livello::livello_base()
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(100,6);
+    serpy->generaPalline(40,6);
 
 
     bool redraw=0;
@@ -87,10 +86,8 @@ void Livello::livello_base()
                 
         if((flushh++)%400==0)
             event_queue.flusha();
-                
-                 
-               
     }
+    delete serpy;
+    delete gestoreSpari;
 
-        event_queue.stop();
 }
