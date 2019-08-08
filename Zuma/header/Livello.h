@@ -16,15 +16,11 @@ class Livello
     private:
         Serpente* serpy;
         GestoreSpari* gestoreSpari;
-
-        
         vector<PallinaRana*> spari;
-        
         Event_queue event_queue;
     public:
         Livello();
         ~Livello();
-
         void generaPalline(int,int);
         void caricaCoordinate();
         void livello_base();

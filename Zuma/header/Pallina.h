@@ -19,7 +19,7 @@ class Pallina:public HitBox
 
     public:
         
-        const static int VELOCITA = 3;
+        const static int VELOCITA = 1;
 
         Pallina(COLORE, int = 0);
         ~Pallina();

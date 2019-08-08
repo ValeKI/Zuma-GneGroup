@@ -14,6 +14,7 @@ class Serpente
         Pallina* finta;
         int distanzaPalline;
         vector<pair<int, int>* > coppiaSpari;
+        int point = 0;
     public:
         bool empty();
         void fixVelocita();
