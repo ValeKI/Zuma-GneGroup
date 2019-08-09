@@ -234,7 +234,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                 palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
 
                 scoppiaPalline(primo+1);
-
+               // point++;
                 return true;
             } 
             else 
@@ -267,6 +267,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
 
             palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
             scoppiaPalline(0);
+           // point++;
             return true;
         }
         
@@ -324,7 +325,8 @@ void Serpente::scoppiaPalline(int p)
         palline.erase(palline.begin()+in,palline.begin()+(fin+1));
     }
 
-
+    point += (fin-in);
+    cout << "point: " << point << endl;
 }
 
 void Serpente::stop()
