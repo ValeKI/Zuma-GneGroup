@@ -1,5 +1,5 @@
 /*
-    cd  Zuma/src && g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -o Zuma && ./Zuma && cd ../..
+    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -lallegro_font -lallegro_ttf -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/ScrittaMenu.h"
@@ -32,9 +32,14 @@ int main(int argc, char **argv)
 
 
     SFONDO sfondo;
+
+    Menu mu;
+
+    mu.menu1();
+
     Livello m;
 
-    m.livello_base();
+    m.livello_base(); 
     
     return 0;
 }

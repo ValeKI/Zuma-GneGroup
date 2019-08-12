@@ -1,5 +1,10 @@
 #include "../header/Serpente.h"
-#include <algorithm>
+
+
+int Serpente::getPoint() const
+{
+    return point;
+}
 
 bool collegate(Pallina* p1,Pallina* p2,int d)
 {   

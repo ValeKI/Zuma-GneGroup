@@ -1,51 +1,72 @@
 #include "../header/Menu.h"
 #include "../header/Mouse.h"
+#include <cmath>
 
-Menu::Menu(){}
+Menu::Menu():Schermata()
+{
+    caricaFont();
+}
 
 Menu::~Menu()
 {
     distruggiScritte();
 }
 
-void Menu::menu1()
+void Menu::caricaFont()
+{
+    font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
+}
+
+int Menu::menu1()
 {
     bool redraw=0;
-    BUFFER b("../image/Sfondo.jpg");
-
-    scritte.push_back(new ScrittaMenu("../image/0_Classica.jpg",300,325,1));
-    scritte.push_back(new ScrittaMenu("../image/0_Tempo.jpg"   ,300,450,1));
-    scritte.push_back(new ScrittaMenu("../image/0_Mosse.jpg"   ,300,560,1));
-    Mouse m;
+    scelte.push_back("Classica");
+    scelte.push_back("A Mosse");
+    scelte.push_back("A Tempo");
+    scelte.push_back("Esci");
+    
+    b= new BUFFER("../image/Sfondo.jpg");
     event_queue.start(10);
-    int pos=0, scelta=0;
+    int pos=0;
     // 1 classica    2 tempo    3 mosse
 
-    b.stampaSfondo();
-    while(888)
+    b->stampaSfondo();
+
+    int scelta=-1;
+
+    while(scelta==-1)
     {
         ALLEGRO_EVENT ev = event_queue.evento();
+        if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+        {
+            key[KEY_SPACE]=1;
+        }
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
             if(key[KEY_UP])
             {
                 if(pos == 0)
                     pos = 1;
-                    
-                pos=(pos+1)%3+1;
-
-                if(pos == 0)
-                    pos = 3;
+                else
+                {
+                    pos=(pos-1)%4;
+                    cout << "Pos: " << pos << endl;
+            
+                    if(pos == 0)
+                        pos = 4;
+                }
             }
             else if (key[KEY_DOWN])
             {
-                pos=(pos+1)%3;
+                pos=(pos+1)%4;
 
                 if(pos == 0)
-                    pos = 3;
+                    pos = 4;
             }
             else if(key[KEY_SPACE] && pos!=0)
             {
+                if(pos == 4)
+                    exit(0);
                 scelta=pos;
                 break;
             }
@@ -103,50 +124,27 @@ void Menu::menu1()
         }
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
-            m.setX(ev.mouse.x);
-            m.setY(ev.mouse.y);
-            if(m.collisione(scritte[0]) == true)
+            for(int i=0; i<scelte.size(); i++)
             {
-                cout << m.getX() << " " << m.getY() << endl;
-                cout << scritte[0]->getStampaX() << " " << scritte[0]->getStampaY() << endl;
-                cout << scritte[0]->getStampaX() + scritte[0]->getStampaL() << " " << 
-                scritte[0]->getStampaY() + scritte[0]->getStampaA() << endl << endl;
-                
-                pos=1;
+                if(collideText(ev.mouse.x, ev.mouse.y, scelte[i], b->getX()+500*wGlobal/1024., b->getY()+(250+80*(i+1))*hGlobal/768.) )
+                    pos = i+1;
             }
-            else if(m.collisione(scritte[1]) == true)
-            {
-                pos=2;
-            }
-            else if(m.collisione(scritte[2]) == true)
-            {
-                pos=3;
-            }
-            else
-            {
-                pos=0;
-               // cout << "lol2\n";
-            }
+            // collide con mouse
         }
         if(redraw && event_queue.empty())
         {
-            
             redraw=0;
+            b->stampa(1);
 
-            b.stampa(1);
-
-            for(int i=0; i<3; i++)
-                scritte[i]->reazione(0);
-
-            if(pos>0)
-                scritte[pos-1]->reazione(1);
-
-            
-
-            for(int i=0; i<3; i++)
-                scritte[i]->stampa(1);
-            
-            
+            for(int i=0; i<scelte.size(); i++)
+            {
+                if(pos-1 == i)
+                    al_draw_text(font, al_map_rgb(0,0,0), b->getX()+500*wGlobal/1024., b->getY()+(250+80*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
+                else
+                    al_draw_text(font, al_map_rgb(255,255,255), b->getX()+500*wGlobal/1024., b->getY()+(250+80*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
+            }
+            //stampa scritte
+          
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));
         }
@@ -154,11 +152,33 @@ void Menu::menu1()
     event_queue.stop(); // si puo stoppare prima del gioco
     distruggiScritte();
 
+    return scelta;
+
+}
+
+bool Menu::collideText(const int& mx, const int& my, string& s, const int& px, const int& py)
+{
+    int tx=0, ty=0, th=0, tw=0;
+    al_get_text_dimensions(font, s.c_str(), &tx, &ty, &tw, &th);
+
+    tx = tx - tw/2;
+    ty = ty - th/2;
+
+    tx+=px;
+    ty+=py;
+
+    cout << "Mouse " << mx << " " << my <<
+     "\nScritta: " << tx << "-" << ty << "-" << tw << "-" << th << endl;
+
+    return
+    (
+        (mx >= tx && mx <= tx + tw)
+        &&
+        (my >= ty && my <= ty + th)
+    );
 }
 
 void Menu::distruggiScritte()
 {
-    for (unsigned i = 0; i != scritte.size(); i++)
-        delete scritte[i];
-    scritte.clear();
+    
 }

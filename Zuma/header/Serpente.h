@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 class Serpente
 {
@@ -16,6 +17,7 @@ class Serpente
         vector<pair<int, int>* > coppiaSpari;
         int point = 0;
     public:
+        int getPoint() const;
         bool empty();
         void fixVelocita();
         void stop();

@@ -15,8 +15,6 @@ using namespace std;
 extern int wGlobal;
 extern int hGlobal;
 
-enum MYKEYS{KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_ESC, KEY_SPACE};
-
 class HitBox
 {
     protected: 

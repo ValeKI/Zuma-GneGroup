@@ -1,21 +1,24 @@
 #ifndef MENU_H
 #define MENU_H
 #include <vector>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include "ScrittaMenu.h"
 #include "Event_queue.h"
 #include "Buffer.h"
+#include "Schermata.h"
 
-class Menu // pero' devi leggerlo in inglese
+
+class Menu : public Schermata // pero' devi leggerlo in inglese
 {
     private:
-        vector<ScrittaMenu*> scritte;
-        Event_queue event_queue;
-        bool key[6]= {false,false,false,false,false,false};
-
+        vector<string> scelte;
     public:
+        void caricaFont() override;
+        bool collideText(const int& mx, const int& my, string& s, const int& px, const int& py);
         Menu();
         ~Menu();
-        void menu1();
+        int menu1();
         void distruggiScritte();
     
 };

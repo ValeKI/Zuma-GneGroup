@@ -3,6 +3,11 @@
 extern int wGlobal;
 extern int hGlobal;
 
+int BUFFER::getGlobalScale() const
+{
+    return scale2;
+}
+
 bool BUFFER::collisione(HitBox* obj)
 {
    
@@ -94,8 +99,6 @@ void BUFFER::stampa(bool contr)
     setAltezza(hGlobal * scale2);
     setX((displayW-getLunghezza())/2 );
     setY ( (displayH-getAltezza())/2 );
-
-   // cout << getX() << endl;
 
     load=buffer;
     HitBox::stampa(0);

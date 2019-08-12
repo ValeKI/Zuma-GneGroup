@@ -13,6 +13,7 @@ class BUFFER : public HitBox
         BUFFER(string immagine);
         ~BUFFER();
 
+        int getGlobalScale() const;
         void aggiungiImmagine(HitBox*);
         bool stampaSfondo();
         void stampa(bool contr) override;

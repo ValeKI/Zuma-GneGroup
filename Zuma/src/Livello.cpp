@@ -3,11 +3,26 @@
 extern int wGlobal;
 extern int hGlobal;
 
-Livello::Livello(){}
+Livello::Livello():Schermata()
+{
+    caricaFont();
+}
 
 Livello::~Livello()
 {
+    al_destroy_font(font);
+}
 
+void Livello::caricaFont()
+{
+    font = al_load_font("../ttf/Lato-Black.ttf", 26*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
+}
+
+
+void Livello::stampaScrittaPunteggio(const int& p)
+{
+    string stampa = "Point: " + to_string(p+0) + " Pause: press p";
+    al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
 void Livello::livello_base()
@@ -19,23 +34,23 @@ void Livello::livello_base()
 
 
     bool redraw=0;
-    BUFFER b("../image/Sfondo.jpg");
-            
-    Mouse m;
+    b = new BUFFER("../image/Sfondo.jpg");
+
     Rana rana(512,384);
     
     event_queue.start(60);
     
-    
+
     int flushh=0,  sizeCoord=serpy->getSizeCoordinate();
     
     ALLEGRO_EVENT ev; 
     bool ESCIPLS=0;
             
-    b.stampaSfondo();
+    b->stampaSfondo();
     
     while(serpy->getPosizionePrimaPallina()<sizeCoord)
-    {            
+    {     
+        
         ev = event_queue.evento();
 
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
@@ -52,13 +67,15 @@ void Livello::livello_base()
         {  
             redraw=0;
                     
-            b.stampa(1);    
+            b->stampa(1);    
+            
+            stampaScrittaPunteggio(serpy->getPoint());
 
             rana.stampa(m.getX(), m.getY());  
             serpy->gestisciMovimento();
 
             gestoreSpari->collisioneSparo(*serpy);
-            gestoreSpari->nelloSchermo(b);
+            gestoreSpari->nelloSchermo(*b);
             
             gestoreSpari->stampa();       
             
@@ -87,7 +104,8 @@ void Livello::livello_base()
         if((flushh++)%400==0)
             event_queue.flusha();
     }
-    delete serpy;
-    delete gestoreSpari;
+    delete serpy; serpy = nullptr;
+    delete gestoreSpari; gestoreSpari = nullptr;
+    //delete b;
 
 }
