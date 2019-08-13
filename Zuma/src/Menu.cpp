@@ -162,7 +162,6 @@ bool Menu::collideText(const int& mx, const int& my, string& s, const int& px, c
     al_get_text_dimensions(font, s.c_str(), &tx, &ty, &tw, &th);
 
     tx = tx - tw/2;
-    ty = ty - th/2;
 
     tx+=px;
     ty+=py;
