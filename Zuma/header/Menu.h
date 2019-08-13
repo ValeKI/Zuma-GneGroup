@@ -19,8 +19,6 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
         Menu();
         ~Menu();
         int menu1();
-        void distruggiScritte();
-    
 };
 
 #endif

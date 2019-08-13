@@ -57,5 +57,5 @@ void GestoreSpari::nelloSchermo(BUFFER& b)
 GestoreSpari::~GestoreSpari()
 {
     for(int i=0; i<spari.size(); i++)
-        delete spari[i]; 
+        delete spari[i];  
 }

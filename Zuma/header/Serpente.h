@@ -12,9 +12,9 @@ class Serpente
         vector<Pallina*> coloreUguale;
         vector<Pallina*> palline;
         vector<pair<int, int>* > coordinate;
+        vector<pair<int, int>* > coppiaSpari;
         Pallina* finta;
         int distanzaPalline;
-        vector<pair<int, int>* > coppiaSpari;
         int point = 0;
     public:
         int getPoint() const;

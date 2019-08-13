@@ -10,7 +10,7 @@ Livello::Livello():Schermata()
 
 Livello::~Livello()
 {
-    al_destroy_font(font);
+    
 }
 
 void Livello::caricaFont()
@@ -30,7 +30,7 @@ void Livello::livello_base()
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(40,6);
+    serpy->generaPalline(40,2);
 
 
     bool redraw=0;
@@ -106,6 +106,7 @@ void Livello::livello_base()
     }
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
+    
     //delete b;
 
 }

@@ -1,5 +1,7 @@
 #include "../header/Serpente.h"
 
+int coloriPalline;
+vector<COLORE> tipi;
 
 int Serpente::getPoint() const
 {
@@ -75,6 +77,7 @@ void Serpente::generaPalline(int num, int tipi)
     caricaCoordinate();
     srand(time(0));
     int pos=0;
+    ::coloriPalline = tipi;
             
     for(int i=0; i<num; i++)
     {
@@ -126,17 +129,25 @@ void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
     
-    fixVelocita();
-    for(auto i:palline)
-    { 
-        i->Pallina::avanza();
-        p=i->getPosizione();
-        if(p>=0 && p<sizeCoord)
-        {               
-            i->Pallina::movimento(*coordinate[p]);
-            i->stampa(1);
+    ::tipi.clear();
+
+    if(!palline.empty())
+    {
+        fixVelocita();
+        for(auto i:palline)
+        { 
+            if(find(::tipi.begin(), ::tipi.end(), i->getColore()) == ::tipi.end())
+                ::tipi.push_back(i->getColore());
+            i->Pallina::avanza();
+            p=i->getPosizione();
+            if(p>=0 && p<sizeCoord)
+            {               
+                i->Pallina::movimento(*coordinate[p]);
+                i->stampa(1);
+            }
         }
-    }    
+    }
+    ::coloriPalline = tipi.size();    
 }
 
 Serpente::~Serpente()
@@ -151,6 +162,7 @@ Serpente::~Serpente()
         delete coppiaSpari[i];
 
     delete finta;
+
 }
 
 int Serpente::getSizeCoordinate()
@@ -191,100 +203,104 @@ bool Serpente::empty()
 
 bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
-
-    int indiceCS = cercaIndice(j, false);
-    
-    if (indiceCS==-2)
+    if(!palline.empty())
     {
-        for(int i=-1; i<int(palline.size()); i++)
-        {
-             if(i==-1 && collideInTesta(sparo)||
-            i!=-1 && palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
-            {                
-                sparo->setVelocita(0);
-                coppiaSpari.push_back(new pair<int, int> (i,j));
-                break;
-            }
-        }
-         
-    }
-    else 
-    {
- 
-
-        int primo = coppiaSpari[indiceCS]->first;
-        int secondo = coppiaSpari[indiceCS]->second;
-
-        if(primo != palline.size()-1 && primo!=-1)
-        {
-           
-
-            int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
-            int v =  Pallina::VELOCITA * 20;
+        int indiceCS = cercaIndice(j, false);
         
-
-            if ( (differenzaPosizioni + v ) > distanzaPalline*2)
-                v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
-            
-            if (differenzaPosizioni >= distanzaPalline*2)
+        if (indiceCS==-2)
+        {
+            for(int i=-1; i<int(palline.size()); i++)
             {
-                cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
+                if(i==-1 && collideInTesta(sparo)||
+                i!=-1 && palline[i]->getPosizione()>0 && palline[i]->collisione(sparo) )
+                {                
+                    sparo->setVelocita(0);
+                    coppiaSpari.push_back(new pair<int, int> (i,j));
+                    break;
+                }
+            }
+            
+        }
+        else 
+        {
+    
+
+            int primo = coppiaSpari[indiceCS]->first;
+            int secondo = coppiaSpari[indiceCS]->second;
+
+            if(primo != palline.size()-1 && primo!=-1)
+            {
+            
+
+                int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
+                int v =  Pallina::VELOCITA * 20;
+            
+
+                if ( (differenzaPosizioni + v ) > distanzaPalline*2)
+                    v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
+                
+                if (differenzaPosizioni >= distanzaPalline*2)
+                {
+                    cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
+                    
+                    delete coppiaSpari[indiceCS];
+                    coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
+                    
+                    sparo->setPosizione(palline[primo+1]->getPosizione()+distanzaPalline);
+                    sparo->setVelocita(Pallina::VELOCITA);
+
+                    palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
+
+                    scoppiaPalline(primo+1);
+                // point++;
+                    return true;
+                } 
+                else 
+                {
+                    cambiaDirVel(primo, AVANTI,v);
+                }
+
+            }
+            else if (primo == palline.size()-1) 
+            {
                 
                 delete coppiaSpari[indiceCS];
                 coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
                 
-                sparo->setPosizione(palline[primo+1]->getPosizione()+distanzaPalline);
+                sparo->setPosizione(palline[primo]->getPosizione()-distanzaPalline);
                 sparo->setVelocita(Pallina::VELOCITA);
 
-                palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
+                palline.push_back(dynamic_cast<Pallina*>(sparo));
 
-                scoppiaPalline(primo+1);
-               // point++;
+                scoppiaPalline(palline.size()-1);
                 return true;
-            } 
-            else 
-            {
-                cambiaDirVel(primo, AVANTI,v);
             }
+            else
+            {
+                delete coppiaSpari[indiceCS];
+                coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
+                
+                sparo->setPosizione(palline[0]->getPosizione()+distanzaPalline);
+                sparo->setVelocita(Pallina::VELOCITA);
 
-        }
-        else if (primo == palline.size()-1) 
-        {
+                palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
+                scoppiaPalline(0);
+            // point++;
+                return true;
+            }
             
-            delete coppiaSpari[indiceCS];
-            coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
             
-            sparo->setPosizione(palline[primo]->getPosizione()-distanzaPalline);
-            sparo->setVelocita(Pallina::VELOCITA);
-
-            palline.push_back(dynamic_cast<Pallina*>(sparo));
-
-            scoppiaPalline(palline.size()-1);
-            return true;
         }
-        else
-        {
-            delete coppiaSpari[indiceCS];
-            coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
-            
-            sparo->setPosizione(palline[0]->getPosizione()+distanzaPalline);
-            sparo->setVelocita(Pallina::VELOCITA);
-
-            palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
-            scoppiaPalline(0);
-           // point++;
-            return true;
-        }
-        
-        
     }
-
     return false;
 }
 
 int Serpente::getPosizionePrimaPallina()
 {
-    return palline[0]->getPosizione();
+    if(!palline.empty())
+        return palline[0]->getPosizione();
+    
+    return getSizeCoordinate()*5;
 }
 
 void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
@@ -331,7 +347,6 @@ void Serpente::scoppiaPalline(int p)
     }
 
     point += (fin-in);
-    cout << "point: " << point << endl;
 }
 
 void Serpente::stop()
@@ -365,6 +380,8 @@ void Serpente::gestisciMovimento()
                 {    
                     scoppiaPalline(i);
                     coloreUguale.erase(coloreUguale.begin()+j);
+                    if(palline.empty())
+                        return;
                 }
         }
     }

@@ -9,7 +9,7 @@ Menu::Menu():Schermata()
 
 Menu::~Menu()
 {
-    distruggiScritte();
+    
 }
 
 void Menu::caricaFont()
@@ -150,7 +150,6 @@ int Menu::menu1()
         }
     }
     event_queue.stop(); // si puo stoppare prima del gioco
-    distruggiScritte();
 
     return scelta;
 
@@ -165,19 +164,11 @@ bool Menu::collideText(const int& mx, const int& my, string& s, const int& px, c
 
     tx+=px;
     ty+=py;
-
-    cout << "Mouse " << mx << " " << my <<
-     "\nScritta: " << tx << "-" << ty << "-" << tw << "-" << th << endl;
-
+    
     return
     (
         (mx >= tx && mx <= tx + tw)
         &&
         (my >= ty && my <= ty + th)
     );
-}
-
-void Menu::distruggiScritte()
-{
-    
 }

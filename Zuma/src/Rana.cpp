@@ -1,11 +1,12 @@
 #include "../header/Rana.h"
 #include <unistd.h>
+#include <vector>
 
 //"../image/Rana.png"
 extern int wGlobal;
 extern int hGlobal;
-
-int coloriPalline = 6;
+extern int coloriPalline;
+extern vector<COLORE> tipi;
 
 Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
@@ -72,7 +73,9 @@ PallinaRana* Rana::getPallina()
         p = palline[1];
     
         palline[1] = palline[0];
-        palline[0] = new PallinaRana(COLORE(rand()%coloriPalline));
+        if(!tipi.empty())
+            palline[0] = new PallinaRana(tipi[rand()%tipi.size()]);
+        else palline[0] = new PallinaRana(GIALLO);
     }
     tempo++;
     return p;
