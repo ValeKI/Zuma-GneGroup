@@ -13,9 +13,7 @@ class SFONDO
 {
     public:
         SFONDO();
-
         ~SFONDO();
-
         ALLEGRO_DISPLAY* getDisplay();
 
     protected:

@@ -15,7 +15,34 @@ int hGlobal=768;
 
 void game()
 {
+     
+    SFONDO sfondo;
+    Menu* menu = new Menu();
+    Livello* liv = new Livello();
     
+    int numero = 0;
+    int modalita = 0;
+    
+    while(true)
+    {
+        if(modalita == 0)
+            modalita = menu->menu1();
+        else
+        {
+            /* 
+            livello = menu->sceltaLivello();
+            if(livello == 0)
+                break;
+            else
+                livello.nuovoLivello(modalita,numero);
+            */
+        }
+
+
+    }
+    
+    
+     
 }
 
 int main(int argc, char **argv)
@@ -35,16 +62,16 @@ int main(int argc, char **argv)
         return -1;
     }
 
-
     SFONDO sfondo;
 
     Menu mu;
 
-    mu.menu1();
+    mu.menuPricipale();
+    mu.menuLivelli();
 
     Livello m;
 
     m.livello_base(); 
-    
     return 0;
 }
+

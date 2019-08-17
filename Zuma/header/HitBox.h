@@ -5,11 +5,6 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
 
-/* 
-    !!!!!!!!!!!!
-        COSTRUTTORE VUOTO
- */
-
 using namespace std;
 
 extern int wGlobal;

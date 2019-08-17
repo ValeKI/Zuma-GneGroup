@@ -187,11 +187,14 @@ Serpente::Serpente()
 
 bool Serpente::collideInTesta(HitBox* obj)
 {
-    finta->setPosizione(palline.front()->getPosizione() + distanzaPalline/2);
-    if(finta->getPosizione()<coordinate.size())
-    {
-        finta->Pallina::movimento(*coordinate[finta->getPosizione()]);
-        return(finta->collisione(obj));
+    if(!palline.empty())
+    {    
+        finta->setPosizione(palline.front()->getPosizione() + distanzaPalline);
+        if(finta->getPosizione()<coordinate.size())
+        {
+            finta->Pallina::movimento(*coordinate[finta->getPosizione()]);
+            return(finta->collisione(obj));
+        }
     }
     return false;
 }

@@ -5,12 +5,16 @@ extern int hGlobal;
 
 Livello::Livello():Schermata()
 {
+    menu = nullptr;
+    b = nullptr;
+    font = nullptr;
     caricaFont();
 }
 
 Livello::~Livello()
 {
-    
+    if(menu!=nullptr)
+        delete menu; 
 }
 
 void Livello::caricaFont()
@@ -27,6 +31,7 @@ void Livello::stampaScrittaPunteggio(const int& p)
 
 void Livello::livello_base()
 {
+    event_queue.stop();
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
@@ -45,13 +50,16 @@ void Livello::livello_base()
     
     ALLEGRO_EVENT ev; 
     bool ESCIPLS=0;
+    bool pausa = 0;
             
     b->stampaSfondo();
-    
+    menu = new Menu();
+
     while(serpy->getPosizionePrimaPallina()<sizeCoord)
     {     
         
         ev = event_queue.evento();
+
 
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
@@ -60,7 +68,10 @@ void Livello::livello_base()
         }
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
-            gestoreSpari->inserisciSparo(rana.getPallina());
+            if(pausa)
+                pausa = 0;
+            else
+                gestoreSpari->inserisciSparo(rana.getPallina());
         }
 
         if(redraw && event_queue.empty())
@@ -89,6 +100,13 @@ void Livello::livello_base()
         {
             switch(ev.keyboard.keycode)
             {
+                case ALLEGRO_KEY_P:
+                    menu->menuPausa();
+                    pausa = 1;
+                break;
+                case ALLEGRO_KEY_SPACE:
+                    gestoreSpari->inserisciSparo(rana.getPallina());
+                break; 
                 case ALLEGRO_KEY_ESCAPE:
                     event_queue.stop();
                     exit(0);
@@ -104,9 +122,7 @@ void Livello::livello_base()
         if((flushh++)%400==0)
             event_queue.flusha();
     }
+
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
-    
-    //delete b;
-
 }

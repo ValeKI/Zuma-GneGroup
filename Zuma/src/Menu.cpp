@@ -9,7 +9,7 @@ Menu::Menu():Schermata()
 
 Menu::~Menu()
 {
-    
+
 }
 
 void Menu::caricaFont()
@@ -17,15 +17,34 @@ void Menu::caricaFont()
     font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
 }
 
-int Menu::menu1()
+int Menu::menuPausa()
 {
-    bool redraw=0;
+    scelte.push_back("Torna al gioco");
+    return menu1();
+}
+
+int Menu::menuPricipale()
+{
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
+    return menu1();
+}
+
+int Menu::menuLivelli()
+{
+    scelte.push_back("Livello 1");
+    scelte.push_back("Livello 2");
+    return menu1();
+}
+
+int Menu::menu1()
+{
+    bool redraw=0;
+    b = new BUFFER("../image/Sfondo.jpg");
+   
     scelte.push_back("Esci");
-    
-    b= new BUFFER("../image/Sfondo.jpg");
+    event_queue.stop();
     event_queue.start(10);
     int pos=0;
     // 1 classica    2 tempo    3 mosse
@@ -49,23 +68,22 @@ int Menu::menu1()
                     pos = 1;
                 else
                 {
-                    pos=(pos-1)%4;
-                    cout << "Pos: " << pos << endl;
+                    pos=(pos-1)%scelte.size();
             
                     if(pos == 0)
-                        pos = 4;
+                        pos = scelte.size();
                 }
             }
             else if (key[KEY_DOWN])
             {
-                pos=(pos+1)%4;
+                pos=(pos+1)%scelte.size();
 
                 if(pos == 0)
-                    pos = 4;
+                    pos = scelte.size();
             }
-            else if(key[KEY_SPACE] && pos!=0)
+            else if(key[KEY_SPACE] && pos>0)
             {
-                if(pos == 4)
+                if(pos == scelte.size())
                     exit(0);
                 scelta=pos;
                 break;
@@ -133,7 +151,7 @@ int Menu::menu1()
         }
         if(redraw && event_queue.empty())
         {
-            redraw=0;
+            redraw = 0;
             b->stampa(1);
 
             for(int i=0; i<scelte.size(); i++)
@@ -149,6 +167,11 @@ int Menu::menu1()
             al_clear_to_color(al_map_rgb(0,0,0));
         }
     }
+    scelte.clear();
+
+    for(int i=0; i<numKey; i++)
+        key[i]=0;
+
     event_queue.stop(); // si puo stoppare prima del gioco
 
     return scelta;

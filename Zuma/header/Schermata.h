@@ -16,10 +16,11 @@ class Schermata
     ALLEGRO_FONT* font;
     BUFFER* b = nullptr;
     Mouse m;
+    const int numKey = 6;
     bool key[6]= {false,false,false,false,false,false};
     
     public:
-    virtual void caricaFont() = 0;
+    virtual void caricaFont();
     Schermata();
     ~Schermata();
 };

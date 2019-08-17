@@ -14,10 +14,12 @@
 #include "GestoreSpari.h"
 #include "Serpente.h"
 #include "PallinaRana.h"
-#include "Schermata.h"
+#include "Menu.h"
+
 class Livello : public Schermata
 {
     private:
+        Menu* menu;
         Serpente* serpy;
         GestoreSpari* gestoreSpari;
         vector<PallinaRana*> spari;
