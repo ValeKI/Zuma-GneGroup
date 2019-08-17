@@ -30,7 +30,7 @@ void Livello::livello_base()
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(40,2);
+    serpy->generaPalline(40,6);
 
 
     bool redraw=0;

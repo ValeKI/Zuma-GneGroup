@@ -1,5 +1,5 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -lallegro_font -lallegro_ttf -o Zuma && ./Zuma
+    g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/ScrittaMenu.h"
@@ -12,6 +12,11 @@
 
 int wGlobal=1024;
 int hGlobal=768;
+
+void game()
+{
+    
+}
 
 int main(int argc, char **argv)
 {   

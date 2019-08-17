@@ -187,7 +187,7 @@ Serpente::Serpente()
 
 bool Serpente::collideInTesta(HitBox* obj)
 {
-    finta->setPosizione(palline.front()->getPosizione() + distanzaPalline);
+    finta->setPosizione(palline.front()->getPosizione() + distanzaPalline/2);
     if(finta->getPosizione()<coordinate.size())
     {
         finta->Pallina::movimento(*coordinate[finta->getPosizione()]);
