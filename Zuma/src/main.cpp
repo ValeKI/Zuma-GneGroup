@@ -2,8 +2,6 @@
     g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
-#include "../header/ScrittaMenu.h"
-#include "../header/Menu.h"
 #include "../header/Sfondo.h"
 #include "../header/Livello.h"
 #include <string>
@@ -15,30 +13,36 @@ int hGlobal=768;
 
 void game()
 {
-     
+    
     SFONDO sfondo;
     Menu* menu = new Menu();
     Livello* liv = new Livello();
     
     int numero = 0;
     int modalita = 0;
+    int sceltaLivello = 0;
     
     while(true)
     {
         if(modalita == 0)
-            modalita = menu->menu1();
+            modalita = menu->menuPricipale();
         else
         {
-            /* 
-            livello = menu->sceltaLivello();
-            if(livello == 0)
-                break;
+            numero = menu->menuLivelli();
+            if(numero == liv->NUM_LIVELLI)
+            {
+                modalita = 0;
+            }
             else
-                livello.nuovoLivello(modalita,numero);
-            */
+                sceltaLivello = liv->livello_base(modalita,numero);
+                //liv->nuovoLivello(modalita,numero);
         }
 
-
+        if(sceltaLivello == 2)
+        {
+            modalita = 0;
+            sceltaLivello = 0;
+        }
     }
     
     
@@ -61,17 +65,8 @@ int main(int argc, char **argv)
         cerr << "Failed to initialite image addon - 2 ";
         return -1;
     }
-
-    SFONDO sfondo;
-
-    Menu mu;
-
-    mu.menuPricipale();
-    mu.menuLivelli();
-
-    Livello m;
-
-    m.livello_base(); 
+    
+    game();
     return 0;
 }
 

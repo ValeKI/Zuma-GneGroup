@@ -32,11 +32,14 @@ void Serpente::fixVelocita()
 
 }
 
-void Serpente::caricaCoordinate()
+void Serpente::caricaCoordinate(const int& modalita, const int& numero)
 {
     ifstream in;
     string line;
-    in.open("../Percorso/Percorso_0.txt");
+
+    string percorso = "../Percorso/Percorso_"+ to_string(modalita) + "_" + to_string(numero) +".txt";
+
+    in.open(percorso.c_str());
     int i=0,n1,n2;
 
     ALLEGRO_DISPLAY* display=al_get_current_display();
@@ -72,9 +75,9 @@ void Serpente::caricaCoordinate()
     in.close();
 }
 
-void Serpente::generaPalline(int num, int tipi)
+void Serpente::generaPalline(const int& num, const int& tipi, const int& modalita, const int& numero)
 {
-    caricaCoordinate();
+    caricaCoordinate(modalita, numero);
     srand(time(0));
     int pos=0;
     ::coloriPalline = tipi;

@@ -25,8 +25,8 @@ class Serpente
         Serpente();
         bool collideInTesta(HitBox* pallina);
         int getPosizionePrimaPallina();
-        void caricaCoordinate();
-        void generaPalline(int num, int tipi);
+        void caricaCoordinate(const int& modalita, const int& numero);
+        void generaPalline(const int& num, const int& tipi, const int& modalita, const int& numero);
         void stampa();
         ~Serpente();
         int getSizeCoordinate();

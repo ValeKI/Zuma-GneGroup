@@ -23,19 +23,25 @@ void Livello::caricaFont()
 }
 
 
-void Livello::stampaScrittaPunteggio(const int& p)
+void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo)
 {
     string stampa = "Point: " + to_string(p+0) + " Pause: press p";
+
+    if(modalita == int(TEMPO))
+    {
+        stampa += " Tempo: " + to_string(int(tempo));
+    }
+
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
-void Livello::livello_base()
+int Livello::livello_base(const int& modalita, const int& numero)
 {
     event_queue.stop();
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
-    serpy->generaPalline(40,6);
+    serpy->generaPalline(40,6, modalita, numero);
 
 
     bool redraw=0;
@@ -46,17 +52,21 @@ void Livello::livello_base()
     event_queue.start(60);
     
 
-    int flushh=0,  sizeCoord=serpy->getSizeCoordinate();
+    int sizeCoord=serpy->getSizeCoordinate();
     
     ALLEGRO_EVENT ev; 
-    bool ESCIPLS=0;
     bool pausa = 0;
+    int sceltaMenu=0;
             
     b->stampaSfondo();
     menu = new Menu();
 
-    while(serpy->getPosizionePrimaPallina()<sizeCoord)
+    double start = al_get_time();
+    double end = start;
+
+    while(serpy->getPosizionePrimaPallina()<sizeCoord && sceltaMenu!=2)
     {     
+        cout << "Tempo: " << end-start << endl;
         
         ev = event_queue.evento();
 
@@ -80,7 +90,7 @@ void Livello::livello_base()
                     
             b->stampa(1);    
             
-            stampaScrittaPunteggio(serpy->getPoint());
+            stampaScrittaPunteggio(serpy->getPoint(), modalita, end-start);
 
             rana.stampa(m.getX(), m.getY());  
             serpy->gestisciMovimento();
@@ -101,7 +111,7 @@ void Livello::livello_base()
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_P:
-                    menu->menuPausa();
+                    sceltaMenu = menu->menuPausa();
                     pausa = 1;
                 break;
                 case ALLEGRO_KEY_SPACE:
@@ -118,11 +128,12 @@ void Livello::livello_base()
         {
             redraw=1;
         }
-                
-        if((flushh++)%400==0)
-            event_queue.flusha();
+        
+        end = al_get_time();
     }
 
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
+
+    return sceltaMenu;
 }

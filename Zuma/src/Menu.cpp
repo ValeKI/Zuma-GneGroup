@@ -20,7 +20,11 @@ void Menu::caricaFont()
 int Menu::menuPausa()
 {
     scelte.push_back("Torna al gioco");
-    return menu1();
+    scelte.push_back("Torna al menu");
+    
+    int r = menu1();
+    cout << "Menu Pausa\n" << r << endl;
+    return r;
 }
 
 int Menu::menuPricipale()
@@ -28,14 +32,21 @@ int Menu::menuPricipale()
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
-    return menu1();
+    
+    int r = menu1();
+    cout << "Menu Principale\n" << r << endl;
+    return r;
 }
 
 int Menu::menuLivelli()
 {
     scelte.push_back("Livello 1");
     scelte.push_back("Livello 2");
-    return menu1();
+    scelte.push_back("Torna Indietro");
+
+    int r = menu1();
+    cout << "Menu Livelli\n" << r << endl;
+    return r;
 }
 
 int Menu::menu1()
@@ -55,6 +66,7 @@ int Menu::menu1()
 
     while(scelta==-1)
     {
+        
         ALLEGRO_EVENT ev = event_queue.evento();
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
@@ -166,6 +178,7 @@ int Menu::menu1()
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));
         }
+
     }
     scelte.clear();
 
