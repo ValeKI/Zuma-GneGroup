@@ -3,7 +3,6 @@
 #include <vector>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include "ScrittaMenu.h"
 #include "Event_queue.h"
 #include "Buffer.h"
 #include "Schermata.h"

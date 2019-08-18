@@ -27,13 +27,11 @@ class Livello : public Schermata
         void caricaFont() override;
 
         void creaScrittaPunteggio();
-        void stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo);
+        void stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo, const int& numMosse);
         void generaPalline(int,int);
         void caricaCoordinate();
         int livello_base(const int& modalita=1, const int& numero=1);
-        int livelloClassica(const int& numero);
-        int livelloMosse(const int& numero);
-        int livelloTempo(const int& numero);
+        bool gameOver(const int& modalita=1, const double& tempo=0, const int& numMosse=0);
 };
 
 #endif

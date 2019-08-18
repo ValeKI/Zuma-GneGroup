@@ -1,5 +1,4 @@
 #include "../header/Menu.h"
-#include "../header/Mouse.h"
 #include <cmath>
 
 Menu::Menu():Schermata()
@@ -21,10 +20,7 @@ int Menu::menuPausa()
 {
     scelte.push_back("Torna al gioco");
     scelte.push_back("Torna al menu");
-    
-    int r = menu1();
-    cout << "Menu Pausa\n" << r << endl;
-    return r;
+    return menu1();
 }
 
 int Menu::menuPricipale()
@@ -32,10 +28,7 @@ int Menu::menuPricipale()
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
-    
-    int r = menu1();
-    cout << "Menu Principale\n" << r << endl;
-    return r;
+    return menu1();
 }
 
 int Menu::menuLivelli()
@@ -43,10 +36,7 @@ int Menu::menuLivelli()
     scelte.push_back("Livello 1");
     scelte.push_back("Livello 2");
     scelte.push_back("Torna Indietro");
-
-    int r = menu1();
-    cout << "Menu Livelli\n" << r << endl;
-    return r;
+    return menu1();
 }
 
 int Menu::menu1()

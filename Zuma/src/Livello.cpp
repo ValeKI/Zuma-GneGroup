@@ -23,13 +23,17 @@ void Livello::caricaFont()
 }
 
 
-void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo)
+void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo, const int& numMosse)
 {
-    string stampa = "Point: " + to_string(p+0) + " Pause: press p";
+    string stampa = "Point: " + to_string(p+0) + " Pause: press p ";
 
     if(modalita == int(TEMPO))
     {
-        stampa += " Tempo: " + to_string(int(tempo));
+        stampa += "Tempo: " + to_string(int(tempo))+ "sec su 60sec";
+    }
+    else if(modalita == int(MOSSE))
+    {
+        stampa += "Mosse: " + to_string(numMosse) + " su 50";
     }
 
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
@@ -37,6 +41,8 @@ void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const do
 
 int Livello::livello_base(const int& modalita, const int& numero)
 {
+    int numMosse = 0;
+
     event_queue.stop();
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
@@ -45,12 +51,11 @@ int Livello::livello_base(const int& modalita, const int& numero)
 
 
     bool redraw=0;
-    b = new BUFFER("../image/Sfondo.jpg");
+    b = new BUFFER("../image/Livello_" + to_string(modalita) + "_" + to_string(numero) +".jpg");
 
     Rana rana(512,384);
     
     event_queue.start(60);
-    
 
     int sizeCoord=serpy->getSizeCoordinate();
     
@@ -64,12 +69,9 @@ int Livello::livello_base(const int& modalita, const int& numero)
     double start = al_get_time();
     double end = start;
 
-    while(serpy->getPosizionePrimaPallina()<sizeCoord && sceltaMenu!=2)
+    while(gameOver(modalita,end-start,numMosse) && !serpy->empty() && serpy->getPosizionePrimaPallina()<sizeCoord && sceltaMenu!=2)
     {     
-        cout << "Tempo: " << end-start << endl;
-        
         ev = event_queue.evento();
-
 
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
@@ -81,7 +83,10 @@ int Livello::livello_base(const int& modalita, const int& numero)
             if(pausa)
                 pausa = 0;
             else
+            {
+                numMosse++;
                 gestoreSpari->inserisciSparo(rana.getPallina());
+            }
         }
 
         if(redraw && event_queue.empty())
@@ -90,7 +95,7 @@ int Livello::livello_base(const int& modalita, const int& numero)
                     
             b->stampa(1);    
             
-            stampaScrittaPunteggio(serpy->getPoint(), modalita, end-start);
+            stampaScrittaPunteggio(serpy->getPoint(), modalita, end-start, numMosse);
 
             rana.stampa(m.getX(), m.getY());  
             serpy->gestisciMovimento();
@@ -115,7 +120,13 @@ int Livello::livello_base(const int& modalita, const int& numero)
                     pausa = 1;
                 break;
                 case ALLEGRO_KEY_SPACE:
-                    gestoreSpari->inserisciSparo(rana.getPallina());
+                    if(pausa)
+                        pausa = 0;
+                    else
+                    {
+                        numMosse++;
+                        gestoreSpari->inserisciSparo(rana.getPallina());
+                    }
                 break; 
                 case ALLEGRO_KEY_ESCAPE:
                     event_queue.stop();
@@ -132,8 +143,38 @@ int Livello::livello_base(const int& modalita, const int& numero)
         end = al_get_time();
     }
 
+    if(sceltaMenu!=2)
+    {
+        if(serpy->empty())
+            cout << "Hai vinto!\n";
+        else
+        {
+            cout << "Hai perso!\n";
+        }
+        
+    }
+    event_queue.flusha();
+
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
 
-    return sceltaMenu;
+    return 2;
+}
+
+bool Livello::gameOver(const int& modalita, const double& tempo, const int& numMosse)
+{
+    switch (MODALITA(modalita))
+    {
+    case TEMPO:
+        return (int(tempo)<=60);
+        break;
+
+    case MOSSE:
+        return numMosse<=50;
+    
+    default:
+        break;
+    }
+
+    return true;
 }
