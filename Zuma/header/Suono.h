@@ -1,12 +1,12 @@
-#ifndef SOUND_H
-#define SOUND_H
+#ifndef SUONO_H
+#define SUONO_H
 
 #include <iostream>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 using namespace std;
 
-class Sound
+class Suono
 {
     private:
         ALLEGRO_SAMPLE *click;
@@ -28,13 +28,13 @@ class Sound
         ALLEGRO_SAMPLE *coin;
         ALLEGRO_SAMPLE *time;
 
-        bool startL1;
-        bool startL2;
-        bool isMenu;
+        bool startL1 = false;
+        bool startL2 = false;
+        bool isMenu = true;
 
     public:
-        Sound();
-        ~Sound();
+        Suono();
+        ~Suono();
         bool playClick();
         bool playInvio();
         bool playExit();
@@ -46,15 +46,15 @@ class Sound
         bool playCoin();
         bool playTime();
 
-        bool stopClick();
-        bool stopInvio();
-        bool stopExit();
-        bool stopMenu();
-        bool stopLevel1();
-        bool stopLevel2();
-        bool stopGameOver();
-        bool stopWin();
-        bool stopCoin();
-        bool stopTime();
+        //void stopClick();
+        //void stopInvio();
+        //void stopExit();
+        void stopMenu();
+        void stopLevel1();
+        void stopLevel2();
+        //void stopGameOver();
+        void stopWin();
+        //void stopCoin();
+        void stopTime();
 };
 #endif
