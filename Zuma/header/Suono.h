@@ -4,6 +4,7 @@
 #include <iostream>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+
 using namespace std;
 
 class Suono
@@ -12,6 +13,7 @@ class Suono
         ALLEGRO_SAMPLE *click;
         ALLEGRO_SAMPLE *invio;
         ALLEGRO_SAMPLE *exit;
+        ALLEGRO_SAMPLE *pause;
 
         ALLEGRO_SAMPLE *menuSound;
         ALLEGRO_SAMPLE_ID IDMenuSound;
@@ -28,6 +30,7 @@ class Suono
         ALLEGRO_SAMPLE *coin;
         ALLEGRO_SAMPLE *time;
 
+    protected:
         bool startL1 = false;
         bool startL2 = false;
         bool isMenu = true;
@@ -38,6 +41,7 @@ class Suono
         bool playClick();
         bool playInvio();
         bool playExit();
+        bool playPause();
         bool playMenu();
         bool playLevel1();
         bool playLevel2();

@@ -1,9 +1,10 @@
 /*
-    g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o Zuma && ./Zuma
+    g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -o Zuma && ./Zuma
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/Sfondo.h"
 #include "../header/Livello.h"
+#include "../header/Suono.h"
 #include <string>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro5.h>
@@ -17,15 +18,20 @@ void game()
     SFONDO sfondo;
     Menu* menu = new Menu();
     Livello* liv = new Livello();
-    
+    Suono *music = new Suono();
     int numero = 0;
     int modalita = 0;
     int sceltaLivello = 0;
+
+    music->playMenu();
     
     while(true)
     {
         if(modalita == 0)
+        {
+           
             modalita = menu->menuPricipale();
+        }
         else
         {
             numero = menu->menuLivelli();
@@ -65,7 +71,20 @@ int main(int argc, char **argv)
         cerr << "Failed to initialite image addon - 2 ";
         return -1;
     }
-    
+    if(!al_install_audio()){
+      fprintf(stderr, "failed to initialize audio!\n");
+      return -1;
+   }
+
+   if(!al_init_acodec_addon()){
+      fprintf(stderr, "failed to initialize audio codecs!\n");
+      return -1;
+   }
+	
+   if (!al_reserve_samples(1)){
+      fprintf(stderr, "failed to reserve samples!\n");
+      return -1;
+   }
     game();
     return 0;
 }
