@@ -22,13 +22,9 @@ void game()
     int numero = 0;
     int modalita = 0;
     int sceltaLivello = 0;
-    //music->playMenu();
-    /*if (!music)
-    {
-      printf( "Audio clip MENÙ not loaded!\n" );  
-      return ;
-    }
-    else printf( " music installed! \n");*/
+    music->playMenu();
+    
+    
    
     while(true)
     {

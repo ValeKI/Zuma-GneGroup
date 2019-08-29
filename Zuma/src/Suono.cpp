@@ -10,11 +10,11 @@ Suono::Suono()
     this->win = al_load_sample("../Sounds/win.wav");
     this->coin = al_load_sample("../Sounds/coin.wav");
     this->time = al_load_sample("../Sounds/time.wav");
-    this->menuSound = al_load_sample("../Sounds/menu.ogg");
-    this->level1Sound = al_load_sample("../Sounds/livello1.mp3");
-    this->level2Sound = al_load_sample("../Sounds/livello2.mp3");
-     
-     if (!click || !invio|| !exit|| !pause|| !gameover|| !win|| !coin|| !time )
+    this->menuSound = al_load_sample("../Sounds/soul.wav");
+   // this->level1Sound = al_load_sample("../Sounds/livello1.mp3");
+   // this->level2Sound = al_load_sample("../Sounds/livello2.mp3");
+
+     if ( !invio ||!click  || !exit || !pause || !gameover || !win || !coin || !time || !menuSound )
      {
       printf( "Audio clip sample not loaded!\n" ); 
      }
@@ -22,6 +22,8 @@ Suono::Suono()
 
 Suono::~Suono()
 {
+    al_reserve_samples(11);
+
     al_destroy_sample(click);
     al_destroy_sample(invio);
     al_destroy_sample(exit);
@@ -57,12 +59,12 @@ bool Suono::playExit()
 
 bool Suono::playPause()
 {
-    al_play_sample(pause, 1, 0, 1, _ALLEGRO_PLAYMODE_STREAM_ONCE,0);
+    al_play_sample(pause, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE,0);
 }
 bool Suono::playMenu()
 {
     if(isMenu)
-    al_play_sample(menuSound, 1,0,1, _ALLEGRO_PLAYMODE_STREAM_ONCE, &IDMenuSound);
+    al_play_sample(menuSound, 1.0,0.0,1.0, ALLEGRO_PLAYMODE_LOOP, &IDMenuSound);
     startL1 = false;
     startL2 = false;
 }
@@ -71,7 +73,7 @@ bool Suono::playMenu()
 bool Suono::playLevel1()
 {
     if(startL1)
-    al_play_sample(level1Sound, 1,0,1, _ALLEGRO_PLAYMODE_STREAM_ONCE, &IDLevel1Sound);
+    al_play_sample(level1Sound, 1,0,1, ALLEGRO_PLAYMODE_ONCE, &IDLevel1Sound);
    isMenu = false;
     startL2 = false;
 
@@ -79,7 +81,7 @@ bool Suono::playLevel1()
 bool Suono::playLevel2()
 {
     if(startL2)
-    al_play_sample(level2Sound, 1,0,1, _ALLEGRO_PLAYMODE_STREAM_ONCE, &IDLevel2Sound);
+    al_play_sample(level2Sound, 1,0,1, ALLEGRO_PLAYMODE_ONCE, &IDLevel2Sound);
    isMenu = false;
     startL1 = false;
 
