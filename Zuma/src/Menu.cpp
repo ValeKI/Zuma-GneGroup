@@ -60,7 +60,7 @@ int Menu::menu1()
         ALLEGRO_EVENT ev = event_queue.evento();
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
-            key[KEY_SPACE]=1;
+            key[KEY_SPACE]=1; 
         }
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
@@ -88,6 +88,7 @@ int Menu::menu1()
                 if(pos == scelte.size())
                     exit(0);
                 scelta=pos;
+                 
                 break;
             }
 
@@ -100,19 +101,19 @@ int Menu::menu1()
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_UP:
-                    key[KEY_UP]=1;
+                  {  key[KEY_UP]=1;}
                 break;
 
                 case ALLEGRO_KEY_DOWN:
-                    key[KEY_DOWN]=1;
+                 {   key[KEY_DOWN]=1; }
                 break;
 
                 case ALLEGRO_KEY_SPACE:
-                    key[KEY_SPACE]=1;
+                 {  key[KEY_SPACE]=1; }
                 break;
 
                 case ALLEGRO_KEY_ENTER:
-                    key[KEY_SPACE]=1;
+                 {   key[KEY_SPACE]=1; }
                 break;
             }
 
@@ -168,7 +169,7 @@ int Menu::menu1()
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));
         }
-
+       
     }
     scelte.clear();
 

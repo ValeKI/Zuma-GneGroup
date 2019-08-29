@@ -10,7 +10,7 @@ Suono::Suono()
     this->win = al_load_sample("../Sounds/win.wav");
     this->coin = al_load_sample("../Sounds/coin.wav");
     this->time = al_load_sample("../Sounds/time.wav");
-    this->menuSound = al_load_sample("../Sounds/menu.mp3");
+    this->menuSound = al_load_sample("../Sounds/menu.ogg");
     this->level1Sound = al_load_sample("../Sounds/livello1.mp3");
     this->level2Sound = al_load_sample("../Sounds/livello2.mp3");
      

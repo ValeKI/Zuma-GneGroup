@@ -10,6 +10,7 @@
 #include "Rana.h"
 #include "GestoreSpari.h"
 #include "Menu.h"
+#include "Suono.h"
 
 enum MODALITA{CLASSICA=1, MOSSE=2, TEMPO=3};
 

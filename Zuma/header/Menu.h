@@ -6,6 +6,7 @@
 #include "Event_queue.h"
 #include "Buffer.h"
 #include "Schermata.h"
+#include "Suono.h"
 
 
 class Menu : public Schermata // pero' devi leggerlo in inglese
