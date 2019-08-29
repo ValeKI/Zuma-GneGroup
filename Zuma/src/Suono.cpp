@@ -10,11 +10,11 @@ Suono::Suono()
     this->win = al_load_sample("../Sounds/win.wav");
     this->coin = al_load_sample("../Sounds/coin.wav");
     this->time = al_load_sample("../Sounds/time.wav");
-    this->menuSound = al_load_sample("../Sounds/soul.wav");
-   // this->level1Sound = al_load_sample("../Sounds/livello1.mp3");
-   // this->level2Sound = al_load_sample("../Sounds/livello2.mp3");
+    this->menuSound = al_load_sample("../Sounds/menu.wav");
+    this->level1Sound = al_load_sample("../Sounds/level1.wav");
+    this->level2Sound = al_load_sample("../Sounds/level2.wav");
 
-     if ( !invio ||!click  || !exit || !pause || !gameover || !win || !coin || !time || !menuSound )
+     if ( !invio ||!click  || !exit || !pause || !gameover || !win || !coin || !time || !menuSound || !level1Sound || !level2Sound)
      {
       printf( "Audio clip sample not loaded!\n" ); 
      }
@@ -74,7 +74,7 @@ bool Suono::playLevel1()
 {
     if(startL1)
     al_play_sample(level1Sound, 1,0,1, ALLEGRO_PLAYMODE_ONCE, &IDLevel1Sound);
-   isMenu = false;
+    isMenu = false;
     startL2 = false;
 
 }

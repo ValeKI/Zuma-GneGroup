@@ -24,8 +24,6 @@ void game()
     int sceltaLivello = 0;
     music->playMenu();
     
-    
-   
     while(true)
     {
         if(modalita == 0)
