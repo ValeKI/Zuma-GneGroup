@@ -26,25 +26,32 @@ void game()
     
     while(true)
     {
+       
         if(modalita == 0)
         {
-           
-            modalita = menu->menuPricipale();
+            music->playInvio();
+            modalita = menu->menuPricipale(music);
         }   
         else
         {
-            numero = menu->menuLivelli();
+             music->playInvio();
+           
+            numero = menu->menuLivelli( music );
             if(numero == liv->NUM_LIVELLI)
-            {
+            { music->playInvio();
                 modalita = 0;
             }
             else
-                sceltaLivello = liv->livello_base(modalita,numero);
+             { 
+                  music->playInvio();
+                   sceltaLivello = liv->livello_base(modalita,numero, music);
                 //liv->nuovoLivello(modalita,numero);
+             }
         }
 
         if(sceltaLivello == 2)
         {
+            music->playInvio();
             modalita = 0;
             sceltaLivello = 0;
         }
@@ -73,17 +80,17 @@ int main(int argc, char **argv)
         return -1;
     }
     if(!al_install_audio()){
-      fprintf(stderr, "failed to initialize audio!\n");
+      cerr << "failed to initialize audio!\n";
       return -1;
    }
 
    if(!al_init_acodec_addon()){
-      fprintf(stderr, "failed to initialize audio codecs!\n");
+      cerr << "failed to initialize audio codecs!\n";
       return -1;
    }
 	
    if (!al_reserve_samples(1)){
-      fprintf(stderr, "failed to reserve samples!\n");
+      cerr << "failed to reserve samples!\n";
       return -1;
    }
     game();

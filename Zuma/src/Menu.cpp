@@ -16,30 +16,32 @@ void Menu::caricaFont()
     font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
 }
 
-int Menu::menuPausa()
+int Menu::menuPausa(Suono* music )
 {
+    music->playPause();
+
     scelte.push_back("Torna al gioco");
     scelte.push_back("Torna al menu");
-    return menu1();
+    return menu1(music );
 }
 
-int Menu::menuPricipale()
+int Menu::menuPricipale(Suono* music )
 {
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
-    return menu1();
+    return menu1(music );
 }
 
-int Menu::menuLivelli()
+int Menu::menuLivelli(Suono* music )
 {
     scelte.push_back("Livello 1");
     scelte.push_back("Livello 2");
     scelte.push_back("Torna Indietro");
-    return menu1();
+    return menu1(music );
 }
 
-int Menu::menu1()
+int Menu::menu1(Suono* music)
 {
     bool redraw=0;
     b = new BUFFER("../image/Sfondo.jpg");
@@ -54,16 +56,18 @@ int Menu::menu1()
 
     int scelta=-1;
 
+    
     while(scelta==-1)
     {
-        
+       
         ALLEGRO_EVENT ev = event_queue.evento();
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
-            key[KEY_SPACE]=1; 
+            key[KEY_SPACE]=1;  
         }
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
+            // music->playClick();
             if(key[KEY_UP])
             {
                 if(pos == 0)
@@ -75,20 +79,22 @@ int Menu::menu1()
                     if(pos == 0)
                         pos = scelte.size();
                 }
+               
             }
             else if (key[KEY_DOWN])
-            {
+            {music->playClick();
                 pos=(pos+1)%scelte.size();
 
                 if(pos == 0)
                     pos = scelte.size();
+                    
             }
             else if(key[KEY_SPACE] && pos>0)
-            {
+            { music->playInvio();
                 if(pos == scelte.size())
                     exit(0);
                 scelta=pos;
-                 
+             
                 break;
             }
 
@@ -97,9 +103,9 @@ int Menu::menu1()
             event_queue.flusha();
         }
         if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
+        {music->playClick();
             switch(ev.keyboard.keycode)
-            {
+            { 
                 case ALLEGRO_KEY_UP:
                   {  key[KEY_UP]=1;}
                 break;
@@ -116,10 +122,10 @@ int Menu::menu1()
                  {   key[KEY_SPACE]=1; }
                 break;
             }
-
+           
         }
         if (ev.type == ALLEGRO_EVENT_KEY_UP)
-        {
+        {music->playClick();
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_ESCAPE:
@@ -135,21 +141,24 @@ int Menu::menu1()
                 break;
 
                 case ALLEGRO_KEY_SPACE:
-                    key[KEY_SPACE]=false;
+                  key[KEY_SPACE]=false;
                 break;
 
                 case ALLEGRO_KEY_START:
                     key[KEY_SPACE]=false;
                 break;
             }
+            
         }
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
+            music->playClick();
             for(int i=0; i<scelte.size(); i++)
             {
                 if(collideText(ev.mouse.x, ev.mouse.y, scelte[i], b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768.) )
-                    pos = i+1;
+                 {   pos = i+1;}
             }
+          
             // collide con mouse
         }
         if(redraw && event_queue.empty())

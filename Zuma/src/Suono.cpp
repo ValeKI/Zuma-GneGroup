@@ -73,7 +73,7 @@ bool Suono::playMenu()
 bool Suono::playLevel1()
 {
     if(startL1)
-    al_play_sample(level1Sound, 1,0,1, ALLEGRO_PLAYMODE_ONCE, &IDLevel1Sound);
+    al_play_sample(level1Sound, 1,0,1, ALLEGRO_PLAYMODE_LOOP, &IDLevel1Sound);
     isMenu = false;
     startL2 = false;
 
@@ -81,7 +81,7 @@ bool Suono::playLevel1()
 bool Suono::playLevel2()
 {
     if(startL2)
-    al_play_sample(level2Sound, 1,0,1, ALLEGRO_PLAYMODE_ONCE, &IDLevel2Sound);
+    al_play_sample(level2Sound, 1,0,1, ALLEGRO_PLAYMODE_LOOP, &IDLevel2Sound);
    isMenu = false;
     startL1 = false;
 

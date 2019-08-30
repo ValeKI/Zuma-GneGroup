@@ -39,9 +39,12 @@ void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const do
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
-int Livello::livello_base(const int& modalita, const int& numero)
+int Livello::livello_base(const int& modalita, const int& numero, Suono* music )
 {
+    music->stopMenu();
+    music->playLevel1();
     int numMosse = 0;
+
 
     event_queue.stop();
     serpy = new Serpente();
@@ -116,7 +119,7 @@ int Livello::livello_base(const int& modalita, const int& numero)
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_P:
-                    sceltaMenu = menu->menuPausa();
+                    sceltaMenu = menu->menuPausa(music);
                     pausa = 1;
                 break;
                 case ALLEGRO_KEY_SPACE:
@@ -145,16 +148,25 @@ int Livello::livello_base(const int& modalita, const int& numero)
 
     if(sceltaMenu!=2)
     {
+        music->stopLevel1();
         if(serpy->empty())
+        {
+            music->playWin();
             cout << "Hai vinto!\n";
+        }
+            
         else
         {
+            music->playGameOver();
             cout << "Hai perso!\n";
         }
         
     }
+    music->playMenu();
     event_queue.flusha();
-
+    
+     
+   
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
 
