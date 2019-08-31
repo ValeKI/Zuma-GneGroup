@@ -16,12 +16,12 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
     public:
         void caricaFont() override;
         int menuPausa(Suono*);
-        int menuPricipale(Suono*);
-        int menuLivelli(Suono*);
+        int menuPricipale(Suono* );
+        int menuLivelli();
         bool collideText(const int& mx, const int& my, string& s, const int& px, const int& py);
         Menu();
         ~Menu();
-        int menu1(Suono* misic );
+        int menu1( );
 };
 
 #endif

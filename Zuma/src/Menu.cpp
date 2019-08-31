@@ -18,31 +18,36 @@ void Menu::caricaFont()
 
 int Menu::menuPausa(Suono* music )
 {
+    music->stopLevel1();
     music->playPause();
-
+    al_rest(0.5);
+    music->playMenu();
     scelte.push_back("Torna al gioco");
     scelte.push_back("Torna al menu");
-    return menu1(music );
+    return menu1();
 }
 
-int Menu::menuPricipale(Suono* music )
+int Menu::menuPricipale( Suono* music)
 {
+    al_rest(0.5);
+    music->playMenu();
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
-    return menu1(music );
+    return menu1();
 }
 
-int Menu::menuLivelli(Suono* music )
+int Menu::menuLivelli()
 {
     scelte.push_back("Livello 1");
     scelte.push_back("Livello 2");
     scelte.push_back("Torna Indietro");
-    return menu1(music );
+    return menu1( );
 }
 
-int Menu::menu1(Suono* music)
+int Menu::menu1()
 {
+    
     bool redraw=0;
     b = new BUFFER("../image/Sfondo.jpg");
    
@@ -67,7 +72,6 @@ int Menu::menu1(Suono* music)
         }
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
-            // music->playClick();
             if(key[KEY_UP])
             {
                 if(pos == 0)
@@ -82,7 +86,8 @@ int Menu::menu1(Suono* music)
                
             }
             else if (key[KEY_DOWN])
-            {music->playClick();
+            {
+               
                 pos=(pos+1)%scelte.size();
 
                 if(pos == 0)
@@ -90,7 +95,8 @@ int Menu::menu1(Suono* music)
                     
             }
             else if(key[KEY_SPACE] && pos>0)
-            { music->playInvio();
+            { 
+                
                 if(pos == scelte.size())
                     exit(0);
                 scelta=pos;
@@ -103,7 +109,8 @@ int Menu::menu1(Suono* music)
             event_queue.flusha();
         }
         if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {music->playClick();
+        {
+            
             switch(ev.keyboard.keycode)
             { 
                 case ALLEGRO_KEY_UP:
@@ -125,7 +132,8 @@ int Menu::menu1(Suono* music)
            
         }
         if (ev.type == ALLEGRO_EVENT_KEY_UP)
-        {music->playClick();
+        {
+            
             switch(ev.keyboard.keycode)
             {
                 case ALLEGRO_KEY_ESCAPE:
@@ -152,7 +160,7 @@ int Menu::menu1(Suono* music)
         }
         if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
-            music->playClick();
+           
             for(int i=0; i<scelte.size(); i++)
             {
                 if(collideText(ev.mouse.x, ev.mouse.y, scelte[i], b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768.) )

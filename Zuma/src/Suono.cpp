@@ -2,8 +2,7 @@
 
 Suono::Suono()
 {
-    this->click = al_load_sample("../Sounds/click.wav");
-    this->invio = al_load_sample("../Sounds/invio.wav");
+    
     this->exit = al_load_sample("../Sounds/exit.wav");
     this->pause = al_load_sample("../Sounds/pause.wav");
     this->gameover = al_load_sample("../Sounds/gameover.wav");
@@ -12,9 +11,8 @@ Suono::Suono()
     this->time = al_load_sample("../Sounds/time.wav");
     this->menuSound = al_load_sample("../Sounds/menu.wav");
     this->level1Sound = al_load_sample("../Sounds/level1.wav");
-    this->level2Sound = al_load_sample("../Sounds/level2.wav");
 
-     if ( !invio ||!click  || !exit || !pause || !gameover || !win || !coin || !time || !menuSound || !level1Sound || !level2Sound)
+     if ( !exit || !pause || !gameover || !win || !coin || !time || !menuSound || !level1Sound)
      {
       printf( "Audio clip sample not loaded!\n" ); 
      }
@@ -24,13 +22,10 @@ Suono::~Suono()
 {
     al_reserve_samples(11);
 
-    al_destroy_sample(click);
-    al_destroy_sample(invio);
     al_destroy_sample(exit);
     al_destroy_sample(pause);
     al_destroy_sample(menuSound);
     al_destroy_sample(level1Sound);
-    al_destroy_sample(level2Sound);
     al_destroy_sample(gameover);
     al_destroy_sample(win);
     al_destroy_sample(coin);
@@ -39,81 +34,59 @@ Suono::~Suono()
 }
 
 
-bool Suono::playClick()
-{
-    al_play_sample(click, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
-}
-
-
-bool Suono::playInvio()
-{
-    al_play_sample(invio, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
-}
 
 
 bool Suono::playExit()
 {
-    al_play_sample(exit, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
+    al_play_sample(exit, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,0);
 }
 
 
 bool Suono::playPause()
 {
-    al_play_sample(pause, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE,0);
+    al_play_sample(pause, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,0);
 }
 bool Suono::playMenu()
 {
-    if(isMenu)
-    al_play_sample(menuSound, 1.0,0.0,1.0, ALLEGRO_PLAYMODE_LOOP, &IDMenuSound);
-    startL1 = false;
-    startL2 = false;
+    if(!isMenu)
+    al_play_sample(this->menuSound, 0.3,0.0,1.0, ALLEGRO_PLAYMODE_LOOP, &IDMenuSound);
+    isMenu = true;
 }
 
 
 bool Suono::playLevel1()
 {
     if(startL1)
-    al_play_sample(level1Sound, 1,0,1, ALLEGRO_PLAYMODE_LOOP, &IDLevel1Sound);
-    isMenu = false;
-    startL2 = false;
-
-}
-bool Suono::playLevel2()
-{
-    if(startL2)
-    al_play_sample(level2Sound, 1,0,1, ALLEGRO_PLAYMODE_LOOP, &IDLevel2Sound);
-   isMenu = false;
+    al_play_sample(this->level1Sound, 0.3,0.0,1.0, ALLEGRO_PLAYMODE_LOOP, &IDLevel1Sound);
     startL1 = false;
 
 }
 
 bool Suono::playGameOver()
 {
-    al_play_sample(gameover, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
+    al_play_sample(this->gameover, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,0);
 }
 
 
 bool Suono::playWin()
 {
-    al_play_sample(win, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
+    al_play_sample(this->win, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,0);
 }
 
 
 bool Suono::playCoin()
 {
-    al_play_sample(coin, 1, 0,1,ALLEGRO_PLAYMODE_ONCE,0);
+    al_play_sample(this->coin, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,0);
 }
 
 
 bool Suono::playTime()
 {
-    al_play_sample(time, 1, 0,1,ALLEGRO_PLAYMODE_LOOP,0);
+    al_play_sample(this->time, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,0);
 }
 
 
-//void Suono::stopClick(){}
-//void Suono::stopInvio(){}
-//void Suono::stopExit(){}
+
 
 
 void Suono::stopMenu()
@@ -121,27 +94,19 @@ void Suono::stopMenu()
     if(isMenu)
     al_stop_sample(&IDMenuSound);
     isMenu = false;
-    startL1 = true;
-    startL2 = true;
+    
+   
 }
 
 
 void Suono::stopLevel1()
 {
-    if(startL1)
+    if(!startL1)
     al_stop_sample(&IDLevel1Sound);
-    startL1 = false;
-    isMenu = true;
+    startL1 = true;
+   
 }
 
-
-void Suono::stopLevel2()
-{
-    if(startL2)
-    al_stop_sample(&IDLevel2Sound);
-    startL2= false;
-     isMenu = true;
-}
 
 
 //void stopGameOver(){}
@@ -149,7 +114,7 @@ void Suono::stopLevel2()
 
 void Suono::stopWin()
 {
-    al_rest(05.0);
+    al_rest(3.0);
 }
 
 

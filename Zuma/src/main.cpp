@@ -29,29 +29,29 @@ void game()
        
         if(modalita == 0)
         {
-            music->playInvio();
+           
             modalita = menu->menuPricipale(music);
         }   
         else
         {
-             music->playInvio();
+             
            
-            numero = menu->menuLivelli( music );
+            numero = menu->menuLivelli( );
             if(numero == liv->NUM_LIVELLI)
-            { music->playInvio();
+            { 
                 modalita = 0;
             }
             else
              { 
-                  music->playInvio();
-                   sceltaLivello = liv->livello_base(modalita,numero, music);
+                 
+                   sceltaLivello = liv->livello_base( music,modalita,numero);
                 //liv->nuovoLivello(modalita,numero);
              }
         }
 
         if(sceltaLivello == 2)
         {
-            music->playInvio();
+            
             modalita = 0;
             sceltaLivello = 0;
         }

@@ -39,7 +39,7 @@ void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const do
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
-int Livello::livello_base(const int& modalita, const int& numero, Suono* music )
+int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numero)
 {
     music->stopMenu();
     music->playLevel1();

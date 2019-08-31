@@ -10,20 +10,14 @@ using namespace std;
 class Suono
 {
     private:
-        ALLEGRO_SAMPLE *click;
-        ALLEGRO_SAMPLE *invio;
         ALLEGRO_SAMPLE *exit;
         ALLEGRO_SAMPLE *pause;
 
         ALLEGRO_SAMPLE *menuSound;
         ALLEGRO_SAMPLE_ID IDMenuSound;
 
-    
         ALLEGRO_SAMPLE *level1Sound;
         ALLEGRO_SAMPLE_ID IDLevel1Sound;
-
-        ALLEGRO_SAMPLE *level2Sound;
-        ALLEGRO_SAMPLE_ID IDLevel2Sound;
 
         ALLEGRO_SAMPLE *gameover;
         ALLEGRO_SAMPLE *win;
@@ -31,34 +25,26 @@ class Suono
         ALLEGRO_SAMPLE *time;
 
     protected:
-        bool startL1 = false;
-        bool startL2 = false;
-        bool isMenu = true;
+        bool startL1 = true;
+        bool isMenu = false;
 
     public:
         Suono();
         ~Suono();
-        bool playClick();
-        bool playInvio();
         bool playExit();
         bool playPause();
+
         bool playMenu();
         bool playLevel1();
-        bool playLevel2();
+
         bool playGameOver();
         bool playWin();
         bool playCoin();
         bool playTime();
-
-        //void stopClick();
-        //void stopInvio();
-        //void stopExit();
+        
         void stopMenu();
         void stopLevel1();
-        void stopLevel2();
-        //void stopGameOver();
         void stopWin();
-        //void stopCoin();
         void stopTime();
 };
 #endif
