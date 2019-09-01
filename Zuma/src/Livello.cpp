@@ -176,7 +176,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
         {
             music->playWin();
             cout << "Hai vinto!\n";
-            
+            al_rest(5.0);
         }
             
         else
@@ -185,7 +185,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             cout << "Hai perso!\n";
             
         }
-        al_rest(2.5);
+        al_rest(2.1);
         music->playMenu();
     }
     //if(music->getMenu())
