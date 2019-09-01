@@ -185,7 +185,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             cout << "Hai perso!\n";
             
         }
-        al_rest(0.5);
+        al_rest(2.5);
         music->playMenu();
     }
     //if(music->getMenu())
