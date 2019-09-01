@@ -18,10 +18,14 @@ void Menu::caricaFont()
 
 int Menu::menuPausa(Suono* music )
 {
-    music->stopLevel1();
-    music->playPause();
-    al_rest(0.5);
-    music->playMenu();
+    if(!music->getLivello())
+    {
+        music->stopLevel1();
+        music->playPause();
+        al_rest(0.8);
+        music->playMenu();
+    }
+    
     scelte.push_back("Torna al gioco");
     scelte.push_back("Torna al menu");
     return menu1();
@@ -29,8 +33,12 @@ int Menu::menuPausa(Suono* music )
 
 int Menu::menuPricipale( Suono* music)
 {
-    al_rest(0.5);
-    music->playMenu();
+    
+    if(!music->getMenu()&& music->getLivello())
+    { 
+        al_rest(1.0);
+        music->playMenu();
+    }
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");

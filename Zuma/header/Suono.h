@@ -31,16 +31,18 @@ class Suono
     public:
         Suono();
         ~Suono();
-        bool playExit();
-        bool playPause();
 
-        bool playMenu();
-        bool playLevel1();
+        bool getLivello();
+        bool getMenu();
 
-        bool playGameOver();
-        bool playWin();
-        bool playCoin();
-        bool playTime();
+        void playExit();
+        void playPause();
+        void playMenu();
+        void playLevel1();
+        void playGameOver();
+        void playWin();
+        void playCoin();
+        void playTime();
         
         void stopMenu();
         void stopLevel1();

@@ -41,8 +41,13 @@ void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const do
 
 int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numero)
 {
-    music->stopMenu();
-    music->playLevel1();
+    if(music->getMenu())
+    {
+        music->stopMenu();
+        //al_rest(2.0);
+        music->playLevel1();
+    }
+   
     int numMosse = 0;
 
 
@@ -84,7 +89,16 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
             if(pausa)
+            { 
                 pausa = 0;
+                if(music->getMenu())
+                {
+                 music->stopMenu();
+                //al_rest(2.0);
+                music->playLevel1();
+                }
+            }
+                
             else
             {
                 numMosse++;
@@ -124,7 +138,15 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
                 break;
                 case ALLEGRO_KEY_SPACE:
                     if(pausa)
+                    {  
                         pausa = 0;
+                        if(music->getMenu())
+                        {
+                        music->stopMenu();
+                        //al_rest(2.0);
+                        music->playLevel1();
+                        }  
+                    }
                     else
                     {
                         numMosse++;
@@ -149,20 +171,26 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     if(sceltaMenu!=2)
     {
         music->stopLevel1();
+        al_rest(0.5);
         if(serpy->empty())
         {
             music->playWin();
             cout << "Hai vinto!\n";
+            
         }
             
         else
         {
             music->playGameOver();
             cout << "Hai perso!\n";
+            
         }
-        
+        al_rest(0.5);
+        music->playMenu();
     }
-    music->playMenu();
+    //if(music->getMenu())
+    
+    
     event_queue.flusha();
     
      

@@ -51,7 +51,10 @@ void game()
 
         if(sceltaLivello == 2)
         {
-            
+            ((!music->getMenu()&&music->getLivello())?cout<<"ok": cout<<"no");
+            if(music->getMenu())
+            al_rest(0.5);
+            music->playMenu();
             modalita = 0;
             sceltaLivello = 0;
         }
