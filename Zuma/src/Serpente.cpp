@@ -5,7 +5,7 @@ vector<COLORE> tipi;
 
 int Serpente::getPoint() const
 {
-    return point;
+    return point*10;
 }
 
 bool collegate(Pallina* p1,Pallina* p2,int d)
@@ -352,7 +352,7 @@ void Serpente::scoppiaPalline(int p)
         palline.erase(palline.begin()+in,palline.begin()+(fin+1));
     }
 
-    point += (fin-in);
+    point += (fin-in)+1;
 }
 
 void Serpente::stop()

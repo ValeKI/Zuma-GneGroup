@@ -23,7 +23,7 @@ void Livello::caricaFont()
 }
 
 
-void Livello::stampaScrittaPunteggio(const int& p, const int& modalita, const double& tempo, const int& numMosse)
+void Livello::stampaScrittaPunteggio(const int& num, const int& p, const int& modalita, const double& tempo, const int& numMosse)
 {
     string stampa = "Point: " + to_string(p+0) + " Pause: press p ";
 
@@ -77,7 +77,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     double start = al_get_time();
     double end = start;
 
-    while(gameOver(modalita,end-start,numMosse) && !serpy->empty() && serpy->getPosizionePrimaPallina()<sizeCoord && sceltaMenu!=2)
+    while(gameOver(numero, modalita,end-start,numMosse) && !serpy->empty() && serpy->getPosizionePrimaPallina()<sizeCoord && sceltaMenu!=2)
     {     
         ev = event_queue.evento();
 
@@ -112,7 +112,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
                     
             b->stampa(1);    
             
-            stampaScrittaPunteggio(serpy->getPoint(), modalita, end-start, numMosse);
+            stampaScrittaPunteggio(numero, serpy->getPoint(), modalita, end-start, numMosse);
 
             rana.stampa(m.getX(), m.getY());  
             serpy->gestisciMovimento();
@@ -142,9 +142,9 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
                         pausa = 0;
                         if(music->getMenu())
                         {
-                        music->stopMenu();
-                        //al_rest(2.0);
-                        music->playLevel1();
+                            music->stopMenu();
+                            //al_rest(2.0);
+                            music->playLevel1();
                         }  
                     }
                     else
@@ -175,14 +175,22 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
         if(serpy->empty())
         {
             music->playWin();
-            cout << "Hai vinto!\n";
+            delete b;
+            b = new BUFFER("../image/win.jpg");
+            b->stampaSfondo();
+            b->stampa(1);
+            al_flip_display();
             al_rest(5.0);
         }
             
         else
         {
             music->playGameOver();
-            cout << "Hai perso!\n";
+            delete b;
+            b = new BUFFER("../image/lost.jpg");
+            b->stampaSfondo();
+            b->stampa(1);
+            al_flip_display();
             
         }
         al_rest(2.1);
@@ -201,7 +209,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     return 2;
 }
 
-bool Livello::gameOver(const int& modalita, const double& tempo, const int& numMosse)
+bool Livello::gameOver(const int& num, const int& modalita, const double& tempo, const int& numMosse)
 {
     switch (MODALITA(modalita))
     {

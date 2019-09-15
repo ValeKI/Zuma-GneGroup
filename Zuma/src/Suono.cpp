@@ -33,8 +33,15 @@ Suono::~Suono()
 
 }
 
-bool Suono::getLivello(){return startL1;}
-bool Suono::getMenu(){return isMenu;}
+bool Suono::getLivello()
+{
+    return startL1;
+}
+
+bool Suono::getMenu()
+{
+    return isMenu;
+}
 
 void Suono::playExit()
 {

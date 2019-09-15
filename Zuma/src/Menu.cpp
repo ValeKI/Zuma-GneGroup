@@ -185,7 +185,7 @@ int Menu::menu1()
             for(int i=0; i<scelte.size(); i++)
             {
                 if(pos-1 == i)
-                    al_draw_text(font, al_map_rgb(0,0,0), b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
+                    al_draw_text(font, al_map_rgb(96,63,25), b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
                 else
                     al_draw_text(font, al_map_rgb(255,255,255), b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
             }
