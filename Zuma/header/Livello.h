@@ -21,12 +21,15 @@ class Livello : public Schermata
         Serpente* serpy;
         GestoreSpari* gestoreSpari;
         vector<PallinaRana*> spari;
+        int vita = 3;
+        int puntiGioco = 0;
     public:
         const int NUM_LIVELLI = 3;
         Livello();
         ~Livello();
         void caricaFont() override;
-
+        void azzeraPunti();
+        void resetVite();
         void creaScrittaPunteggio();
         void stampaScrittaPunteggio(const int& num, const int& p, const int& modalita, const double& tempo, const int& numMosse);
         void generaPalline(int,int);

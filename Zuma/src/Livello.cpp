@@ -22,10 +22,19 @@ void Livello::caricaFont()
     font = al_load_font("../ttf/Lato-Black.ttf", 26*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
 }
 
+void Livello::azzeraPunti()
+{
+    puntiGioco=0;
+}
+
+void Livello::resetVite()
+{
+    vita = 3;
+}
 
 void Livello::stampaScrittaPunteggio(const int& num, const int& p, const int& modalita, const double& tempo, const int& numMosse)
 {
-    string stampa = "Point: " + to_string(p+0) + " Pause: press p ";
+    string stampa = "Vita: " + to_string(vita) + " Point: " + to_string(puntiGioco + p) + " Pause: press p ";
 
     if(modalita == int(TEMPO))
     {
@@ -168,12 +177,15 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
         end = al_get_time();
     }
 
+    int r=2;
+
     if(sceltaMenu!=2)
     {
         music->stopLevel1();
         al_rest(0.5);
         if(serpy->empty())
         {
+            r=3;
             music->playWin();
             delete b;
             b = new BUFFER("../image/win.jpg");
@@ -181,10 +193,18 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             b->stampa(1);
             al_flip_display();
             al_rest(5.0);
+
+            //cout << bool(music->getMenu()) << endl;
         }
             
         else
         {
+            if(vita > 0)
+            {
+                vita--;
+                r = 4;
+            }
+
             music->playGameOver();
             delete b;
             b = new BUFFER("../image/lost.jpg");
@@ -198,15 +218,14 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     }
     //if(music->getMenu())
     
-    
-    event_queue.flusha();
-    
-     
-   
+    puntiGioco+=serpy->getPoint();
+
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
 
-    return 2;
+    
+
+    return r;
 }
 
 bool Livello::gameOver(const int& num, const int& modalita, const double& tempo, const int& numMosse)

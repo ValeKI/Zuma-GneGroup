@@ -26,34 +26,39 @@ void game()
     
     while(true)
     {
-       
         if(modalita == 0)
         {
-           
+            liv->azzeraPunti();
+            liv->resetVite();
+            numero = 0;
             modalita = menu->menuPricipale(music);
         }   
         else
         {
-             
-           
-            numero = menu->menuLivelli( );
+            if(numero == 0)
+            {
+                numero = menu->menuLivelli();
+            }
             if(numero == liv->NUM_LIVELLI)
             { 
                 modalita = 0;
+                numero = 0;
             }
             else
-             { 
-                 
-                   sceltaLivello = liv->livello_base( music,modalita,numero);
+            {  
+                sceltaLivello = liv->livello_base(music,modalita,numero);
                 //liv->nuovoLivello(modalita,numero);
-             }
+            }
+        }
+        if(sceltaLivello == 3)
+        {
+            numero++;
         }
 
         if(sceltaLivello == 2)
         {
-            ((!music->getMenu()&&music->getLivello())?cout<<"ok": cout<<"no");
             if(music->getMenu())
-            al_rest(0.5);
+                al_rest(0.5);
             music->playMenu();
             modalita = 0;
             sceltaLivello = 0;
