@@ -107,8 +107,8 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
                 break;
                 
                 case 3:
-                ranax = 512;
-                ranay = 400;
+                ranax = 588;
+                ranay = 445;
                 break;
 
                 default:
@@ -123,18 +123,18 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             switch (modalita)
             {
                 case 1:
-                ranax = 512;
-                ranay = 400;
+                ranax = 490;
+                ranay = 580;
                 break;
             
                 case 2:
                 ranax = 512;
-                ranay = 400;
+                ranay = 384;
                 break;
                 
                 case 3:
-                ranax = 512;
-                ranay = 400;
+                ranax = 520;
+                ranay = 360;
                 break;
 
                 default:
