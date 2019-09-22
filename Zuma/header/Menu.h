@@ -15,6 +15,7 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
         vector<string> scelte;
     public:
         void caricaFont() override;
+        void tutorial();
         int menuPausa(Suono*);
         int menuPricipale(Suono* );
         int menuLivelli();

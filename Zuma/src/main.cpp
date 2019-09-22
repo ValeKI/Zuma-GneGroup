@@ -38,7 +38,6 @@ void game()
             if(numero == 0)
             {
                 numero = menu->menuLivelli();
-                cout << numero << endl;
             }
             else if(numero!=3)
             {  
@@ -51,7 +50,11 @@ void game()
                 numero = 0;
             }
         }
-       
+        else
+        {
+            menu->tutorial();
+            modalita = 0;
+        }
         if(sceltaLivello == 3)
         {
             numero++;

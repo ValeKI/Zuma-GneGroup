@@ -42,6 +42,7 @@ int Menu::menuPricipale( Suono* music)
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
+    scelte.push_back("Tutorial");
     return menu1();
 }
 
@@ -51,6 +52,32 @@ int Menu::menuLivelli()
     scelte.push_back("Livello 2");
     scelte.push_back("Torna Indietro");
     return menu1( );
+}
+
+void Menu::tutorial()
+{
+    bool redraw=0;
+    b = new BUFFER("../image/Sfondo.jpg");
+    event_queue.stop();
+    event_queue.start(10);
+    ALLEGRO_EVENT ev;
+
+    b->stampaSfondo();
+
+    while(true)
+    {
+        ev = event_queue.evento();
+        if(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+        {
+            break; 
+        }
+
+        if(event_queue.empty())
+        {
+            b->stampa(1);
+            al_flip_display();
+        }
+    }
 }
 
 int Menu::menu1()
@@ -171,7 +198,7 @@ int Menu::menu1()
            
             for(int i=0; i<scelte.size(); i++)
             {
-                if(collideText(ev.mouse.x, ev.mouse.y, scelte[i], b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768.) )
+                if(collideText(ev.mouse.x, ev.mouse.y, scelte[i], b->getX()+500*wGlobal/1024., b->getY()+(110+100*(i+1))*hGlobal/768.) )
                  {   pos = i+1;}
             }
           
@@ -185,9 +212,9 @@ int Menu::menu1()
             for(int i=0; i<scelte.size(); i++)
             {
                 if(pos-1 == i)
-                    al_draw_text(font, al_map_rgb(96,63,25), b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
+                    al_draw_text(font, al_map_rgb(96,63,25), b->getX()+500*wGlobal/1024., b->getY()+(110+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
                 else
-                    al_draw_text(font, al_map_rgb(255,255,255), b->getX()+500*wGlobal/1024., b->getY()+(220+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
+                    al_draw_text(font, al_map_rgb(255,255,255), b->getX()+500*wGlobal/1024., b->getY()+(110+100*(i+1))*hGlobal/768., ALLEGRO_ALIGN_CENTER, scelte[i].c_str());
             }
             //stampa scritte
           
