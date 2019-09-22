@@ -64,7 +64,7 @@ void Livello::stampaScrittaPunteggio(const int& num, const int& p, const int& mo
     }
     else if(modalita == int(MOSSE))
     {
-        stampa += "Mosse: " + to_string(numMosse) + " su 50";
+        stampa += "Mosse: " + to_string(numMosse) + " su 65";
     }
 
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
@@ -162,7 +162,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             b->stampa(1);    
             
             stampaScrittaPunteggio(numero, serpy->getPoint(), modalita, end-start, numMosse);
-            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % 500 == 0 )
+            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % 800 == 0 )
             {
                 puntiAttuali = puntiGioco + serpy->getPoint();
                 al_draw_text(font, al_map_rgb(255,255,255), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");
@@ -282,7 +282,7 @@ bool Livello::gameOver(const int& num, const int& modalita, const double& tempo,
         break;
 
     case MOSSE:
-        return numMosse<=50;
+        return numMosse<=65;
     
     default:
         break;
