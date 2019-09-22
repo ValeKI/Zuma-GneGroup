@@ -283,8 +283,7 @@ bool Livello::gameOver(const int& num, const int& modalita, const double& tempo,
 
     case MOSSE:
         return numMosse<=66;
-    
-    default:
+        default:
         break;
     }
 
