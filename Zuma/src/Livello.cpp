@@ -87,17 +87,59 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     serpy = new Serpente();
     gestoreSpari= new GestoreSpari();
 
+    int ranax, ranay;
+
     switch(numero)
     {
         case 1:
         numPalline = 35;
         numColori = 4;
+            switch (modalita)
+            {
+                case 1:
+                ranax = 390;
+                ranay = 430;
+                break;
+            
+                case 2:
+                ranax = 512;
+                ranay = 400;
+                break;
+                
+                case 3:
+                ranax = 512;
+                ranay = 400;
+                break;
+
+                default:
+                break;
+            }
         break;
 
 
         case 2:
         numPalline = 45;
         numColori = 6;
+            switch (modalita)
+            {
+                case 1:
+                ranax = 512;
+                ranay = 400;
+                break;
+            
+                case 2:
+                ranax = 512;
+                ranay = 400;
+                break;
+                
+                case 3:
+                ranax = 512;
+                ranay = 400;
+                break;
+
+                default:
+                break;
+            }
         break;
 
         default:
@@ -109,7 +151,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
     bool redraw=0;
     b = new BUFFER("../image/Livello_" + to_string(modalita) + "_" + to_string(numero) +".jpg");
 
-    Rana rana(512,384);
+    Rana rana(ranax,ranay);
     
     event_queue.start(60);
 
