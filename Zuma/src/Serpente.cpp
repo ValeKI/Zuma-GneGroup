@@ -20,16 +20,11 @@ void Serpente::fixVelocita()
 {
     int sizeCoord = coordinate.size();
     for(int i=palline.size()-1;i>0;i--)
-    {
         if(palline[i]->getPosizione()>=0 && palline[i]->getPosizione()<sizeCoord)
-        {
             if(i!=0 && palline[i-1]->getPosizione()-palline[i]->getPosizione()<distanzaPalline)
             {
-                palline[i-1]->setPosizione(palline[i]->getPosizione()+distanzaPalline+palline[i-1]->getVelocita());
+                palline[i-1]->setPosizione(palline[i]->getPosizione()+distanzaPalline);
             }
-        }
-    }
-
 }
 
 void Serpente::caricaCoordinate(const int& modalita, const int& numero)
@@ -131,12 +126,10 @@ void Serpente::generaPalline(const int& num, const int& tipi, const int& modalit
 void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
-    
     ::tipi.clear();
 
     if(!palline.empty())
     {
-        fixVelocita();
         for(auto i:palline)
         { 
             if(find(::tipi.begin(), ::tipi.end(), i->getColore()) == ::tipi.end())
@@ -144,10 +137,14 @@ void Serpente::stampa()
             i->Pallina::avanza();
             p=i->getPosizione();
             if(p>=0 && p<sizeCoord)
-            {               
                 i->Pallina::movimento(*coordinate[p]);
+        }
+        fixVelocita();
+        for(auto i:palline)
+        { 
+            p=i->getPosizione();
+            if(p>=0 && p<sizeCoord)
                 i->stampa(1);
-            }
         }
     }
     ::coloriPalline = tipi.size();    
