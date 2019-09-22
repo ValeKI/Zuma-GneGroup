@@ -252,7 +252,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
 
             music->playGameOver();
             delete b;
-            b = new BUFFER("../image/lost.jpg");
+            b = new BUFFER("../image/lost.png");
             b->stampaSfondo();
             b->stampa(1);
             al_flip_display();
