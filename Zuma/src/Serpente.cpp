@@ -147,7 +147,8 @@ void Serpente::stampa()
                 i->stampa(1);
         }
     }
-    ::coloriPalline = tipi.size();    
+    ::coloriPalline = tipi.size();  
+    
 }
 
 Serpente::~Serpente()
