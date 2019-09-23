@@ -16,6 +16,7 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
     public:
         void caricaFont() override;
         void tutorial();
+        void zuma();
         int menuPausa(Suono*);
         int menuPricipale(Suono* );
         int menuLivelli();

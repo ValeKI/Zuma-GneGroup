@@ -23,7 +23,7 @@ void game()
     int modalita = 0;
     int sceltaLivello = 0;
     music->playMenu();
-    
+    menu->zuma();
     while(true)
     {
         if(modalita == 0)
