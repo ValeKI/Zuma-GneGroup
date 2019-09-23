@@ -64,7 +64,7 @@ void Livello::stampaScrittaPunteggio(const int& num, const int& p, const int& mo
     }
     else if(modalita == int(MOSSE))
     {
-        stampa += "Mosse: " + to_string(numMosse) + " su 65";
+        stampa += "Mosse: " + to_string(numMosse) + " su 70";
     }
 
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
@@ -97,13 +97,13 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             switch (modalita)
             {
                 case 1:
-                ranax = 390;
-                ranay = 430;
+                ranax = 504;
+                ranay = 460;
                 break;
             
                 case 2:
-                ranax = 512;
-                ranay = 400;
+                ranax = 482;
+                ranay = 391;
                 break;
                 
                 case 3:
@@ -123,17 +123,17 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             switch (modalita)
             {
                 case 1:
-                ranax = 490;
-                ranay = 580;
+                ranax = 484;
+                ranay = 481;
                 break;
             
                 case 2:
-                ranax = 512;
-                ranay = 384;
+                ranax = 516;
+                ranay = 432;
                 break;
                 
                 case 3:
-                ranax = 520;
+                ranax = 579;
                 ranay = 360;
                 break;
 
@@ -324,7 +324,7 @@ bool Livello::gameOver(const int& num, const int& modalita, const double& tempo,
         break;
 
     case MOSSE:
-        return numMosse<=65;
+        return numMosse<=70;
     
     default:
         break;

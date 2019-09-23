@@ -57,7 +57,7 @@ int Menu::menuLivelli()
 void Menu::tutorial()
 {
     bool redraw=0;
-    b = new BUFFER("../image/Sfondo.jpg");
+    b = new BUFFER("../image/tutorial.png");
     event_queue.stop();
     event_queue.start(10);
     ALLEGRO_EVENT ev;
