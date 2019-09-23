@@ -42,7 +42,7 @@ int Menu::menuPricipale( Suono* music)
     scelte.push_back("Classica");
     scelte.push_back("A Mosse");
     scelte.push_back("A Tempo");
-    scelte.push_back("Tutorial");
+    scelte.push_back("Guida");
     return menu1();
 }
 
@@ -86,7 +86,7 @@ int Menu::menu1()
     bool redraw=0;
     b = new BUFFER("../image/Sfondo.jpg");
    
-    scelte.push_back("Esci");
+    scelte.push_back("Esci dal gioco");
     event_queue.stop();
     event_queue.start(10);
     int pos=0;

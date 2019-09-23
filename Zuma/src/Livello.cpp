@@ -153,7 +153,7 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
 
     Rana rana(ranax,ranay);
     
-    event_queue.start(60);
+    event_queue.start(45);
 
     int sizeCoord=serpy->getSizeCoordinate();
     
@@ -207,9 +207,11 @@ int Livello::livello_base(  Suono*& music ,const int& modalita, const int& numer
             if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % 800 == 0 )
             {
                 puntiAttuali = puntiGioco + serpy->getPoint();
-                al_draw_text(font, al_map_rgb(255,255,255), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");
+                al_draw_text(font, al_map_rgb(255,126,0), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");
                 vita++;
             }
+           /* if(timer < 5.0)
+                al_draw_text(font, al_map_rgb(255,126,0), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");*/
             rana.stampa(m.getX(), m.getY());  
             serpy->gestisciMovimento();
 
