@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 
+enum{DESTRA = 0, SINISTRA = 1};
+
 class Serpente
 {
     private:
@@ -34,7 +36,7 @@ class Serpente
         void gestisciMovimento();
         int cambiaDirezioneASinistraDi(int,DIREZIONE);
         int cambiaDirezioneADestraDi(int, DIREZIONE);
-        int cercaIndice(int c, bool first);
+        int cercaIndiceCoppiaSpari(const int& indice, const int& quale);
         void cambiaDirVel( int , DIREZIONE, int );
 };
 

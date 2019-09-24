@@ -3,11 +3,13 @@
 int coloriPalline;
 vector<COLORE> tipi;
 
+// restituisce il punteggio generato dagli scoppi
 int Serpente::getPoint() const
 {
     return point*10;
 }
 
+// verifica se due palline sono collegate
 bool collegate(Pallina* p1,Pallina* p2,int d)
 {   
     return (
@@ -16,6 +18,7 @@ bool collegate(Pallina* p1,Pallina* p2,int d)
     (p2->getPosizione()-p1->getPosizione() == d && p2->getPosizione()-p1->getPosizione() >=0));
 }
 
+// in caso di palline sovvrapposte porta la pallina più a destra (più vicino a 0) alla distanza giusta
 void Serpente::fixVelocita()
 {
     int sizeCoord = coordinate.size();
@@ -32,6 +35,7 @@ void Serpente::fixVelocita()
 
 }
 
+// legge il percorso e lo adatta allo schermo
 void Serpente::caricaCoordinate(const int& modalita, const int& numero)
 {
     ifstream in;
@@ -75,6 +79,7 @@ void Serpente::caricaCoordinate(const int& modalita, const int& numero)
     in.close();
 }
 
+// crea le palline in modo casuale
 void Serpente::generaPalline(const int& num, const int& tipi, const int& modalita, const int& numero)
 {
     caricaCoordinate(modalita, numero);
@@ -128,6 +133,7 @@ void Serpente::generaPalline(const int& num, const int& tipi, const int& modalit
     palline.front()->movimento(*coordinate.at(palline.front()->getPosizione()));
 }
 
+// stampa le palline, ma prima applica un fix. Conta anche i colori ancora disponibili che serviranno a Rana
 void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
@@ -168,26 +174,32 @@ Serpente::~Serpente()
 
 }
 
+// restituisce quante coordinate sono state lette
 int Serpente::getSizeCoordinate()
 {
     return coordinate.size();
 }
 
-int Serpente::cercaIndice(int c, bool first)
+/* 
+    cerca se la posizione di una pallina è stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
+    se non la trova restituisce -2
+*/
+int Serpente::cercaIndiceCoppiaSpari(const int& indice, const int& quale)
 {
     for (int i = 0; i < coppiaSpari.size(); i++)
-        if ((coppiaSpari[i]->first == c && first ) || (coppiaSpari[i]->second == c && !first)  )
-        {
+        if ((coppiaSpari[i]->first == indice && quale == SINISTRA ) || (coppiaSpari[i]->second == indice && quale == DESTRA)  )
             return i;
-        }
+
     return -2;
 }
 
+// si occupa di creare una pallina immaginaria
 Serpente::Serpente()
 {
     finta = new Pallina (COLORE(0), 0);
 }
 
+// crea una pallina immaginaria, serve per inserire una pallina in testa
 bool Serpente::collideInTesta(HitBox* obj)
 {
     if(!palline.empty())
@@ -202,19 +214,31 @@ bool Serpente::collideInTesta(HitBox* obj)
     return false;
 }
 
+// se è vuoto il vector palline
 bool Serpente::empty()
 {
     return palline.empty();
 }
 
+// first e' di palline, second è uno sparo
+
+//ATTENZIONE QUESTA FUNZIONE PUO' DANNEGGIARE LA TUA VISTA, TENERE LONTANA ALLA PORTATA DEI BAMBINI
+// restituisce se uno sparo è stato inserito. Gestisce anche il suo inserimento
 bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
     if(!palline.empty())
     {
-        int indiceCS = cercaIndice(j, false);
+        // cerca in coppiaSparo l'indice dello sparo j-esimo
+        int indiceCS = cercaIndiceCoppiaSpari(j, DESTRA);
         
+        // se non e' stato trovato
         if (indiceCS==-2)
         {
+            /* 
+                se collide con la pallina immaginaria in testa (-1)
+                oppure se collide con una pallina con una posizione visibile
+                ferma lo sparo e crea una coppiaSpari con l'indice della pallina del Serpente e dello sparo in GestoreSpari
+            */
             for(int i=-1; i<int(palline.size()); i++)
             {
                 if(i==-1 && collideInTesta(sparo)||
@@ -227,46 +251,45 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
             }
             
         }
-        else 
+        else // se esiste già una coppiaSpari con quell'indice dello sparo j
         {
-    
+            int primo = coppiaSpari[indiceCS]->first; // pallina in serpente
+            int secondo = coppiaSpari[indiceCS]->second; // j
 
-            int primo = coppiaSpari[indiceCS]->first;
-            int secondo = coppiaSpari[indiceCS]->second;
-
+            // se primo non e' l'ultimo ne la pallina immaginaria all'inizio
             if(primo != palline.size()-1 && primo!=-1)
             {
-            
-
+                // vedi la distanza con la sua pallina precedente (verso 0)
                 int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
                 int v =  Pallina::VELOCITA * 20;
             
-
                 if ( (differenzaPosizioni + v ) > distanzaPalline*2)
                     v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
                 
+                // se ci entra una pallina
                 if (differenzaPosizioni >= distanzaPalline*2)
                 {
+                    // resetta la velocita' alle palline
                     cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
                     
+                    // toglie la coppia spari
                     delete coppiaSpari[indiceCS];
                     coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
                     
+                    //inserisce lo sparo
                     sparo->setPosizione(palline[primo+1]->getPosizione()+distanzaPalline);
                     sparo->setVelocita(Pallina::VELOCITA);
-
                     palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
 
+                    // vede se scoppia le palline vicine
                     scoppiaPalline(primo+1);
-                // point++;
+                
                     return true;
                 } 
-                else 
-                {
+                else // se non ci entra la pallina aumenta la velocita' di quelle a destra di primo per farla entrare
                     cambiaDirVel(primo, AVANTI,v);
-                }
-
             }
+            // se tocca l'ultima pallina inserisce in coda
             else if (primo == palline.size()-1) 
             {
                 
@@ -281,6 +304,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                 scoppiaPalline(palline.size()-1);
                 return true;
             }
+            // se tocca la pallina immaginaria inserisce in testa
             else
             {
                 delete coppiaSpari[indiceCS];
@@ -291,16 +315,15 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
 
                 palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
                 scoppiaPalline(0);
-            // point++;
+            
                 return true;
-            }
-            
-            
+            }   
         }
     }
     return false;
 }
 
+// restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante è che sia più grande)
 int Serpente::getPosizionePrimaPallina()
 {
     if(!palline.empty())
@@ -309,19 +332,23 @@ int Serpente::getPosizionePrimaPallina()
     return getSizeCoordinate()*5;
 }
 
+// cambia sia direzione che velocita' alle palline che si trovano alla destra dell'i-esima (tendenzialmente 0)
 void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
 {
     if(i>=0 && i<=palline.size())
     {
+         // alla prima pallina cambia direzione e velocita' 
         palline[i]->setDirezione(d);
         palline[i]->setVelocita(v);
 
+        // controlla per ogni pallina successiva da n verso 0 (i-1) se sono collegate e cambia direzione e velocita
         for(;((i<palline.size())  && (i>0)&&(collegate(palline[i],palline[i-1],distanzaPalline)));i--)
         {
             palline[i]->setDirezione(d);
             palline[i]->setVelocita(v);
         }
 
+         // per l'ultima pallina se collegata con la precedente da n verso 0 (i+1) cambia direzione e velocita
         if(i<palline.size() && collegate(palline[i],palline[i+1],distanzaPalline))
         {
             palline[i]->setDirezione(d);
@@ -331,20 +358,23 @@ void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
     }
 }
 
+// a partire dalla pallina p-esima vedi a destra e a sinistra le palline hanno lo stesso colore e falle esplodere
 void Serpente::scoppiaPalline(int p)
 {
     COLORE colore = palline[p]->getColore();
     int in=p;
     int fin=p;
 
-    for(;in>=0 && int(palline[in]->getColore())==int(colore) ;in--);
-    for(;fin<palline.size() && int(palline[fin]->getColore())==int(colore); fin++);
-    
+    // vede a destra e sinistra
+    for(;in>=0 && palline[in]->getColore()==colore ;in--);
+    for(;fin<palline.size() && palline[fin]->getColore()==colore; fin++);
+
+    // esplodono se la loro differenza è maggiore di 2
     in++;
     fin--;
     if(in!=fin && fin-in>=2)
     {
-        for(int i=in; i<=fin; i++)
+        for(int i=in; i<=fin && i>=0 && i<palline.size(); i++)
         {
             delete palline[i];
         } 
@@ -354,37 +384,44 @@ void Serpente::scoppiaPalline(int p)
     }
 }
 
+// ferma tutte le palline
 void Serpente::stop()
 {
     for(int i=0; i<palline.size(); i++)
-    {
         palline[i]->setDirezione(FERMO);
-    }
 }
 
-
+// gestisce il criterio con il quale le palline si muovono. In caso di palline precedentemente staccate che si riattacano verifica se possono esplodere, ma dello stesso colore
 void Serpente::gestisciMovimento()
 {
     stop();
     if(!palline.empty())
     {
+        // tutte le palline del primo blocco del serpente vanno avanti, come se l'ultima pallina fosse spinta da qualcosa
         cambiaDirezioneADestraDi(palline.size()-1, AVANTI);
+
         for(int i=0;i<palline.size()-1;i++)
         {
             palline[i]->setVelocita(Pallina::VELOCITA);
-            if(cercaIndice (i,true)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
+            // se una pallina non è immischiata in uno sparo e non è collegata con la precedente (i+1) e hanno lo stesso colore
+            if(cercaIndiceCoppiaSpari(i,SINISTRA)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
             {
+                // inseriscila tra le papabili per quanto si attaccano dei colori uguali che potrebbero esplodere
                 if(find(coloreUguale.begin(), coloreUguale.end(), palline[i]) == coloreUguale.end())
                     coloreUguale.push_back(palline[i]);
+                // fai muovere tutte quelle attaccate a i verso l'indietro del percorso
                 cambiaDirezioneADestraDi(i,DIETRO);
+                // fai stare ferme le palline precedenti a i (da i+1 fino a quanto sono attaccate)
                 i=cambiaDirezioneASinistraDi(i+1,FERMO);
             }
 
+            // se le palline precedentemente scollegate e con lo stesso colore si sono attaccate cerca di farle esplodere
             for(int j=0; j<coloreUguale.size(); j++)
                 if(coloreUguale[j] == palline[i] && collegate(palline[i],palline[i+1],distanzaPalline))
                 {    
                     scoppiaPalline(i);
                     coloreUguale.erase(coloreUguale.begin()+j);
+                    // se questo svuota palline il livello si puo' considerare finito, così come questa funzione
                     if(palline.empty())
                         return;
                 }
@@ -392,20 +429,21 @@ void Serpente::gestisciMovimento()
     }
 }
 
+// setta la direzione data alle palline collegate a partire da 'in' verso destra (tendenzialmente 0)
 int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 {
     int i=in;
-    int j=0;
-
+    
     if(i>=0 && i<=palline.size())
     {  
+        // alla prima pallina cambia direzione
         palline[i]->setDirezione(d);
 
+        // controlla per ogni pallina successiva da n verso 0 (i-1) se sono collegate e cambia la direzione
         for(;((i<palline.size())  && (i>0) && (collegate(palline[i] ,palline[i-1], distanzaPalline)));i--)
-        {
-            j++;
             palline[i]->setDirezione(d);
-        }
+    
+        // per l'ultima pallina se collegata con la precedente da n verso 0 (i+1)
         if(i<palline.size()-1 && i>=0 && collegate(palline[i],palline[i+1],distanzaPalline))
             palline[i]->setDirezione(d);
         
@@ -415,17 +453,21 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 
 }
 
+// setta la direzione data alle palline collegate a partire da 'in' verso sinistra (tendenzialmente palline.size())
 int Serpente::cambiaDirezioneASinistraDi(int fin, DIREZIONE d) // piu' piccolo
 {
     int i=fin;
 
     if(i>=0 && i<=palline.size())
     {    
+        // alla prima pallina cambia direzione
         palline[i]->setDirezione(d);
 
+        // controlla per ogni pallina precedente da n verso 0 (i+1) se sono collegate e cambia la direzione
         for(;(  (i>=0)  && (i<palline.size()-1) &&(collegate(palline[i],palline[i+1],distanzaPalline)));i++)
             palline[i]->setDirezione(d);
 
+        // per l'ultima pallina se collegata con la successiva da n verso 0 (i+1)
         if(i>0 && collegate(palline[i],palline[i-1],distanzaPalline))
             palline[i]->setDirezione(d);
     }
