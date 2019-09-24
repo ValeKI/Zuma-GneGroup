@@ -3,16 +3,25 @@
 extern int wGlobal;
 extern int hGlobal;
 
+const int BONUSVITA = 800;
+const int TEMPOADISP = 90;
+const int NUMMOSSE = 70;
+
+// carica il font
 Livello::Livello():Schermata()
 {
-    menu = nullptr;
-    b = nullptr;
-    font = nullptr;
     caricaFont();
 }
 
+// se non si è distrutto qualcosa se ne occupa
 Livello::~Livello()
 {
+    if(serpy!=nullptr)
+        delete serpy;
+
+    if(gestoreSpari!=nullptr)
+        delete gestoreSpari;
+
     if(menu!=nullptr)
         delete menu; 
 }
@@ -32,6 +41,7 @@ void Livello::resetVite()
     vita = 3;
 }
 
+// stampa la scritta del punteggio secondo la mod e il liv
 void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const int& numMosse)
 {
     string stampa = "Mod: ";
@@ -47,7 +57,7 @@ void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const in
         break;
 
         case 3:
-            stampa += "Tempo";
+            stampa+= "Tempo";
         break;
         
         default: 
@@ -57,17 +67,20 @@ void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const in
     stampa += "     Liv: " + to_string(numero) + "     Vita: " + to_string(vita) + "     Punti: " + to_string(puntiGioco + p) + "     Pausa: premi p     ";
 
     if(modalita == int(TEMPO))
-    {
-        stampa += "Tempo: " + to_string(int(tempo))+ "sec su 90sec";
-    }
+        stampa += "Tempo: " + to_string(int(tempo))+ "sec su " + to_string(TEMPOADISP) + " sec";
     else if(modalita == int(MOSSE))
-    {
-        stampa += "Mosse: " + to_string(numMosse) + " su 70";
-    }
-
+        stampa += "Mosse: " + to_string(numMosse) + " su " + to_string(NUMMOSSE);
+    
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
+/*
+    inizializza i dati a secondo del livello scelto
+    si possono modificare:
+        - il numero delle palline
+        - quanti colori di palline si vogliono (da 1 a 6)
+        - la posizione della rana
+*/
 void Livello::datiLivello(const int& m,const int& n)
 {
     modalita = MODALITA(m);
@@ -131,14 +144,27 @@ void Livello::datiLivello(const int& m,const int& n)
     }
 }
 
-
+/* 
+    gestisce gli eventi del livello e restistuisce l'esito
+*/
 int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
 {
+    // il numero delle mosse/palline usate nel livello
     int numMosse = 0;
+    
+    // serve per stampare la scritta del bonus della vita
     int stampaBonus = 0;
+
+    // se si scegli di andare al menu
     bool sceltaMenu = 0;
+
+    // quanti punti si avevano al momento del bonus
     int puntiAttuali = 0;
+
+    // se disegnare il livello
     bool redraw = 0;
+
+    // se richiesta la pausa
     bool pausa = 0;
 
     datiLivello(modalita, numero);
@@ -149,8 +175,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
         music->playLevel1();  
     }
 
-    
-    
+    // inizializzazione dell'event_queue, Serpente, Buffer, Rana
     event_queue.stop();
     serpy = new Serpente();
     gestoreSpari = new GestoreSpari();
@@ -158,15 +183,27 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     b = new BUFFER("../image/Livello_" + to_string(modalita) + "_" + to_string(numero) +".jpg");
     Rana rana(ranax,ranay);
     event_queue.start(60);
+
+    // quante sono le coordinate del livello, serve per identificare quando la prima pallina finisce il percorso
     int sizeCoord=serpy->getSizeCoordinate();
     ALLEGRO_EVENT ev; 
             
     b->stampaSfondo();
+    // menu usato per stampare la schermata di pausa
     menu = new Menu();
 
+    // tempo di inizio del livello
     double start = al_get_time();
+
+    // tempo di fine/in corso
     double end = start;
    
+    /* 
+        il livello continua fino a quando:
+            non succede una fine particolare a seconda della modalita (finisce tempo/mosse)
+            non ci sono più palline
+            si sceglie dal menu di pausa di tornare al menu principale
+    */
     while(gameOver(end-start,numMosse) && !serpy->empty() && serpy->getPosizionePrimaPallina()<sizeCoord && !sceltaMenu)
     {     
         ev = event_queue.evento();
@@ -178,17 +215,17 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
         }
         if(ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
         {
+            // riprende la musica
             if(pausa)
             { 
-                pausa = 0;
+                pausa = false;
                 if(music->getMenu())
                 {
                     music->stopMenu();
                     music->playLevel1();
                 }
             }
-                
-            else
+            else // se sparo col mouse
             {
                 numMosse++;
                 gestoreSpari->inserisciSparo(rana.getPallina());
@@ -197,23 +234,24 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
 
         if(redraw && event_queue.empty())
         {  
-            redraw=0;
+            redraw = false;
                     
             b->stampa(1);    
             
             stampaScrittaPunteggio(serpy->getPoint(), end-start, numMosse);
            
-            rana.stampa(m.getX(), m.getY());  
-            serpy->gestisciMovimento();
+            rana.stampa(m.getX(), m.getY());
 
+            // gestisce prima il Serpente e poi gli spari  
+            serpy->gestisciMovimento();
             gestoreSpari->collisioneSparo(*serpy);
             gestoreSpari->nelloSchermo(*b);
             
             gestoreSpari->stampa();       
-            
             serpy->stampa();
             
-            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % 100 == 0 )
+            // bonus vite
+            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % BONUSVITA == 0 )
             {
                 puntiAttuali = puntiGioco + serpy->getPoint();
                 vita++;
@@ -263,7 +301,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
         
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
-            redraw=1;
+            redraw = true;
         }
         
         end = al_get_time();
@@ -293,10 +331,10 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
         }
     }
     
-    endLivello(serpy->getPoint());
+    endLivello();
     return r;
 }
-
+// stampa hai vinto-hai perso e lancia il suono
 void Livello::stampaFinale(const bool& vinto, Suono*& music)
 {
     string imm;
@@ -322,24 +360,25 @@ void Livello::stampaFinale(const bool& vinto, Suono*& music)
     music->playMenu();
 }
 
-void Livello::endLivello(const int& punti)
+void Livello::endLivello()
 {
-    puntiGioco+=punti;
+    puntiGioco+=serpy->getPoint();
 
     delete serpy; serpy = nullptr;
     delete gestoreSpari; gestoreSpari = nullptr;
 }
 
+// sceglie i criteri in piu' per chiudere un livello
 bool Livello::gameOver(const double& tempo, const int& numMosse)
 {
-    switch (MODALITA(modalita))
+    switch (modalita)
     {
     case TEMPO:
-        return (int(tempo)<=90);
+        return (int(tempo)<=TEMPOADISP);
         break;
 
     case MOSSE:
-        return numMosse<=70;
+        return numMosse<=NUMMOSSE;
     
     default:
         break;

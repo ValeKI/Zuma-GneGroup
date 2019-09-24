@@ -13,7 +13,7 @@ class Schermata
 {
     protected:
     Event_queue event_queue;
-    ALLEGRO_FONT* font;
+    ALLEGRO_FONT* font = nullptr;
     BUFFER* b = nullptr;
     Mouse m;
     const int numKey = 6;

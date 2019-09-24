@@ -9,34 +9,51 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro5.h>
 
+
+// è la 'risoluzione' scelta
 int wGlobal=1024;
 int hGlobal=768;
 
+
+/*
+    Gestisce la scelta dei menu e dei livelli
+*/
 void game()
 {
     SFONDO sfondo;
     Menu* menu = new Menu();
     Livello* liv = new Livello();
     Suono* music = new Suono();
+    
+    // che livello scegli
     int numero = 0;
+
+    // che modalita scegli
     int modalita = 0;
+    
+    // cosa succede/scegli dal livello
     int sceltaLivello = 0;
+    
     music->playMenu();
+
+    // schermata iniziale
     menu->zuma();
 
     while(true)
     {
-        // switch modalita
-
+        // switch modalita --- 0 torna al menu, 4 visualizza il tutorial, altro modalita livelli (CLASSICA, MOSSE, TEMPO)   
         switch (modalita)
         {
             case 0:
+            // se il livello è avviato dal menu si resettano i punteggi, le vite e la scelta del num del livello 
             liv->azzeraPunti();
             liv->resetVite();
             numero = 0;
-            modalita = menu->menuPricipale(music);
+            // dal menu principale si sceglie la modalità
+            modalita = menu->menuPricipale(music); 
                 break;
 
+            // dopo il tutorial si torna al menu
             case 4:
             menu->tutorial();
             modalita = 0;
@@ -45,10 +62,11 @@ void game()
             default:
                 switch (numero)
                 {
+                    // si sceglie il num del livello e alla prossima iterazione si vedrà qual è la conseguenza
                     case 0:
                         numero = menu->menuLivelli();
                         break;
-                
+                    // rappresenta il torna indietro al menu principale
                     case 3:
                         modalita = 0;
                         numero = 0;
@@ -61,6 +79,17 @@ void game()
                 break;
         }
 
+        /* 
+            TORNAMENU:
+            nel caso il giocatore vince tutti i livelli oppure sceglie dal menu di pausa
+            del livello di tornare al menu oppure finisce le vite
+
+            VAIAVANTI:
+            nel caso un giocatore vince un livello accede all'altro conservando punti e vite
+
+            HAIPERSO:
+            il gioco ricomincia con una vita in meno
+        */
         switch (sceltaLivello)
         {
             case TORNAMENU:
@@ -72,7 +101,7 @@ void game()
 
             case VAIAVANTI:
             numero++;
-            if(numero == liv->NUM_LIVELLI)
+            if(numero == NUM_LIVELLI)
             { 
                 modalita = 0;
                 numero = 0;
@@ -93,11 +122,8 @@ void game()
      
 }
 
-int main(int argc, char **argv)
-{   
-    /* ::wGlobal=100;
-    ::hGlobal=100;  */  
-    
+int init()
+{
     if(!al_init())
     {
         cerr << "Failed to initialite allegro - 1";
@@ -123,6 +149,17 @@ int main(int argc, char **argv)
       cerr << "failed to reserve samples!\n";
       return -1;
    }
+   return 0;
+}
+
+int main(int argc, char **argv)
+{   
+    /* ::wGlobal=800;
+    ::hGlobal=600;  */
+
+    if(init()==-1)
+        return -1;
+    
     game();
     return 0;
 }
