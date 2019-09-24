@@ -14,65 +14,76 @@ int hGlobal=768;
 
 void game()
 {
-    
     SFONDO sfondo;
     Menu* menu = new Menu();
     Livello* liv = new Livello();
-    Suono *music = new Suono();
+    Suono* music = new Suono();
     int numero = 0;
     int modalita = 0;
     int sceltaLivello = 0;
     music->playMenu();
     menu->zuma();
+
     while(true)
     {
-        if(modalita == 0)
+        // switch modalita
+
+        switch (modalita)
         {
+            case 0:
             liv->azzeraPunti();
             liv->resetVite();
             numero = 0;
             modalita = menu->menuPricipale(music);
-        }   
-        else if(modalita!=4)
-        {
-            if(numero == 0)
-            {
-                numero = menu->menuLivelli();
-            }
-            else if(numero!=3)
-            {  
-                sceltaLivello = liv->livello_base(music,modalita,numero);
-                //liv->nuovoLivello(modalita,numero);
-            }
-            else
-            {
-                modalita = 0;
-                numero = 0;
-            }
-        }
-        else
-        {
+                break;
+
+            case 4:
             menu->tutorial();
             modalita = 0;
+                break;
+
+            default:
+                switch (numero)
+                {
+                    case 0:
+                        numero = menu->menuLivelli();
+                        break;
+                
+                    case 3:
+                        modalita = 0;
+                        numero = 0;
+                        break;
+
+                    default:
+                        sceltaLivello = liv->livello_base(music,modalita,numero);
+                        break;
+                }
+                break;
         }
-        if(sceltaLivello == 3)
+
+        switch (sceltaLivello)
         {
+            case TORNAMENU:
+            if(music->getMenu())
+                al_rest(0.5);
+            music->playMenu();
+            modalita = 0; 
+                break;
+
+            case VAIAVANTI:
             numero++;
             if(numero == liv->NUM_LIVELLI)
             { 
                 modalita = 0;
                 numero = 0;
             }
+                break;
+        
+            case HAIPERSO:
+            default:
+                break;
         }
-
-        if(sceltaLivello == 2)
-        {
-            if(music->getMenu())
-                al_rest(0.5);
-            music->playMenu();
-            modalita = 0;
-        }
-
+        
         sceltaLivello = 0;
     }
     

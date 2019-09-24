@@ -350,9 +350,8 @@ void Serpente::scoppiaPalline(int p)
         } 
 
         palline.erase(palline.begin()+in,palline.begin()+(fin+1));
+        point += (fin-in)+1;
     }
-
-    point += (fin-in)+1;
 }
 
 void Serpente::stop()

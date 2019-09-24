@@ -13,6 +13,9 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
 {
     private:
         vector<string> scelte;
+    protected:
+        int menu1();
+        void menu2(string nomeImm, int tasto);
     public:
         void caricaFont() override;
         void tutorial();
@@ -23,7 +26,6 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
         bool collideText(const int& mx, const int& my, string& s, const int& px, const int& py);
         Menu();
         ~Menu();
-        int menu1( );
 };
 
 #endif

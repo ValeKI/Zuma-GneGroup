@@ -53,60 +53,34 @@ int Menu::menuLivelli()
     scelte.push_back("Torna Indietro");
     return menu1( );
 }
+
+void Menu::menu2(string nomeImm, int tasto)
+{
+    b = new BUFFER("../image/" + nomeImm);
+    event_queue.stop();
+    event_queue.start(10);
+    ALLEGRO_EVENT ev = event_queue.evento();
+
+    b->stampaSfondo();
+    b->stampa(1);
+    al_flip_display();
+
+    while(!(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == tasto))
+        ev = event_queue.evento();
+}
+
 void Menu::zuma()
 {
-    bool redraw=0;
-    b = new BUFFER("../image/zuma.png");
-    event_queue.stop();
-    event_queue.start(10);
-    ALLEGRO_EVENT ev;
-
-    b->stampaSfondo();
-
-    while(true)
-    {
-        ev = event_queue.evento();
-        if(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == ALLEGRO_KEY_ENTER)
-        {
-            break; 
-        }
-
-        if(event_queue.empty())
-        {
-            b->stampa(1);
-            al_flip_display();
-        }
-    }
+    menu2("zuma.png", ALLEGRO_KEY_ENTER);
 }
+
 void Menu::tutorial()
 {
-    bool redraw=0;
-    b = new BUFFER("../image/tutorial.png");
-    event_queue.stop();
-    event_queue.start(10);
-    ALLEGRO_EVENT ev;
-
-    b->stampaSfondo();
-
-    while(true)
-    {
-        ev = event_queue.evento();
-        if(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-        {
-            break; 
-        }
-
-        if(event_queue.empty())
-        {
-            b->stampa(1);
-            al_flip_display();
-        }
-    }
+    menu2("tutorial.png", ALLEGRO_KEY_ESCAPE);
 }
 
 int Menu::menu1()
 {
-    
     bool redraw=0;
     b = new BUFFER("../image/Sfondo.jpg");
    
