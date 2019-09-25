@@ -9,7 +9,7 @@
 #include "Suono.h"
 
 
-class Menu : public Schermata // pero' devi leggerlo in inglese
+class Menu : public Schermata
 {
     private:
         vector<string> scelte;
@@ -17,6 +17,9 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
         int menu1();
         void menu2(string nomeImm, int tasto);
     public:
+        Menu();
+        ~Menu();
+        
         void caricaFont() override;
         void tutorial();
         void zuma();
@@ -24,8 +27,6 @@ class Menu : public Schermata // pero' devi leggerlo in inglese
         int menuPricipale(Suono* );
         int menuLivelli();
         bool collideText(const int& mx, const int& my, string& s, const int& px, const int& py);
-        Menu();
-        ~Menu();
 };
 
 #endif

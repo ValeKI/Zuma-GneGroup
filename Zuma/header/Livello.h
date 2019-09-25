@@ -23,13 +23,21 @@ class Livello : public Schermata
         Serpente* serpy;
         GestoreSpari* gestoreSpari;
 
+        //numero di palline che popoleranno il 'serpente' in base alla difficoltà
         int numPalline = 0;
+        
+        //numero dei colori da usare in base alla difficoltà
         int numColori = 0;
+        
+        //coordinata X della rana
         int ranax = 0;
-        int ranay = 0;
-        int numero = 0;
-        MODALITA modalita = CLASSICA;
 
+        //coordinata Y della rana
+        int ranay = 0;
+        
+        int numero = 0;
+        
+        MODALITA modalita = CLASSICA;
         int vita = 3;
         int puntiGioco = 0;
     
@@ -37,8 +45,6 @@ class Livello : public Schermata
         void stampaFinale(const bool& vinto, Suono*& music);
         void datiLivello(const int& m,const int& n);
         void stampaScrittaPunteggio(const int& p, const double& tempo, const int& numMosse);
-        void generaPalline(int,int);
-        void caricaCoordinate();
         void endLivello();
         bool gameOver(const double& tempo=0, const int& numMosse=0);
     public:

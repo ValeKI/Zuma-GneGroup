@@ -4,6 +4,7 @@
 #include <cmath>
 
 const int MODULO = 20;
+const int VELOCITASPARO = 10;
 
 class PallinaRana: public Pallina
 {

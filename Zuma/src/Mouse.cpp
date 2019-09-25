@@ -3,10 +3,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-Mouse::Mouse():x(0),y(0)
-{
-  
-}
+// set
 
 void Mouse::setY(const int& _y) 
 { 
@@ -18,6 +15,8 @@ void Mouse::setX(const int& _x)
     x=_x;  
 }
 
+// get
+
 int Mouse::getY() const
 {
     return y;
@@ -27,6 +26,8 @@ int Mouse::getX() const
 {
     return x;
 }
+
+// collisione
 
 bool Mouse::collisione(HitBox* obj)
 {

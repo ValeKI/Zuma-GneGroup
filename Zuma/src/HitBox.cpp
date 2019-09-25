@@ -32,29 +32,39 @@ HitBox::~HitBox()
 
 // set
 
-void HitBox::setImmagine(string immagine) 
+void HitBox::setImmagine(const string& immagine) 
 { 
     this->immagine = immagine;  
 }
 
-void HitBox::setLunghezza(int lunghezza) 
+void HitBox::setLunghezza(const int& lunghezza) 
 { 
     this->lunghezza = lunghezza;  
 }
 
-void HitBox::setAltezza(int altezza) 
+void HitBox::setAltezza(const int& altezza) 
 {
     this->altezza = altezza;
 }
 
-void HitBox::setY(int y) 
+void HitBox::setY(const int& y) 
 {
     this->y = y;
 }
 
-void HitBox::setX(int x) 
+void HitBox::setX(const int& x) 
 { 
     this->x = x;
+}
+
+void HitBox::setStampaX(const int& a)
+{
+    x = a-((displayW-  (wGlobal * scale2) ) /2  ) ;
+}
+
+void HitBox::setStampaY(const int& a)
+{
+    y= a-( (displayH-(hGlobal * scale2))  /2 );
 }
 
 // get
@@ -82,16 +92,6 @@ int HitBox::getY()  const
 int HitBox::getX()  const
 {
     return x;
-}
-
-void HitBox::setStampaX(int a)
-{
-    x = a-((displayW-  (wGlobal * scale2) ) /2  ) ;
-}
-
-void HitBox::setStampaY(int a)
-{
-    y= a-( (displayH-(hGlobal * scale2))  /2 );
 }
 
 int HitBox::getStampaX() const

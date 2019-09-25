@@ -5,6 +5,10 @@
 #include <ctime>
 #include <cmath>
 
+const int DISTANZA_PALLINA_CENTRO = 143;
+const int IMMAGINEX = 146;
+const int IMMAGINEY = 58;
+
 class Rana: public HitBox
 {
     private:
@@ -15,13 +19,19 @@ class Rana: public HitBox
         double seno;
         double coseno;
         PallinaRana** palline;
-        
-        
+
     public:
+    
+        // si occupa di posizionare la rana al centro e di generare le due palline
         Rana(int,int);
-        void stampa(int, int);
-        PallinaRana* getPallina();
         ~Rana();
+
+        // stampa la rana, dipende dalle coordinate del mouse l'angolo sul quale e' inclinata
+        void stampa(int, int);
+
+        // restituisce la pallina della lingua e genera la nuova
+        PallinaRana* getPallina();
+        
         
 };
 

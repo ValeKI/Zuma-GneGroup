@@ -2,9 +2,6 @@
 #define BUFFER_H
 #include "HitBox.h"
 
-
-
-
 class BUFFER : public HitBox
 {
     public:

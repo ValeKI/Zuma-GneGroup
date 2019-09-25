@@ -8,6 +8,8 @@ extern int hGlobal;
 extern int coloriPalline;
 extern vector<COLORE> tipi;
 
+// costruttori
+
 // si occupa di posizionare la rana al centro e di generare le due palline
 Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
@@ -18,6 +20,17 @@ Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
     palline[0] = new PallinaRana(COLORE(rand()%coloriPalline));
     palline[1] = new PallinaRana(COLORE(rand()%coloriPalline));
 }
+
+// distruttore
+
+Rana::~Rana()
+{
+    for(int i=0; i<2; i++)
+        delete palline[i];
+    delete[] palline;
+}
+
+// funzioni
 
 // stampa la rana, dipende dalle coordinate del mouse l'angolo sul quale e' inclinata
 void Rana::stampa(int mx, int my)
@@ -47,7 +60,7 @@ void Rana::stampa(int mx, int my)
     al_draw_scaled_rotated_bitmap
     (
         load,
-        146, 58,
+        IMMAGINEX, IMMAGINEY,
         stampaX, stampaY,
         ((wGlobal*scale2)/1024.)*scale,
         ((hGlobal*scale2)/768.)*scale,
@@ -57,7 +70,7 @@ void Rana::stampa(int mx, int my)
  
     palline[1]->direziona(stampaX,stampaY,mx,my);
         
-    palline[1]->setPosizione(143*((wGlobal*hGlobal)/(1024.*768.))*scale);
+    palline[1]->setPosizione(DISTANZA_PALLINA_CENTRO*((wGlobal*hGlobal)/(1024.*768.))*scale);
     
     palline[1]->movimento();
     palline[1]->stampa(1);
@@ -79,11 +92,4 @@ PallinaRana* Rana::getPallina()
     }
     tempo++;
     return p;
-}
-
-Rana::~Rana()
-{
-    for(int i=0; i<2; i++)
-        delete palline[i];
-    delete[] palline;
 }

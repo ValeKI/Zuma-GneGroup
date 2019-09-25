@@ -28,13 +28,13 @@ class HitBox
         HitBox(string _immagine, int _x, int _y, float scale);
         ~HitBox();
 
-        void setImmagine(string);
-        void setLunghezza(int);
-        void setAltezza(int);
-        void setY(int);
-        void setX(int);
-        virtual void setStampaY(int);
-        virtual void setStampaX(int);
+        void setImmagine(const string&);
+        void setLunghezza(const int&);
+        void setAltezza(const int&);
+        void setY(const int&);
+        void setX(const int&);
+        virtual void setStampaY(const int&);
+        virtual void setStampaX(const int&);
     
         string getImmagine() const;
         int getLunghezza() const;

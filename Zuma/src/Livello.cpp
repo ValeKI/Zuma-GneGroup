@@ -3,9 +3,26 @@
 extern int wGlobal;
 extern int hGlobal;
 
+const int VELOCITAGIOCO = 60;
+
 const int BONUSVITA = 800;
 const int TEMPOADISP = 90;
 const int NUMMOSSE = 70;
+
+const int NUMPALLINE_1 = 35;
+const int NUMPALLINE_2 = 45;
+
+const int NUMCOLORI_1 = 4;
+const int NUMCOLORI_2 = 6;
+
+const int RANAX_1_1 = 504; const int RANAY_1_1 = 460;
+const int RANAX_1_2 = 484; const int RANAY_1_2 = 481;
+
+const int RANAX_2_1 = 482; const int RANAY_2_1 = 391;
+const int RANAX_2_2 = 516; const int RANAY_2_2 = 432;
+
+const int RANAX_3_1 = 588; const int RANAY_3_1 = 445;
+const int RANAX_3_2 = 579; const int RANAY_3_2 = 360;
 
 // costruttori
 
@@ -73,23 +90,23 @@ void Livello::datiLivello(const int& m,const int& n)
     switch(numero)
     {
         case 1:
-        numPalline = 35;
-        numColori = 4;
+        numPalline = NUMPALLINE_1;
+        numColori = NUMCOLORI_1;
             switch (modalita)
             {
                 case 1:
-                ranax = 504;
-                ranay = 460;
+                ranax = RANAX_1_1;
+                ranay = RANAY_1_1;
                 break;
             
                 case 2:
-                ranax = 482;
-                ranay = 391;
+                ranax = RANAX_2_1;
+                ranay = RANAY_2_1;
                 break;
                 
                 case 3:
-                ranax = 588;
-                ranay = 445;
+                ranax = RANAX_3_1;
+                ranay = RANAY_3_1;
                 break;
 
                 default:
@@ -99,23 +116,23 @@ void Livello::datiLivello(const int& m,const int& n)
 
 
         case 2:
-        numPalline = 45;
-        numColori = 6;
+        numPalline = NUMPALLINE_2;
+        numColori = NUMCOLORI_2;
             switch (modalita)
             {
                 case 1:
-                ranax = 484;
-                ranay = 481;
+                ranax = RANAX_1_2;
+                ranay = RANAY_1_2;
                 break;
             
                 case 2:
-                ranax = 516;
-                ranay = 432;
+                ranax = RANAX_2_2;
+                ranay = RANAY_2_2;
                 break;
                 
                 case 3:
-                ranax = 579;
-                ranay = 360;
+                ranax = RANAX_3_2;
+                ranay = RANAY_3_2;
                 break;
 
                 default:
@@ -161,6 +178,33 @@ void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const in
     al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
 }
 
+void Livello::endLivello()
+{
+    puntiGioco+=serpy->getPoint();
+
+    delete serpy; serpy = nullptr;
+    delete gestoreSpari; gestoreSpari = nullptr;
+}
+
+// sceglie i criteri in piu' per chiudere un livello
+bool Livello::gameOver(const double& tempo, const int& numMosse)
+{
+    switch (modalita)
+    {
+    case TEMPO:
+        return (int(tempo)<=TEMPOADISP);
+        break;
+
+    case MOSSE:
+        return numMosse<=NUMMOSSE;
+    
+    default:
+        break;
+    }
+
+    return true;
+}
+
 void Livello::caricaFont()
 {
     font = al_load_font("../ttf/Lato-Black.ttf", 26*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
@@ -175,9 +219,6 @@ void Livello::resetVite()
 {
     vita = 3;
 }
-
-
-
 
 /* 
     gestisce gli eventi del livello e restistuisce l'esito
@@ -217,7 +258,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     serpy->generaPalline(numPalline,numColori, modalita, numero);
     b = new BUFFER("../image/Livello_" + to_string(modalita) + "_" + to_string(numero) +".jpg");
     Rana rana(ranax,ranay);
-    event_queue.start(60);
+    event_queue.start(VELOCITAGIOCO);
 
     // quante sono le coordinate del livello, serve per identificare quando la prima pallina finisce il percorso
     int sizeCoord=serpy->getSizeCoordinate();
@@ -370,30 +411,3 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     return r;
 }
 
-
-void Livello::endLivello()
-{
-    puntiGioco+=serpy->getPoint();
-
-    delete serpy; serpy = nullptr;
-    delete gestoreSpari; gestoreSpari = nullptr;
-}
-
-// sceglie i criteri in piu' per chiudere un livello
-bool Livello::gameOver(const double& tempo, const int& numMosse)
-{
-    switch (modalita)
-    {
-    case TEMPO:
-        return (int(tempo)<=TEMPOADISP);
-        break;
-
-    case MOSSE:
-        return numMosse<=NUMMOSSE;
-    
-    default:
-        break;
-    }
-
-    return true;
-}

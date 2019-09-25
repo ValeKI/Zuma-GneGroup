@@ -1,89 +1,21 @@
 #include "../header/Menu.h"
 #include <cmath>
 
+// costruttori
+
 Menu::Menu():Schermata()
 {
     caricaFont();
 }
+
+// distruttore
 
 Menu::~Menu()
 {
 
 }
 
-void Menu::caricaFont()
-{
-    font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
-}
-
-// stampa il menu di pausa
-int Menu::menuPausa(Suono* music )
-{
-    if(!music->getLivello())
-    {
-        music->stopLevel1();
-        music->playPause();
-        al_rest(0.8);
-        music->playMenu();
-    }
-    
-    scelte.push_back("Torna al gioco");
-    scelte.push_back("Torna al menu");
-    return menu1();
-}
-
-// stampa il menu principale
-int Menu::menuPricipale( Suono* music)
-{
-    
-    if(!music->getMenu()&& music->getLivello())
-    { 
-        al_rest(1.0);
-        music->playMenu();
-    }
-    scelte.push_back("Classica");
-    scelte.push_back("A Mosse");
-    scelte.push_back("A Tempo");
-    scelte.push_back("Guida");
-    return menu1();
-}
-
-// stampa il menu dove puoi scegliere i livelli
-int Menu::menuLivelli()
-{
-    scelte.push_back("Livello 1");
-    scelte.push_back("Livello 2");
-    scelte.push_back("Torna Indietro");
-    return menu1( );
-}
-
-// menu tipo due, e' schermata che toccando un tasto scompare
-void Menu::menu2(string nomeImm, int tasto)
-{
-    b = new BUFFER("../image/" + nomeImm);
-    event_queue.stop();
-    event_queue.start(10);
-    ALLEGRO_EVENT ev = event_queue.evento();
-
-    b->stampaSfondo();
-    b->stampa(1);
-    al_flip_display();
-
-    while(!(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == tasto))
-        ev = event_queue.evento();
-}
-
-// schermata iniziale
-void Menu::zuma()
-{
-    menu2("zuma.png", ALLEGRO_KEY_ENTER);
-}
-
-// schermata tutorial
-void Menu::tutorial()
-{
-    menu2("tutorial.png", ALLEGRO_KEY_ESCAPE);
-}
+// funzioni protected
 
 // menu di tipo uno, nel quale è possibile effettuare una scelta
 int Menu::menu1()
@@ -237,6 +169,82 @@ int Menu::menu1()
 
     return scelta;
 
+}
+
+// menu tipo due, e' schermata che toccando un tasto scompare
+void Menu::menu2(string nomeImm, int tasto)
+{
+    b = new BUFFER("../image/" + nomeImm);
+    event_queue.stop();
+    event_queue.start(10);
+    ALLEGRO_EVENT ev = event_queue.evento();
+
+    b->stampaSfondo();
+    b->stampa(1);
+    al_flip_display();
+
+    while(!(ev.type == ALLEGRO_EVENT_KEY_UP && ev.keyboard.keycode == tasto))
+        ev = event_queue.evento();
+}
+
+// funzioni public
+
+void Menu::caricaFont()
+{
+    font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
+}
+
+// schermata tutorial
+void Menu::tutorial()
+{
+    menu2("tutorial.png", ALLEGRO_KEY_ESCAPE);
+}
+
+// schermata iniziale
+void Menu::zuma()
+{
+    menu2("zuma.png", ALLEGRO_KEY_ENTER);
+}
+
+// stampa il menu di pausa
+int Menu::menuPausa(Suono* music )
+{
+    if(!music->getLivello())
+    {
+        music->stopLevel1();
+        music->playPause();
+        al_rest(0.8);
+        music->playMenu();
+    }
+    
+    scelte.push_back("Torna al gioco");
+    scelte.push_back("Torna al menu");
+    return menu1();
+}
+
+// stampa il menu principale
+int Menu::menuPricipale( Suono* music)
+{
+    
+    if(!music->getMenu()&& music->getLivello())
+    { 
+        al_rest(1.0);
+        music->playMenu();
+    }
+    scelte.push_back("Classica");
+    scelte.push_back("A Mosse");
+    scelte.push_back("A Tempo");
+    scelte.push_back("Guida");
+    return menu1();
+}
+
+// stampa il menu dove puoi scegliere i livelli
+int Menu::menuLivelli()
+{
+    scelte.push_back("Livello 1");
+    scelte.push_back("Livello 2");
+    scelte.push_back("Torna Indietro");
+    return menu1( );
 }
 
 // verifica se il mouse tocca un testo

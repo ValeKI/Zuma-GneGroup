@@ -3,15 +3,13 @@
 #include "HitBox.h"
 
 // rappresenta il punto del mouse e gestisce la collisione
-
 class Mouse
 {
     private:
-        int x;
-        int y;
+        int x = 0;
+        int y = 0;
 
     public:
-        Mouse();
         void setY(const int&);
         void setX(const int&);
         int getY() const;

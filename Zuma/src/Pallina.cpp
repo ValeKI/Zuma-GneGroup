@@ -10,8 +10,7 @@ Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),v
     setColore(colore);
 }
 
-// set
-
+//setter
 void Pallina::setColore(const COLORE& colore)
 {
     string imm;
@@ -64,8 +63,7 @@ void Pallina::setVelocita(const int& x)
     velocita=x;
 }
 
-// get
-
+// getter
 COLORE Pallina::getColore() const
 {
     return colore;
@@ -86,8 +84,7 @@ int Pallina::getVelocita() const
     return velocita;
 }
 
-// funzioni
-
+// metodo per avanzare gestita con la velocità
 void Pallina::avanza()
 {
     if(direzione==AVANTI)
@@ -97,6 +94,7 @@ void Pallina::avanza()
     // altrimenti FERMO
 }
 
+//metodo per invertre la direzione
 void Pallina::invertiDirezione()
 {
     if(direzione == AVANTI)
@@ -105,12 +103,14 @@ void Pallina::invertiDirezione()
         direzione = AVANTI;
 }
 
+//movimento della pallina tramite i setter
 void Pallina::movimento(const pair<int, int>& c)
 {
     setX(c.first);
     setY(c.second);
 }
 
+//bloccare la pallina in una data posizione
 void Pallina::stop()
 {
     direzione = FERMO;

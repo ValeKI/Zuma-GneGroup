@@ -1,5 +1,7 @@
 #include "../header/Schermata.h"
 
+// costruttori
+
 Schermata::Schermata()
 {
     b = nullptr;
@@ -8,6 +10,8 @@ Schermata::Schermata()
     al_init_ttf_addon();
     event_queue.start();
 }
+
+// distruttore
 
 Schermata::~Schermata()
 {

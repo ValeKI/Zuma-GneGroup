@@ -3,14 +3,14 @@
 #include "PallinaRana.h"
 #include "Buffer.h"
 #include "Serpente.h"
-#include <string>
-#include <vector>
 
+/* Classe per la gestione delle palline sparate dalla rana(colpi) */
 class GestoreSpari
 {
     private:
         vector<PallinaRana*> spari;
     public:
+        
         ~GestoreSpari();
         
         PallinaRana* getPallinaRana(int i);

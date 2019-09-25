@@ -15,7 +15,7 @@ Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.ge
 {
     setStampaX(p.getStampaX());
     setStampaY(p.getStampaY());
-    setVelocita(10);
+    setVelocita(VELOCITASPARO);
 }
 
 // set
