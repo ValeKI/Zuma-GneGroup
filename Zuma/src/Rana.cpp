@@ -5,20 +5,17 @@
 //"../image/Rana.png"
 extern int wGlobal;
 extern int hGlobal;
-extern int coloriPalline;
-extern vector<COLORE> tipi;
-
 // costruttori
 
 // si occupa di posizionare la rana al centro e di generare le due palline
-Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
+Rana::Rana(const int& a,const int& b, const int& n):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
     srand(time(0));
     cx = a*( (wGlobal*scale2)/1024.); 
     cy = b*( (hGlobal*scale2)/768.);
     palline = new PallinaRana*[2];
-    palline[0] = new PallinaRana(COLORE(rand()%coloriPalline));
-    palline[1] = new PallinaRana(COLORE(rand()%coloriPalline));
+    palline[0] = new PallinaRana(COLORE(rand()%n));
+    palline[1] = new PallinaRana(COLORE(rand()%n));
 }
 
 // distruttore
@@ -77,16 +74,21 @@ void Rana::stampa(int mx, int my)
 }
 
 // restituisce la pallina della lingua e genera la nuova
-PallinaRana* Rana::getPallina()
+PallinaRana* Rana::getPallina(bool coloriDisponibili[],const int& n)
 {
     PallinaRana* p = nullptr;
     if(tempo%10==0)
     {
         p = palline[1];
-    
         palline[1] = palline[0];
-        if(!tipi.empty())
-            palline[0] = new PallinaRana(tipi[rand()%tipi.size()]);
+
+        if(n>0)
+        {
+            COLORE c = COLORE(rand()%n);
+            while(!coloriDisponibili[c])
+                c = COLORE(rand()%n);
+            palline[0] = new PallinaRana(c);
+        }
         else 
             palline[0] = new PallinaRana(GIALLO);
     }

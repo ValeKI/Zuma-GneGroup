@@ -257,7 +257,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     gestoreSpari = new GestoreSpari();
     serpy->generaPalline(numPalline,numColori, modalita, numero);
     b = new BUFFER("../image/Livello_" + to_string(modalita) + "_" + to_string(numero) +".jpg");
-    Rana rana(ranax,ranay);
+    Rana rana(ranax,ranay,numColori);
     event_queue.start(VELOCITAGIOCO);
 
     // quante sono le coordinate del livello, serve per identificare quando la prima pallina finisce il percorso
@@ -304,7 +304,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
             else // se sparo col mouse
             {
                 numMosse++;
-                gestoreSpari->inserisciSparo(rana.getPallina());
+                gestoreSpari->inserisciSparo(rana.getPallina(serpy->getColoriDisponibili(), serpy->getNumColoriDisponibili()));
             }
         }
 
@@ -365,7 +365,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
                     else
                     {
                         numMosse++;
-                        gestoreSpari->inserisciSparo(rana.getPallina());
+                        gestoreSpari->inserisciSparo(rana.getPallina(serpy->getColoriDisponibili(), serpy->getNumColoriDisponibili()));
                     }
                 break; 
                 case ALLEGRO_KEY_ESCAPE:

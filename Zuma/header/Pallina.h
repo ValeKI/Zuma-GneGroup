@@ -5,6 +5,7 @@
 #include <string>
 
 const int VELOCITAPALLINE = 1;
+const int NUMCOLORI = 6;
 
 enum DIREZIONE{AVANTI = 0, DIETRO, FERMO};
 enum COLORE{ROSSO=0,BLU,VERDE,ARANCIONE,VIOLA,GIALLO};

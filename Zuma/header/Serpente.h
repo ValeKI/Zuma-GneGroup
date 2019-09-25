@@ -29,7 +29,14 @@ class Serpente
         Pallina* finta;
         int distanzaPalline;
         int point = 0;
+
+        int numColoriDisponibili = 6;
+        bool coloriDisponibili[NUMCOLORI]{false};
     protected:
+
+        // resetta i colori a disposizione per la rana
+        void azzeraColori();
+
         // in caso di palline sovvrapposte porta la pallina più a destra (più vicino a 0) alla distanza giusta
         void fixVelocita();
         
@@ -59,6 +66,9 @@ class Serpente
     public:
         Serpente();
         ~Serpente();
+
+        bool* getColoriDisponibili();
+        int getNumColoriDisponibili();
 
         // restituisce il punteggio generato dagli scoppi
         int getPoint() const;

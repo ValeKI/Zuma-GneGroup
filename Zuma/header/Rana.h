@@ -23,14 +23,14 @@ class Rana: public HitBox
     public:
     
         // si occupa di posizionare la rana al centro e di generare le due palline
-        Rana(int,int);
+        Rana(const int& a,const int& b, const int& n);
         ~Rana();
 
         // stampa la rana, dipende dalle coordinate del mouse l'angolo sul quale e' inclinata
         void stampa(int, int);
 
         // restituisce la pallina della lingua e genera la nuova
-        PallinaRana* getPallina();
+        PallinaRana* getPallina(bool coloriDisponibili[],const int& n);
         
         
 };

@@ -1,7 +1,5 @@
 #include "../header/Serpente.h"
 
-int coloriPalline;
-vector<COLORE> tipi;
 
 // verifica se due palline sono collegate
 bool collegate(Pallina* p1,Pallina* p2,int d)
@@ -39,6 +37,16 @@ Serpente::~Serpente()
 
 // get
 
+bool* Serpente::getColoriDisponibili()
+{
+    return coloriDisponibili;
+}
+
+int Serpente::getNumColoriDisponibili()
+{
+    return numColoriDisponibili;
+}
+
 // restituisce il punteggio generato dagli scoppi
 int Serpente::getPoint() const
 {
@@ -61,6 +69,13 @@ int Serpente::getSizeCoordinate() const
 }
 
 // funzioni protected
+
+// resetta i colori a disposizione per la rana
+void Serpente::azzeraColori()
+{
+    for(int i=0; i<NUMCOLORI; i++)
+        coloriDisponibili[i] = false;
+}
 
 // in caso di palline sovvrapposte porta la pallina più a destra (più vicino a 0) alla distanza giusta
 void Serpente::fixVelocita()
@@ -260,15 +275,15 @@ void Serpente::stampa()
 {
     int p, sizeCoord=getSizeCoordinate();
     
-    ::tipi.clear();
+    azzeraColori();
+    numColoriDisponibili = 0;
 
     if(!palline.empty())
     {
         fixVelocita();
         for(auto i:palline)
         { 
-            if(find(::tipi.begin(), ::tipi.end(), i->getColore()) == ::tipi.end())
-                ::tipi.push_back(i->getColore());
+            coloriDisponibili[i->getColore()] = true;
             i->Pallina::avanza();
             p=i->getPosizione();
             if(p>=0 && p<sizeCoord)
@@ -278,7 +293,11 @@ void Serpente::stampa()
             }
         }
     }
-    ::coloriPalline = tipi.size();    
+    
+    for(int i=0; i<NUMCOLORI; i++)
+        if(coloriDisponibili[i])
+            numColoriDisponibili++;
+
 }
 
 // crea le palline in modo casuale
@@ -287,12 +306,11 @@ void Serpente::generaPalline(const int& num, const int& tipi, const int& modalit
     caricaCoordinate(modalita, numero);
     srand(time(0));
     int pos=0;
-    ::coloriPalline = tipi;
+    numColoriDisponibili = tipi;
             
     for(int i=0; i<num; i++)
     {
         int x=rand()%tipi;
-        //cout << "il rand " << x << endl;
         switch (x)
         {
             case 0:
