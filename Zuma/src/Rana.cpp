@@ -84,9 +84,9 @@ PallinaRana* Rana::getPallina(bool coloriDisponibili[],const int& n)
 
         if(n>0)
         {
-            COLORE c = COLORE(rand()%n);
+            COLORE c = COLORE(rand()%NUMCOLORI);
             while(!coloriDisponibili[c])
-                c = COLORE(rand()%n);
+            {    c = COLORE(rand()%NUMCOLORI);}
             palline[0] = new PallinaRana(c);
         }
         else 
