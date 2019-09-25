@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// costruttori
+
 Event_queue::Event_queue(float fps)
 {
     FPS=fps;
@@ -19,10 +21,14 @@ Event_queue::Event_queue(float fps)
 
 }
 
+// distruttore
+
 Event_queue::~Event_queue()
 {
     stop();
 }
+
+// funzioni
 
 void Event_queue::start(float fps)
 {   
@@ -67,6 +73,10 @@ void Event_queue::flusha()
     al_flush_event_queue(event_queue); //<3
 }
 
+bool Event_queue::empty()
+{
+    return al_is_event_queue_empty(event_queue);
+}
 
 ALLEGRO_EVENT Event_queue::evento()
 {
@@ -75,7 +85,3 @@ ALLEGRO_EVENT Event_queue::evento()
     return ev;
 }
 
-bool Event_queue::empty()
-{
-    return al_is_event_queue_empty(event_queue);
-}

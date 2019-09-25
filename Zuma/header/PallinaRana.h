@@ -19,29 +19,21 @@ class PallinaRana: public Pallina
         pair<int, int> punto;
     public:
 
+        PallinaRana(const PallinaRana&);
+        PallinaRana(COLORE);
+        
+        void setX(const int&);
+        void setY(const int&);
+        void setStampaX(const int&);
+        void setStampaY(const int&);
+
         float getVx() const;
         float getVy() const;
         float getScalare() const;
         pair<int,int> getPunto() const;
 
-
-
-        PallinaRana(const PallinaRana&);
-        PallinaRana(COLORE);
+        // e' calcolata la posizione della pallina, che dipende dalle coordinate del mouse
         void direziona(int, int, int, int);
         void movimento();
-
-        void setStampaX(int);
-        void setStampaY(int);
-
-        void setX(int a)
-        {
-            x=a-lunghezza/2;
-        }
-        void setY(int a)
-        {
-            y=a-altezza/2;
-        }
-
 };
 #endif

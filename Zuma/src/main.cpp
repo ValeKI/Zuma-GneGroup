@@ -7,8 +7,6 @@
     gestione errori, rivedere le stampe cerr
     vedere tutti gli include
     trovare un altro modo per gestire i colori disponibili, senza variabili extern
-
-
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/Sfondo.h"

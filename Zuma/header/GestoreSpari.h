@@ -11,13 +11,21 @@ class GestoreSpari
     private:
         vector<PallinaRana*> spari;
     public:
+        ~GestoreSpari();
+        
+        PallinaRana* getPallinaRana(int i);
+
         void inserisciSparo(PallinaRana* sparo);
-        bool collisioneSparo(Serpente& serpy);
+        
+        Pallina* rimuoviPallina(int i);
+        
+        // se uno sparo esce dallo schermo viene eliminato
         void nelloSchermo(BUFFER&);
         void stampa();
-        ~GestoreSpari();
-        PallinaRana* getPallinaRana(int i);
-        Pallina* rimuoviPallina(int i);
+        
+        // se la pallina ha lo spazio per essere inserita viene rimossa dagli spari
+        bool collisioneSparo(Serpente& serpy);
+        
 };
 
 #endif

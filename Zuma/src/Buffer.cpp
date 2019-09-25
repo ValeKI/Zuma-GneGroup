@@ -3,28 +3,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-int BUFFER::getGlobalScale() const
-{
-    return scale2;
-}
-
-// verifica la collisione col buffer
-bool BUFFER::collisione(HitBox* obj)
-{
-    return 
-    (
-        obj->getStampaX()-obj->getStampaL()/3.> ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
-        &&
-        obj->getStampaX()+obj->getStampaL()+obj->getStampaL()/3.<=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal*scale2) 
-        
-        &&
-        
-        obj->getStampaY()-obj->getStampaA()/3. > ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
-        &&
-        obj->getStampaY()+obj->getStampaA()+obj->getStampaA()/3.<=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal*scale2) 
-    );
-}
-
+// costruttori
 
 BUFFER::BUFFER(const char* immagine):HitBox(string(immagine), 0, 0, 1 )
 {
@@ -36,12 +15,22 @@ BUFFER::BUFFER(string immagine):HitBox(immagine, 0, 0, 1 )
    buffer=nullptr;
 }
 
+// distruttore
 
 BUFFER::~BUFFER()
 {
     if(buffer!=nullptr)
         al_destroy_bitmap(buffer);
 }
+
+// get
+
+int BUFFER::getGlobalScale() const
+{
+    return scale2;
+}
+
+// funzioni
 
 // permettere di aggiungere un immagine al buffer
 void BUFFER::aggiungiImmagine(HitBox* hit)
@@ -55,6 +44,37 @@ void BUFFER::aggiungiImmagine(HitBox* hit)
 
     al_set_target_bitmap(prev_target); 
     hit->distruggiLoad();
+}
+
+// stampa il buffer sullo sfondo
+void BUFFER::stampa(bool contr)
+{
+    setLunghezza(wGlobal * scale2);
+    setAltezza(hGlobal * scale2);
+    setX((displayW-getLunghezza())/2 );
+    setY ( (displayH-getAltezza())/2 );
+
+    load=buffer;
+    HitBox::stampa(0);
+
+    load=nullptr;
+}
+
+// verifica la collisione col buffer
+bool BUFFER::collisione(const HitBox* obj) const
+{
+    return 
+    (
+        obj->getStampaX()-obj->getStampaL()/3.> ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
+        &&
+        obj->getStampaX()+obj->getStampaL()+obj->getStampaL()/3.<=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal*scale2) 
+        
+        &&
+        
+        obj->getStampaY()-obj->getStampaA()/3. > ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
+        &&
+        obj->getStampaY()+obj->getStampaA()+obj->getStampaA()/3.<=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal*scale2) 
+    );
 }
 
 // stampa l'immagine del buffer sul buffer
@@ -91,18 +111,3 @@ bool BUFFER::stampaSfondo()
     distruggiLoad();
     return 1;
 }
-
-// stampa il buffer sullo sfondo
-void BUFFER::stampa(bool contr)
-{
-    setLunghezza(wGlobal * scale2);
-    setAltezza(hGlobal * scale2);
-    setX((displayW-getLunghezza())/2 );
-    setY ( (displayH-getAltezza())/2 );
-
-    load=buffer;
-    HitBox::stampa(0);
-
-    load=nullptr;
-}
-

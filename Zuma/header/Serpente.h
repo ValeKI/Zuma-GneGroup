@@ -19,19 +19,24 @@ class Serpente
         int distanzaPalline;
         int point = 0;
     public:
+        Serpente();
+        ~Serpente();
+
         int getPoint() const;
+        int getPosizionePrimaPallina() const;
+        int getSizeCoordinate() const;
+
         bool empty();
         void fixVelocita();
         void stop();
         void scoppiaPalline(int p);
-        Serpente();
+
         bool collideInTesta(HitBox* pallina);
-        int getPosizionePrimaPallina();
+        
         void caricaCoordinate(const int& modalita, const int& numero);
         void generaPalline(const int& num, const int& tipi, const int& modalita, const int& numero);
         void stampa();
-        ~Serpente();
-        int getSizeCoordinate();
+
         bool toccaSparo(Pallina* sparo, int j);
         void gestisciMovimento();
         int cambiaDirezioneASinistraDi(int,DIREZIONE);

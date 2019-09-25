@@ -7,11 +7,15 @@ const int BONUSVITA = 800;
 const int TEMPOADISP = 90;
 const int NUMMOSSE = 70;
 
+// costruttori
+
 // carica il font
 Livello::Livello():Schermata()
 {
     caricaFont();
 }
+
+// distruttore
 
 // se non si è distrutto qualcosa se ne occupa
 Livello::~Livello()
@@ -26,52 +30,32 @@ Livello::~Livello()
         delete menu; 
 }
 
-void Livello::caricaFont()
+// funzioni protected
+
+// stampa hai vinto-hai perso e lancia il suono
+void Livello::stampaFinale(const bool& vinto, Suono*& music)
 {
-    font = al_load_font("../ttf/Lato-Black.ttf", 26*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
-}
+    string imm;
 
-void Livello::azzeraPunti()
-{
-    puntiGioco=0;
-}
-
-void Livello::resetVite()
-{
-    vita = 3;
-}
-
-// stampa la scritta del punteggio secondo la mod e il liv
-void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const int& numMosse)
-{
-    string stampa = "Mod: ";
-
-    switch(modalita)
-    {
-        case 1:
-            stampa += "Classica";
-        break;
-
-        case 2:
-            stampa+="Mosse";
-        break;
-
-        case 3:
-            stampa+= "Tempo";
-        break;
-        
-        default: 
-        break;
+    if(vinto)
+    {  
+        imm = "win.jpg";
+        music->playWin();
+    }
+    else
+    {    
+        imm = "lost.png";
+        music->playGameOver();
     }
 
-    stampa += "     Liv: " + to_string(numero) + "     Vita: " + to_string(vita) + "     Punti: " + to_string(puntiGioco + p) + "     Pausa: premi p     ";
+    delete b;
+    b = new BUFFER("../image/"+imm);
+    b->stampaSfondo();
+    b->stampa(1);
+    al_flip_display();
 
-    if(modalita == int(TEMPO))
-        stampa += "Tempo: " + to_string(int(tempo))+ "sec su " + to_string(TEMPOADISP) + " sec";
-    else if(modalita == int(MOSSE))
-        stampa += "Mosse: " + to_string(numMosse) + " su " + to_string(NUMMOSSE);
-    
-    al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
+    al_rest(7.1);
+    music->playMenu();
 }
 
 /*
@@ -143,6 +127,57 @@ void Livello::datiLivello(const int& m,const int& n)
         break;
     }
 }
+
+// stampa la scritta del punteggio secondo la mod e il liv
+void Livello::stampaScrittaPunteggio(const int& p, const double& tempo, const int& numMosse)
+{
+    string stampa = "Mod: ";
+
+    switch(modalita)
+    {
+        case 1:
+            stampa += "Classica";
+        break;
+
+        case 2:
+            stampa+="Mosse";
+        break;
+
+        case 3:
+            stampa+= "Tempo";
+        break;
+        
+        default: 
+        break;
+    }
+
+    stampa += "     Liv: " + to_string(numero) + "     Vita: " + to_string(vita) + "     Punti: " + to_string(puntiGioco + p) + "     Pausa: premi p     ";
+
+    if(modalita == int(TEMPO))
+        stampa += "Tempo: " + to_string(int(tempo))+ "sec su " + to_string(TEMPOADISP) + " sec";
+    else if(modalita == int(MOSSE))
+        stampa += "Mosse: " + to_string(numMosse) + " su " + to_string(NUMMOSSE);
+    
+    al_draw_text(font, al_map_rgb(255,255,255), b->getX(), b->getY(), ALLEGRO_ALIGN_LEFT, stampa.c_str());
+}
+
+void Livello::caricaFont()
+{
+    font = al_load_font("../ttf/Lato-Black.ttf", 26*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
+}
+
+void Livello::azzeraPunti()
+{
+    puntiGioco=0;
+}
+
+void Livello::resetVite()
+{
+    vita = 3;
+}
+
+
+
 
 /* 
     gestisce gli eventi del livello e restistuisce l'esito
@@ -334,31 +369,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     endLivello();
     return r;
 }
-// stampa hai vinto-hai perso e lancia il suono
-void Livello::stampaFinale(const bool& vinto, Suono*& music)
-{
-    string imm;
 
-    if(vinto)
-    {  
-        imm = "win.jpg";
-        music->playWin();
-    }
-    else
-    {    
-        imm = "lost.png";
-        music->playGameOver();
-    }
-
-    delete b;
-    b = new BUFFER("../image/"+imm);
-    b->stampaSfondo();
-    b->stampa(1);
-    al_flip_display();
-
-    al_rest(7.1);
-    music->playMenu();
-}
 
 void Livello::endLivello()
 {

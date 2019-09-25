@@ -28,12 +28,6 @@ class HitBox
         HitBox(string _immagine, int _x, int _y, float scale);
         ~HitBox();
 
-        virtual void stampa(bool contr);
-        virtual bool collisione(HitBox* obj);
-
-        void distruggiLoad();
-        void ricreaLoad();
-
         void setImmagine(string);
         void setLunghezza(int);
         void setAltezza(int);
@@ -52,6 +46,19 @@ class HitBox
         virtual int getStampaL() const;
         virtual int getStampaA() const;
         ALLEGRO_BITMAP* getLoad() const;
+
+        // disegna una HitBox proporzionata al buffer se contr = true se no stampa sullo schermo
+        virtual void stampa(bool contr);
+
+        // verifica se due hitbox si toccano
+        virtual bool collisione(const HitBox* obj) const;
+
+        // distrugge l'immagine legata all'HitBox
+        void distruggiLoad();
+
+        // crea l'immagine legata all'HitBox
+        void ricreaLoad();
+
 };
 
 #endif

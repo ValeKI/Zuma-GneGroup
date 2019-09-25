@@ -3,6 +3,8 @@
 extern int wGlobal;
 extern int hGlobal;
 
+// costruttori
+
 HitBox::HitBox(string _immagine, int _x, int _y, float scale) 
 {
     ALLEGRO_DISPLAY* display=al_get_current_display();
@@ -21,10 +23,103 @@ HitBox::HitBox(string _immagine, int _x, int _y, float scale)
     }
 }
 
+// distruttore
+
 HitBox::~HitBox()
 {
     distruggiLoad();
 }
+
+// set
+
+void HitBox::setImmagine(string immagine) 
+{ 
+    this->immagine = immagine;  
+}
+
+void HitBox::setLunghezza(int lunghezza) 
+{ 
+    this->lunghezza = lunghezza;  
+}
+
+void HitBox::setAltezza(int altezza) 
+{
+    this->altezza = altezza;
+}
+
+void HitBox::setY(int y) 
+{
+    this->y = y;
+}
+
+void HitBox::setX(int x) 
+{ 
+    this->x = x;
+}
+
+// get
+
+string HitBox::getImmagine()  const
+{
+    return immagine;
+}
+
+int HitBox::getLunghezza()  const
+{ 
+    return lunghezza;
+}
+
+int HitBox::getAltezza()  const
+{ 
+    return altezza;
+}
+
+int HitBox::getY()  const
+{
+    return y;
+}
+
+int HitBox::getX()  const
+{
+    return x;
+}
+
+void HitBox::setStampaX(int a)
+{
+    x = a-((displayW-  (wGlobal * scale2) ) /2  ) ;
+}
+
+void HitBox::setStampaY(int a)
+{
+    y= a-( (displayH-(hGlobal * scale2))  /2 );
+}
+
+int HitBox::getStampaX() const
+{
+    return (x+(displayW-(wGlobal * scale2))/2 ); 
+}
+
+int HitBox::getStampaY()  const
+{
+    return (y+(displayH-(hGlobal * scale2))/2 ); 
+}
+
+int HitBox::getStampaL()  const
+{
+    return lunghezza*( (wGlobal*scale2)/1024.);
+}
+
+int HitBox::getStampaA() const
+{
+    return altezza*( (hGlobal*scale2)/768.);
+}
+
+ALLEGRO_BITMAP* HitBox::getLoad()  const
+{
+    return load;
+}
+
+// funzioni
 
 // disegna una HitBox proporzionata al buffer se contr = true se no stampa sullo schermo
 void HitBox::stampa(bool contr)
@@ -53,7 +148,7 @@ void HitBox::stampa(bool contr)
 }
 
 // verifica se due hitbox si toccano
-bool HitBox::collisione(HitBox* obj)
+bool HitBox::collisione(const HitBox* obj) const
 {
    return(load!=nullptr && 
    (
@@ -93,101 +188,3 @@ void HitBox::ricreaLoad()
     }
 }
 
-void HitBox::setImmagine(string immagine) 
-{ 
-    this->immagine = immagine;  
-}
-
-
-void HitBox::setLunghezza(int lunghezza) 
-{ 
-    this->lunghezza = lunghezza;  
-}
-
-
-void HitBox::setAltezza(int altezza) 
-{
-    this->altezza = altezza;
-}
-
-
-void HitBox::setY(int y) 
-{
-    this->y = y;
-}
-
-
-void HitBox::setX(int x) 
-{ 
-    this->x = x;
-}
-
-
-string HitBox::getImmagine()  const
-{
-    return immagine;
-}
-
-
-int HitBox::getLunghezza()  const
-{ 
-    return lunghezza;
-}
-
-
-int HitBox::getAltezza()  const
-{ 
-    return altezza;
-}
-
-
-int HitBox::getY()  const
-{
-    return y;
-}
-
-
-int HitBox::getX()  const
-{
-    return x;
-}
-
-void HitBox::setStampaX(int a)
-{
-    x = a-((displayW-  (wGlobal * scale2) ) /2  ) ;
-}
-
-void HitBox::setStampaY(int a)
-{
-    y= a-( (displayH-(hGlobal * scale2))  /2 );
-}
-
-
-int HitBox::getStampaX() const
-{
-    return (x+(displayW-(wGlobal * scale2))/2 ); 
-}
-
-
-int HitBox::getStampaY()  const
-{
-    return (y+(displayH-(hGlobal * scale2))/2 ); 
-}
-
-
-int HitBox::getStampaL()  const
-{
-    return lunghezza*( (wGlobal*scale2)/1024.);
-}
-
-
-int HitBox::getStampaA() const
-{
-    return altezza*( (hGlobal*scale2)/768.);
-}
-
-
-ALLEGRO_BITMAP* HitBox::getLoad()  const
-{
-    return load;
-}

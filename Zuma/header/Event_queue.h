@@ -19,6 +19,7 @@ class Event_queue
     public:
         Event_queue(float fps=60);
         ~Event_queue();
+        
         void start(float fps=60);
         void stop();
         void flusha();

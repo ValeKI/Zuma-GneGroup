@@ -3,7 +3,16 @@
 extern int wGlobal;
 extern int hGlobal;
 
-void Pallina::setColore(COLORE colore)
+// costruttori
+
+Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(VELOCITAPALLINE), HitBox("../image/Ball.png", 0, 0, 0.036)
+{
+    setColore(colore);
+}
+
+// set
+
+void Pallina::setColore(const COLORE& colore)
 {
     string imm;
     switch(colore)
@@ -40,18 +49,44 @@ void Pallina::setColore(COLORE colore)
     ricreaLoad();
 }
 
+void Pallina::setDirezione(const DIREZIONE& dir)
+{
+    direzione = dir;
+}
+
+void Pallina::setPosizione(const double& p)
+{
+    posizione = p;
+}
+
+void Pallina::setVelocita(const int& x)
+{
+    velocita=x;
+}
+
+// get
+
+COLORE Pallina::getColore() const
+{
+    return colore;
+}
+
+DIREZIONE Pallina::getDirezione() const
+{
+    return direzione;
+}
+
+double Pallina::getPosizione() const
+{
+    return this->posizione;
+}
+
 int Pallina::getVelocita() const
 {
     return velocita;
 }
 
-Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),velocita(VELOCITA), HitBox("../image/Ball.png", 0, 0, 0.036)
-{
-    setColore(colore);
-}
-
-Pallina::~Pallina()
-{} 
+// funzioni
 
 void Pallina::avanza()
 {
@@ -60,6 +95,14 @@ void Pallina::avanza()
     if(direzione==DIETRO)
         posizione-=velocita;
     // altrimenti FERMO
+}
+
+void Pallina::invertiDirezione()
+{
+    if(direzione == AVANTI)
+        direzione = DIETRO;
+    else if(direzione == DIETRO)
+        direzione = AVANTI;
 }
 
 void Pallina::movimento(const pair<int, int>& c)
@@ -73,42 +116,6 @@ void Pallina::stop()
     direzione = FERMO;
 }
 
-void Pallina::invertiDirezione()
-{
-    if(direzione == AVANTI)
-        direzione = DIETRO;
-    else if(direzione == DIETRO)
-        direzione = AVANTI;
-}
-
-COLORE Pallina::getColore() const
-{
-    return colore;
-}
-
-double Pallina::getPosizione() const
-{
-    return this->posizione;
-}
-
-void Pallina::setPosizione(double p)
-{
-    posizione = p;
-}
 
 
-DIREZIONE Pallina::getDirezione() const
-{
-    return direzione;
-}
 
-
-void Pallina::setDirezione(DIREZIONE dir)
-{
-    direzione = dir;
-}
-
-void Pallina::setVelocita(int x)
-{
-    velocita=x;
-}

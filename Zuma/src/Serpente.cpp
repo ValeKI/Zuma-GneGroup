@@ -3,11 +3,53 @@
 int coloriPalline;
 vector<COLORE> tipi;
 
+// costruttori
+
+// si occupa di creare una pallina immaginaria
+Serpente::Serpente()
+{
+    finta = new Pallina (COLORE(0), 0);
+}
+
+Serpente::~Serpente()
+{
+    for(int i=0; i<palline.size(); i++)
+        delete palline[i];
+
+    for(int i=0; i<coordinate.size(); i++)
+        delete coordinate[i];
+
+    for(int i=0; i<coppiaSpari.size(); i++)
+        delete coppiaSpari[i];
+
+    delete finta;
+
+}
+
 // restituisce il punteggio generato dagli scoppi
 int Serpente::getPoint() const
 {
     return point*10;
 }
+
+// restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante è che sia più grande)
+int Serpente::getPosizionePrimaPallina() const
+{
+    if(!palline.empty())
+        return palline[0]->getPosizione();
+    
+    return getSizeCoordinate()*5;
+}
+
+// restituisce quante coordinate sono state lette
+int Serpente::getSizeCoordinate() const
+{
+    return coordinate.size();
+}
+
+
+
+
 
 // verifica se due palline sono collegate
 bool collegate(Pallina* p1,Pallina* p2,int d)
@@ -159,26 +201,8 @@ void Serpente::stampa()
     ::coloriPalline = tipi.size();    
 }
 
-Serpente::~Serpente()
-{
-    for(int i=0; i<palline.size(); i++)
-        delete palline[i];
 
-    for(int i=0; i<coordinate.size(); i++)
-        delete coordinate[i];
 
-    for(int i=0; i<coppiaSpari.size(); i++)
-        delete coppiaSpari[i];
-
-    delete finta;
-
-}
-
-// restituisce quante coordinate sono state lette
-int Serpente::getSizeCoordinate()
-{
-    return coordinate.size();
-}
 
 /* 
     cerca se la posizione di una pallina è stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
@@ -193,11 +217,6 @@ int Serpente::cercaIndiceCoppiaSpari(const int& indice, const int& quale)
     return -2;
 }
 
-// si occupa di creare una pallina immaginaria
-Serpente::Serpente()
-{
-    finta = new Pallina (COLORE(0), 0);
-}
 
 // crea una pallina immaginaria, serve per inserire una pallina in testa
 bool Serpente::collideInTesta(HitBox* obj)
@@ -261,16 +280,16 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
             {
                 // vedi la distanza con la sua pallina precedente (verso 0)
                 int differenzaPosizioni = palline[primo]->getPosizione() - palline[primo+1]->getPosizione();
-                int v =  Pallina::VELOCITA * 20;
+                int v =  VELOCITAPALLINE * 20;
             
                 if ( (differenzaPosizioni + v ) > distanzaPalline*2)
-                    v =  distanzaPalline*2 - differenzaPosizioni+Pallina::VELOCITA;
+                    v =  distanzaPalline*2 - differenzaPosizioni+VELOCITAPALLINE;
                 
                 // se ci entra una pallina
                 if (differenzaPosizioni >= distanzaPalline*2)
                 {
                     // resetta la velocita' alle palline
-                    cambiaDirVel(primo, AVANTI,Pallina::VELOCITA);
+                    cambiaDirVel(primo, AVANTI,VELOCITAPALLINE);
                     
                     // toglie la coppia spari
                     delete coppiaSpari[indiceCS];
@@ -278,7 +297,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                     
                     //inserisce lo sparo
                     sparo->setPosizione(palline[primo+1]->getPosizione()+distanzaPalline);
-                    sparo->setVelocita(Pallina::VELOCITA);
+                    sparo->setVelocita(VELOCITAPALLINE);
                     palline.insert(palline.begin()+(primo+1),dynamic_cast<Pallina*>(sparo));   
 
                     // vede se scoppia le palline vicine
@@ -297,7 +316,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                 coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
                 
                 sparo->setPosizione(palline[primo]->getPosizione()-distanzaPalline);
-                sparo->setVelocita(Pallina::VELOCITA);
+                sparo->setVelocita(VELOCITAPALLINE);
 
                 palline.push_back(dynamic_cast<Pallina*>(sparo));
 
@@ -311,7 +330,7 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
                 coppiaSpari.erase(coppiaSpari.begin() + indiceCS);
                 
                 sparo->setPosizione(palline[0]->getPosizione()+distanzaPalline);
-                sparo->setVelocita(Pallina::VELOCITA);
+                sparo->setVelocita(VELOCITAPALLINE);
 
                 palline.insert(palline.begin(),dynamic_cast<Pallina*>(sparo));
                 scoppiaPalline(0);
@@ -323,14 +342,6 @@ bool Serpente::toccaSparo(Pallina* sparo, int j)
     return false;
 }
 
-// restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante è che sia più grande)
-int Serpente::getPosizionePrimaPallina()
-{
-    if(!palline.empty())
-        return palline[0]->getPosizione();
-    
-    return getSizeCoordinate()*5;
-}
 
 // cambia sia direzione che velocita' alle palline che si trovano alla destra dell'i-esima (tendenzialmente 0)
 void Serpente::cambiaDirVel(int i, DIREZIONE d, int v)
@@ -402,7 +413,7 @@ void Serpente::gestisciMovimento()
 
         for(int i=0;i<palline.size()-1;i++)
         {
-            palline[i]->setVelocita(Pallina::VELOCITA);
+            palline[i]->setVelocita(VELOCITAPALLINE);
             // se una pallina non è immischiata in uno sparo e non è collegata con la precedente (i+1) e hanno lo stesso colore
             if(cercaIndiceCoppiaSpari(i,SINISTRA)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
             {
