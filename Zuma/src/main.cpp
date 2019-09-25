@@ -1,5 +1,14 @@
 /*
     g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -o Zuma && ./Zuma
+    
+    vedere i const tutti
+    vedere se è necessario aggiungere delle variabili costanti tutti
+    ordinare i .cpp secondo i .h tutti
+    gestione errori, rivedere le stampe cerr
+    vedere tutti gli include
+    trovare un altro modo per gestire i colori disponibili, senza variabili extern
+
+
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/Sfondo.h"
@@ -10,8 +19,10 @@
 #include <allegro5/allegro5.h>
 
 
-// è la 'risoluzione' scelta
+// e' la width della 'risoluzione' scelta
 int wGlobal=1024;
+
+// e' la height della 'risoluzione' scelta
 int hGlobal=768;
 
 

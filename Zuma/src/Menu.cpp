@@ -16,6 +16,7 @@ void Menu::caricaFont()
     font = al_load_font("../ttf/ani.ttf", 100*wGlobal/1024., ALLEGRO_KEEP_BITMAP_FORMAT);
 }
 
+// stampa il menu di pausa
 int Menu::menuPausa(Suono* music )
 {
     if(!music->getLivello())
@@ -31,6 +32,7 @@ int Menu::menuPausa(Suono* music )
     return menu1();
 }
 
+// stampa il menu principale
 int Menu::menuPricipale( Suono* music)
 {
     
@@ -46,6 +48,7 @@ int Menu::menuPricipale( Suono* music)
     return menu1();
 }
 
+// stampa il menu dove puoi scegliere i livelli
 int Menu::menuLivelli()
 {
     scelte.push_back("Livello 1");
@@ -54,6 +57,7 @@ int Menu::menuLivelli()
     return menu1( );
 }
 
+// menu tipo due, e' schermata che toccando un tasto scompare
 void Menu::menu2(string nomeImm, int tasto)
 {
     b = new BUFFER("../image/" + nomeImm);
@@ -69,16 +73,19 @@ void Menu::menu2(string nomeImm, int tasto)
         ev = event_queue.evento();
 }
 
+// schermata iniziale
 void Menu::zuma()
 {
     menu2("zuma.png", ALLEGRO_KEY_ENTER);
 }
 
+// schermata tutorial
 void Menu::tutorial()
 {
     menu2("tutorial.png", ALLEGRO_KEY_ESCAPE);
 }
 
+// menu di tipo uno, nel quale è possibile effettuare una scelta
 int Menu::menu1()
 {
     bool redraw=0;
@@ -232,6 +239,7 @@ int Menu::menu1()
 
 }
 
+// verifica se il mouse tocca un testo
 bool Menu::collideText(const int& mx, const int& my, string& s, const int& px, const int& py)
 {
     int tx=0, ty=0, th=0, tw=0;

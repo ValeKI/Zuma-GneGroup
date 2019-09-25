@@ -27,12 +27,11 @@ class Pallina:public HitBox
         void avanza();
         void movimento(const pair<int, int>&);
         void stop();
-        void inverti();
+        void invertiDirezione();
 
         COLORE getColore() const;
         double getPosizione() const;
         DIREZIONE getDirezione() const;
-        int posFutura() const;
         int getVelocita() const;
         void setPosizione(double );
         void setDirezione(DIREZIONE);

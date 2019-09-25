@@ -21,8 +21,3 @@ Schermata::~Schermata()
 
     event_queue.stop();
 }
-
-void Schermata::caricaFont()
-{
-
-}

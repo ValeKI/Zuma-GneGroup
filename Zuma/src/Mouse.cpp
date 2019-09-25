@@ -5,31 +5,25 @@ extern int hGlobal;
 
 Mouse::Mouse():x(0),y(0)
 {
-    ALLEGRO_DISPLAY* display=al_get_current_display();
-    displayW= al_get_display_width(display);
-    displayH= al_get_display_height(display);
-    int sx = displayW/wGlobal;
-    int sy = displayH/hGlobal;
-    scale = min(sx,sy);
-    
+  
 }
 
-void Mouse::setY(int _y) 
+void Mouse::setY(const int& _y) 
 { 
-    y=_y;//-((displayH-(hGlobal * scale))/2 );
+    y=_y;
 }
 
-void Mouse::setX(int _x) 
+void Mouse::setX(const int& _x) 
 { 
-    x=_x;//-((displayW-(wGlobal * scale))/2 );  
+    x=_x;  
 }
 
-int Mouse::getY() 
+int Mouse::getY() const
 {
     return y;
 }
 
-int Mouse::getX() 
+int Mouse::getX() const
 {
     return x;
 }

@@ -3,7 +3,6 @@
 extern int wGlobal;
 extern int hGlobal;
 
-
 void Pallina::setColore(COLORE colore)
 {
     string imm;
@@ -36,22 +35,9 @@ void Pallina::setColore(COLORE colore)
         break;
 
     }
-
-
     distruggiLoad();
     setImmagine("../image/" + imm);
     ricreaLoad();
-}
-
-int Pallina::posFutura() const
-{
-    int p2;
-
-    if(direzione==AVANTI)
-        p2=posizione+velocita;
-    if(direzione==DIETRO)
-        p2=posizione-velocita;
-    return p2;
 }
 
 int Pallina::getVelocita() const
@@ -64,10 +50,8 @@ Pallina::Pallina(COLORE c, int pos):colore(c),posizione(pos),direzione(AVANTI),v
     setColore(colore);
 }
 
-
 Pallina::~Pallina()
 {} 
-
 
 void Pallina::avanza()
 {
@@ -78,21 +62,18 @@ void Pallina::avanza()
     // altrimenti FERMO
 }
 
-
 void Pallina::movimento(const pair<int, int>& c)
 {
     setX(c.first);
     setY(c.second);
 }
 
-
 void Pallina::stop()
 {
     direzione = FERMO;
 }
 
-
-void Pallina::inverti()
+void Pallina::invertiDirezione()
 {
     if(direzione == AVANTI)
         direzione = DIETRO;
@@ -100,13 +81,10 @@ void Pallina::inverti()
         direzione = AVANTI;
 }
 
-
 COLORE Pallina::getColore() const
 {
     return colore;
 }
-
-
 
 double Pallina::getPosizione() const
 {

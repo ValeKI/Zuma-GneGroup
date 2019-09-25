@@ -8,9 +8,9 @@ int BUFFER::getGlobalScale() const
     return scale2;
 }
 
+// verifica la collisione col buffer
 bool BUFFER::collisione(HitBox* obj)
 {
-   
     return 
     (
         obj->getStampaX()-obj->getStampaL()/3.> ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
@@ -43,7 +43,7 @@ BUFFER::~BUFFER()
         al_destroy_bitmap(buffer);
 }
 
-
+// permettere di aggiungere un immagine al buffer
 void BUFFER::aggiungiImmagine(HitBox* hit)
 {
     ALLEGRO_BITMAP* prev_target=al_get_target_bitmap();
@@ -57,7 +57,7 @@ void BUFFER::aggiungiImmagine(HitBox* hit)
     hit->distruggiLoad();
 }
 
-
+// stampa l'immagine del buffer sul buffer
 bool BUFFER::stampaSfondo()
 {
     ALLEGRO_DISPLAY* display=al_get_current_display();
@@ -92,9 +92,9 @@ bool BUFFER::stampaSfondo()
     return 1;
 }
 
+// stampa il buffer sullo sfondo
 void BUFFER::stampa(bool contr)
 {
-   
     setLunghezza(wGlobal * scale2);
     setAltezza(hGlobal * scale2);
     setX((displayW-getLunghezza())/2 );
@@ -104,6 +104,5 @@ void BUFFER::stampa(bool contr)
     HitBox::stampa(0);
 
     load=nullptr;
-    
 }
 

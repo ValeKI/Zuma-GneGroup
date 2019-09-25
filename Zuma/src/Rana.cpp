@@ -8,6 +8,7 @@ extern int hGlobal;
 extern int coloriPalline;
 extern vector<COLORE> tipi;
 
+// si occupa di posizionare la rana al centro e di generare le due palline
 Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
 {
     srand(time(0));
@@ -18,21 +19,23 @@ Rana::Rana(int a,int b):HitBox("../image/Rana.png", a, b, 1 ), scale(0.6)
     palline[1] = new PallinaRana(COLORE(rand()%coloriPalline));
 }
 
+// stampa la rana, dipende dalle coordinate del mouse l'angolo sul quale e' inclinata
 void Rana::stampa(int mx, int my)
 {
+    // serve per non permettere di sparare continuamente
     if(tempo%10!=0)
         tempo++;
-    double stampaX=cx, stampaY=cy;
 
-    stampaX= stampaX+(displayW-(wGlobal * scale2))/2 ;
-    stampaY= stampaY+(displayH-(hGlobal * scale2))/2 ;
-
+    // dipende da dove è stampata veramente la rana, non dalle sue coordinate 'logiche'
+    double stampaX=getStampaX(), stampaY=getStampaY();
     seno = stampaY - my;
     if ((stampaX-mx) != 0)
         coseno = stampaX - mx;
-        
+
+    // quadrante destro    
     double segno = M_PI/2;
     
+    // quadrante sinistro
     if(seno <= 0 && coseno < 0 || coseno < 0 && seno >= 0)
         segno = M_PI/2 + M_PI;
 
@@ -46,25 +49,21 @@ void Rana::stampa(int mx, int my)
         load,
         146, 58,
         stampaX, stampaY,
-        ( (wGlobal*scale2)/1024.)*scale,
-        ( (hGlobal*scale2)/768.)*scale,
-        (atan(seno/coseno) + segno)    ,
+        ((wGlobal*scale2)/1024.)*scale,
+        ((hGlobal*scale2)/768.)*scale,
+        (atan(seno/coseno)+segno)    ,
         0
     );
  
-    palline[1]->direziona(stampaX, stampaY,mx,my);
-    
-    //out << "DisplayW " << displayW << endl;
+    palline[1]->direziona(stampaX,stampaY,mx,my);
         
-    palline[1]->setPosizione(143 * (            (wGlobal*hGlobal)/(1024.*768.)            ) *scale);
-    
-   // cout << palline[1]->getPosizione() << endl;
+    palline[1]->setPosizione(143*((wGlobal*hGlobal)/(1024.*768.))*scale);
     
     palline[1]->movimento();
     palline[1]->stampa(1);
-
 }
 
+// restituisce la pallina della lingua e genera la nuova
 PallinaRana* Rana::getPallina()
 {
     PallinaRana* p = nullptr;
@@ -75,7 +74,8 @@ PallinaRana* Rana::getPallina()
         palline[1] = palline[0];
         if(!tipi.empty())
             palline[0] = new PallinaRana(tipi[rand()%tipi.size()]);
-        else palline[0] = new PallinaRana(GIALLO);
+        else 
+            palline[0] = new PallinaRana(GIALLO);
     }
     tempo++;
     return p;

@@ -20,7 +20,7 @@ class Schermata
     bool key[6]= {false,false,false,false,false,false};
     
     public:
-    virtual void caricaFont();
+    virtual void caricaFont() = 0;
     Schermata();
     ~Schermata();
 };

@@ -4,6 +4,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
+// crea uno sfondo in fullscreen
 SFONDO::SFONDO()
 {
     ALLEGRO_DISPLAY_MODE mode;

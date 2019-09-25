@@ -1,6 +1,10 @@
 #include "../header/GestoreSpari.h"
 
-PallinaRana* GestoreSpari::getPallinaRana(int i){ return spari[i];}
+PallinaRana* GestoreSpari::getPallinaRana(int i)
+{ 
+    return spari[i];
+}
+
 void GestoreSpari::inserisciSparo(PallinaRana* sparo)
 {
     if(sparo!=nullptr)
@@ -9,23 +13,25 @@ void GestoreSpari::inserisciSparo(PallinaRana* sparo)
 
 Pallina* GestoreSpari::rimuoviPallina(int i) 
 {
+    if(!(i>0 && i<spari.size()))
+        return nullptr;
+
     Pallina* p = spari[i];
     spari.erase(spari.begin()+i);
     return p;
 }
 
+// se la pallina ha lo spazio per essere inserita viene rimossa dagli spari
 bool GestoreSpari::collisioneSparo(Serpente& serpy)
 {
     bool b = false;
     for(int j=spari.size()-1; j>=0; j--)
-    {
         if(serpy.toccaSparo(spari[j], j))
         {    
             spari.erase(spari.begin()+j);
             j=0;
             b = true;
         }
-    }
     return b;
 }
 
@@ -38,6 +44,7 @@ void GestoreSpari::stampa()
     }
 }
 
+// se uno sparo esce dallo schermo viene eliminato
 void GestoreSpari::nelloSchermo(BUFFER& b)
 { 
    for(vector<PallinaRana*>::iterator it = spari.begin(); it!=spari.end(); ++it)
@@ -51,8 +58,6 @@ void GestoreSpari::nelloSchermo(BUFFER& b)
     }
 }  
     
-    
-
 
 GestoreSpari::~GestoreSpari()
 {

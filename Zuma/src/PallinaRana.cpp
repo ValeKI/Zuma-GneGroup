@@ -3,7 +3,10 @@
 extern int wGlobal;
 extern int hGlobal;
 
-PallinaRana::PallinaRana(COLORE c):Pallina(c,0){setVelocita(10);}
+PallinaRana::PallinaRana(COLORE c):Pallina(c,0)
+{
+    setVelocita(10);
+}
 
 PallinaRana::PallinaRana(const PallinaRana& p):
 Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.getScalare()),punto(p.getPunto())
@@ -13,9 +16,10 @@ Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.ge
     setVelocita(10);
 }
 
+// e' calcolata la posizione della pallina, che dipende dalle coordinate del mouse
 void PallinaRana::direziona(int a, int b, int mx, int my)
 {
-    posizione=1;
+    posizione = 1;
     vx = mx - a;
     vy = my - b;
     float scalare = MODULO/sqrt(pow(vx, 2) + pow(vy, 2));
@@ -35,33 +39,13 @@ void PallinaRana::setStampaY(int a)
     HitBox::setStampaY(a-altezza/2);
 }
 
-
 void PallinaRana::movimento()
 {
-    
     posizione+=velocita;
+    // la pallina si muove velocita interi per volta, per questo viene diviso per MODULO
     setStampaX( (vx * posizione/MODULO) + punto.first);
     setStampaY( (vy * posizione/MODULO) + punto.second);   
 }
-
-bool PallinaRana::nonNelloSchermo() const
-{
-   
-     return 
-    (
-        getStampaX()-getStampaL()/3.< ((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2)
-        ||
-        getStampaX()+getStampaL()+getStampaL()/3.>=((al_get_display_width(al_get_current_display())-(wGlobal * scale2))/2+wGlobal) 
-        
-        ||
-        
-        getStampaY()-getStampaA()/3.< ((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2) 
-        ||
-        getStampaY()+getAltezza()+getStampaA()/3.>=((al_get_display_height(al_get_current_display())-(hGlobal * scale2))/2 +hGlobal) 
-    ); 
-
-}
-
 
 float PallinaRana::getVx() const
 {

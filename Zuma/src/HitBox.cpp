@@ -26,21 +26,17 @@ HitBox::~HitBox()
     distruggiLoad();
 }
 
-
+// disegna una HitBox proporzionata al buffer se contr = true se no stampa sullo schermo
 void HitBox::stampa(bool contr)
 {
-   // cout << endl << immagine << x << " " << y << " " << altezza << " " << lunghezza << endl;
-
     double stampaX=x, stampaY=y, stampaL=lunghezza, stampaA=altezza;
 
     if(contr)
     {
-        stampaX= (stampaX+(displayW-(wGlobal * scale2))/2 );
-        stampaY= (stampaY+((displayH-(hGlobal * scale2))/2 ));
-        stampaL= stampaL*( (wGlobal*scale2)/1024.);
-        stampaA= stampaA*( (hGlobal*scale2)/768.);
-
-      //  cout << (displayW-(wGlobal * scale2))/2  << endl ;
+        stampaX= getStampaX();
+        stampaY= getStampaY();
+        stampaL= getStampaL();
+        stampaA= getStampaA();
     }
 
     al_draw_scaled_bitmap
@@ -49,18 +45,16 @@ void HitBox::stampa(bool contr)
         0, 0,                                // source origin
         al_get_bitmap_width(load),           // source width
         al_get_bitmap_height(load),          // source height
-        stampaX, stampaY,                                // target origin
+        stampaX, stampaY,                    // target origin
         stampaL,
-        stampaA,    // target dimensions
+        stampaA,                             // target dimensions
         0                                    // flags
     );
 }
 
-
+// verifica se due hitbox si toccano
 bool HitBox::collisione(HitBox* obj)
 {
-   
-
    return(load!=nullptr && 
    (
         (getStampaX() >= obj->getStampaX()) && (getStampaX() <= obj->getStampaX() + obj->getStampaL()) &&
@@ -74,15 +68,12 @@ bool HitBox::collisione(HitBox* obj)
         ||
         (getStampaX() >= obj->getStampaX()) && (getStampaX() <= obj->getStampaX() + obj->getStampaL()) &&
         (getStampaY()+getStampaA() >= obj->getStampaY()) && (getStampaY()+getStampaA() <= obj->getStampaY() + obj->getStampaA())
-
-
-
    )
    );
 
 }
 
-
+// distrugge l'immagine legata all'HitBox
 void HitBox::distruggiLoad()
 {
     if(load!=nullptr) 
@@ -92,6 +83,7 @@ void HitBox::distruggiLoad()
     }
 }
 
+// crea l'immagine legata all'HitBox
 void HitBox::ricreaLoad()
 {
     if((load==nullptr) && !(load=al_load_bitmap(immagine.c_str())   ))

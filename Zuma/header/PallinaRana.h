@@ -8,10 +8,14 @@ const int MODULO = 20;
 class PallinaRana: public Pallina
 {
 
-    private: 
+    private:
+        // coordinata x di un vettore di direzione punto di pallina -> mouse 
         float vx;
+        // coordinata x di un vettore di direzione punto di pallina -> mouse 
         float vy;
+        // se moltiplicato col vettore di direzione, il modulo del vettore diventa MODULO
         float scalare;
+        // punto centrale
         pair<int, int> punto;
     public:
 
@@ -26,7 +30,6 @@ class PallinaRana: public Pallina
         PallinaRana(COLORE);
         void direziona(int, int, int, int);
         void movimento();
-        bool nonNelloSchermo() const;
 
         void setStampaX(int);
         void setStampaY(int);

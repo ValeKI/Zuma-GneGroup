@@ -2,21 +2,20 @@
 #define MOUSE_H
 #include "HitBox.h"
 
+// rappresenta il punto del mouse e gestisce la collisione
+
 class Mouse
 {
     private:
         int x;
         int y;
-        int displayW;
-        int displayH;
-        int scale;
 
     public:
         Mouse();
-        void setY(int);
-        void setX(int);
-        int getY();
-        int getX();
+        void setY(const int&);
+        void setX(const int&);
+        int getY() const;
+        int getX() const;
         bool collisione(HitBox*);
 
 };
