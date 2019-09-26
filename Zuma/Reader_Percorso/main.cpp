@@ -37,14 +37,7 @@ int main(int arg, char** str)
                     coordinate.push_back(var);
                 
             }
-    //  cout << "Le colonne sono " << colonne << "\nLe righe sono " << righe << endl;
     ordina(coordinate);
-    /* for(int i=0; i<coordinate.size(); i++)
-    {
-        cout << coordinate[i].first << " " << coordinate[i].second << " --- ";
-        if(i%10==9)
-            cout << endl;
-    }  */
   
     for(int i=0; i<righe; i++)
         delete[] matriceMisteriosa[i];
@@ -53,11 +46,9 @@ int main(int arg, char** str)
     /*
         CREARE IL FILE NEL QUALE SARA' SCRITTO IL VECTOR COORDINATE
     */
-    // cout << str[1];
     ofstream in;
     string filename=str[1];
-    //cin >> filename;
-
+    
     in.open( (filename+".txt").c_str() );
     
     for(int i=0; i<coordinate.size(); i++)
