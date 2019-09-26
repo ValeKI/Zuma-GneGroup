@@ -17,7 +17,7 @@ Menu::~Menu()
 
 // funzioni protected
 
-// menu di tipo uno, nel quale è possibile effettuare una scelta
+// menu di tipo uno, nel quale e's possibile effettuare una scelta
 int Menu::menu1()
 {
     bool redraw=0;

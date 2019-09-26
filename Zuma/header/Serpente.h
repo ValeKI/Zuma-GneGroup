@@ -21,7 +21,7 @@ class Serpente
         /* 
             coppia di indici:
                 - first rappresenta l'indice di una pallina del serpente 
-                        che è stata toccata da uno sparo;
+                        che e' stata toccata da uno sparo;
                 - second l'indice dello sparo
             lo sparo sara' inserito dopo la pallina
         */
@@ -53,7 +53,7 @@ class Serpente
         int cambiaDirezioneADestraDi(int, DIREZIONE);
         
         /* 
-            cerca se la posizione di una pallina è stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
+            cerca se la posizione di una pallina e' stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
             se non la trova restituisce -2
         */
         int cercaIndiceCoppiaSpari(const int& indice, const int& quale) const;
@@ -73,7 +73,7 @@ class Serpente
         // restituisce il punteggio generato dagli scoppi
         int getPoint() const;
 
-        // restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante è che sia più grande)
+        // restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante e' che sia più grande)
         int getPosizionePrimaPallina() const;
 
         // restituisce quante coordinate sono state lette
@@ -91,10 +91,10 @@ class Serpente
         // gestisce il criterio con il quale le palline si muovono. In caso di palline precedentemente staccate che si riattacano verifica se possono esplodere, ma dello stesso colore
         void gestisciMovimento();
 
-        // se è vuoto il vector palline
+        // se e' vuoto il vector palline
         bool empty();
 
-        // restituisce se uno sparo è stato inserito. Gestisce anche il suo inserimento        
+        // restituisce se uno sparo e' stato inserito. Gestisce anche il suo inserimento        
         bool toccaSparo(Pallina* sparo, int j);
 };
 

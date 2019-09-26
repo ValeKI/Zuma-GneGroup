@@ -1,12 +1,5 @@
 /*
     g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -o Zuma && ./Zuma
-    
-    vedere i const tutti
-    vedere se è necessario aggiungere delle variabili costanti tutti
-    ordinare i .cpp secondo i .h tutti
-    gestione errori, rivedere le stampe cerr
-    vedere tutti gli include
-    trovare un altro modo per gestire i colori disponibili, senza variabili extern
 */
 #define IMMAGINE_SFONDO "image/Sfondo.jpg"
 #include "../header/Sfondo.h"
@@ -50,7 +43,7 @@ void game()
         switch (modalita)
         {
             case 0:
-            // se il livello è avviato dal menu si resettano i punteggi, le vite e la scelta del num del livello 
+            // se il livello e' avviato dal menu si resettano i punteggi, le vite e la scelta del num del livello 
             liv->azzeraPunti();
             liv->resetVite();
             numero = 0;
@@ -67,7 +60,7 @@ void game()
             default:
                 switch (numero)
                 {
-                    // si sceglie il num del livello e alla prossima iterazione si vedrà qual è la conseguenza
+                    // si sceglie il num del livello e alla prossima iterazione si vedrà qual e' la conseguenza
                     case 0:
                         numero = menu->menuLivelli();
                         break;

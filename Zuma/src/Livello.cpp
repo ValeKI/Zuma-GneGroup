@@ -3,7 +3,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-const int VELOCITAGIOCO = 45;
+const int VELOCITAGIOCO = 70;
 
 const int BONUSVITA = 800;
 const int TEMPOADISP = 90;
@@ -34,7 +34,6 @@ Livello::Livello():Schermata()
 
 // distruttore
 
-// se non si è distrutto qualcosa se ne occupa
 Livello::~Livello()
 {
     if(serpy!=nullptr)
@@ -344,7 +343,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
             if(stampaBonus!=0 && stampaBonus<40)
             {
                 stampaBonus++;
-                al_draw_text(font, al_map_rgb(0,0,0), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");
+                al_draw_text(font, al_map_rgb(255,255,255), b->getX()+b->getLunghezza()/2, b->getY()+b->getAltezza()/2, ALLEGRO_ALIGN_CENTER, "Vita Bonus: +1!");
             }
 
             al_flip_display();

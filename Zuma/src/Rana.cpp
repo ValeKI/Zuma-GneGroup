@@ -36,7 +36,7 @@ void Rana::stampa(int mx, int my)
     if(tempo%10!=0)
         tempo++;
 
-    // dipende da dove è stampata veramente la rana, non dalle sue coordinate 'logiche'
+    // dipende da dove e' stampata veramente la rana, non dalle sue coordinate 'logiche'
     int stampaX=getStampaX(), stampaY=getStampaY();
     seno = cy - my;
     if ((cx-mx) != 0)

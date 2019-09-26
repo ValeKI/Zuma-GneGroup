@@ -53,7 +53,7 @@ int Serpente::getPoint() const
     return point*10;
 }
 
-// restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante è che sia più grande)
+// restituisce la posizione della prima pallina, e se non ci sono palline restituisce la size delle coordinate * 5 (l'importante e' che sia più grande)
 int Serpente::getPosizionePrimaPallina() const
 {
     if(!palline.empty())
@@ -101,7 +101,7 @@ void Serpente::scoppiaPalline(int p)
     for(;in>=0 && palline[in]->getColore()==colore ;in--);
     for(;fin<palline.size() && palline[fin]->getColore()==colore; fin++);
 
-    // esplodono se la loro differenza è maggiore di 2
+    // esplodono se la loro differenza e' maggiore di 2
     in++;
     fin--;
     if(in!=fin && fin-in>=2)
@@ -179,7 +179,7 @@ int Serpente::cambiaDirezioneADestraDi(int in ,DIREZIONE d) // piu' grande
 }
 
 /* 
-    cerca se la posizione di una pallina è stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
+    cerca se la posizione di una pallina e' stata salvata in coppiaSpari, se a SINISTRA sarà l'indice del vector di palline se DESTRA l'indice di GestoreSpari
     se non la trova restituisce -2
 */
 int Serpente::cercaIndiceCoppiaSpari(const int& indice, const int& quale) const
@@ -365,7 +365,7 @@ void Serpente::gestisciMovimento()
         for(int i=0;i<palline.size()-1;i++)
         {
             palline[i]->setVelocita(VELOCITAPALLINE);
-            // se una pallina non è immischiata in uno sparo e non è collegata con la precedente (i+1) e hanno lo stesso colore
+            // se una pallina non e' immischiata in uno sparo e non e' collegata con la precedente (i+1) e hanno lo stesso colore
             if(cercaIndiceCoppiaSpari(i,SINISTRA)==-2 && !collegate(palline[i],palline[i+1],distanzaPalline)  && palline[i]->getColore() == palline[i+1]->getColore() )
             {
                 // inseriscila tra le papabili per quanto si attaccano dei colori uguali che potrebbero esplodere
@@ -391,13 +391,13 @@ void Serpente::gestisciMovimento()
     }
 }
 
-// se è vuoto il vector palline
+// se e' vuoto il vector palline
 bool Serpente::empty()
 {
     return palline.empty();
 }
 
-// restituisce se uno sparo è stato inserito. Gestisce anche il suo inserimento
+// restituisce se uno sparo e' stato inserito. Gestisce anche il suo inserimento
 bool Serpente::toccaSparo(Pallina* sparo, int j)
 { 
     if(!palline.empty())
