@@ -197,7 +197,7 @@ void Menu::caricaFont()
 // schermata tutorial
 void Menu::tutorial()
 {
-    menu2("tutorial.png", ALLEGRO_KEY_ESCAPE);
+    menu2("guide.png", ALLEGRO_KEY_ESCAPE);
 }
 
 // schermata iniziale
@@ -211,7 +211,7 @@ int Menu::menuPausa(Suono* music )
 {
     if(!music->getLivello())
     {
-        music->stopLevel1();
+        music->stopLevel();
         music->playPause();
         al_rest(0.8);
         music->playMenu();

@@ -1,8 +1,8 @@
 #ifndef PALLINA_H
 #define PALLINA_H
+
 #include "HitBox.h"
-#include <utility>
-#include <string>
+
 
 const int VELOCITAPALLINE = 1;
 const int NUMCOLORI = 6;

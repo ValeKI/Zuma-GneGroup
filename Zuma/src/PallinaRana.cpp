@@ -22,22 +22,22 @@ Pallina(p.getColore(),p.getPosizione()),vx(p.getVx()),vy(p.getVy()),scalare(p.ge
 
 void PallinaRana::setX(const int& a)
 {
-    x=a-lunghezza/2;
+    x=a-lunghezza/2.;
 }
 
 void PallinaRana::setY(const int& a)
 {
-    y=a-altezza/2;
+    y=a-altezza/2.;
 }
 
 void PallinaRana::setStampaX(const int& a)
 {
-    HitBox::setStampaX(a-lunghezza/2);
+    HitBox::setStampaX(a-lunghezza/2.);
 }
         
 void PallinaRana::setStampaY(const int& a)
 {
-    HitBox::setStampaY(a-altezza/2);
+    HitBox::setStampaY(a-altezza/2.);
 }
 
 // get

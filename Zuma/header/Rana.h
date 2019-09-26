@@ -1,9 +1,6 @@
 #ifndef RANA_H
 #define RANA_H
 #include "PallinaRana.h"
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
 
 const int DISTANZA_PALLINA_CENTRO = 143;
 const int IMMAGINEX = 146;

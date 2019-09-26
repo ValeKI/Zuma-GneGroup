@@ -37,10 +37,10 @@ void Rana::stampa(int mx, int my)
         tempo++;
 
     // dipende da dove è stampata veramente la rana, non dalle sue coordinate 'logiche'
-    double stampaX=getStampaX(), stampaY=getStampaY();
-    seno = stampaY - my;
-    if ((stampaX-mx) != 0)
-        coseno = stampaX - mx;
+    int stampaX=getStampaX(), stampaY=getStampaY();
+    seno = cy - my;
+    if ((cx-mx) != 0)
+        coseno = cx - mx;
 
     // quadrante destro    
     double segno = M_PI/2;
@@ -49,8 +49,8 @@ void Rana::stampa(int mx, int my)
     if(seno <= 0 && coseno < 0 || coseno < 0 && seno >= 0)
         segno = M_PI/2 + M_PI;
 
-    palline[0]->setX(cx);
-    palline[0]->setY(cy);
+    palline[0]->setStampaX(cx);
+    palline[0]->setStampaY(cy);
 
     palline[0]->stampa(1);
     
@@ -58,14 +58,14 @@ void Rana::stampa(int mx, int my)
     (
         load,
         IMMAGINEX, IMMAGINEY,
-        stampaX, stampaY,
+        cx, cy,
         ((wGlobal*scale2)/1024.)*scale,
         ((hGlobal*scale2)/768.)*scale,
         (atan(seno/coseno)+segno)    ,
         0
     );
  
-    palline[1]->direziona(stampaX,stampaY,mx,my);
+    palline[1]->direziona(cx,cy,mx,my);
         
     palline[1]->setPosizione(DISTANZA_PALLINA_CENTRO*((wGlobal*hGlobal)/(1024.*768.))*scale);
     

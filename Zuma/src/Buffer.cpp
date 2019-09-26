@@ -1,5 +1,5 @@
 #include "../header/Buffer.h"
-#include <allegro5/allegro.h>
+
 extern int wGlobal;
 extern int hGlobal;
 

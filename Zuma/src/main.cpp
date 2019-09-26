@@ -12,10 +12,6 @@
 #include "../header/Sfondo.h"
 #include "../header/Livello.h"
 #include "../header/Suono.h"
-#include <string>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro5.h>
-
 
 // e' la width della 'risoluzione' scelta
 int wGlobal=1024;

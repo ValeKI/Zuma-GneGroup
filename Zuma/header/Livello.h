@@ -1,12 +1,5 @@
 #ifndef LIVELLO_H
 #define LIVELLO_H
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <string> 
 #include "Rana.h"
 #include "GestoreSpari.h"
 #include "Menu.h"
@@ -15,7 +8,7 @@
 enum MODALITA{CLASSICA = 1, MOSSE = 2, TEMPO = 3};
 enum ESITO{TORNAMENU = 1, VAIAVANTI = 2, HAIPERSO = 3};
 const int NUM_LIVELLI = 3;
-
+//Questa classe crea il livello del gioco in base alle modalità e alla difficoltà
 class Livello : public Schermata
 {
     private:

@@ -3,7 +3,7 @@
 extern int wGlobal;
 extern int hGlobal;
 
-const int VELOCITAGIOCO = 60;
+const int VELOCITAGIOCO = 45;
 
 const int BONUSVITA = 800;
 const int TEMPOADISP = 90;
@@ -15,14 +15,14 @@ const int NUMPALLINE_2 = 45;
 const int NUMCOLORI_1 = 4;
 const int NUMCOLORI_2 = 6;
 
-const int RANAX_1_1 = 504; const int RANAY_1_1 = 460;
-const int RANAX_1_2 = 484; const int RANAY_1_2 = 481;
+const int RANAX_1_1 = 688; const int RANAY_1_1 = 490;
+const int RANAX_1_2 = 654; const int RANAY_1_2 = 511;
 
-const int RANAX_2_1 = 482; const int RANAY_2_1 = 391;
-const int RANAX_2_2 = 516; const int RANAY_2_2 = 432;
+const int RANAX_2_1 = 662; const int RANAY_2_1 = 376;
+const int RANAX_2_2 = 676; const int RANAY_2_2 = 412;
 
-const int RANAX_3_1 = 588; const int RANAY_3_1 = 445;
-const int RANAX_3_2 = 579; const int RANAY_3_2 = 360;
+const int RANAX_3_1 = 758; const int RANAY_3_1 = 427;
+const int RANAX_3_2 = 719; const int RANAY_3_2 = 360;
 
 // costruttori
 
@@ -54,6 +54,7 @@ void Livello::stampaFinale(const bool& vinto, Suono*& music)
 {
     string imm;
 
+    bool win = true;
     if(vinto)
     {  
         imm = "win.jpg";
@@ -61,6 +62,7 @@ void Livello::stampaFinale(const bool& vinto, Suono*& music)
     }
     else
     {    
+        win = false;
         imm = "lost.png";
         music->playGameOver();
     }
@@ -71,7 +73,9 @@ void Livello::stampaFinale(const bool& vinto, Suono*& music)
     b->stampa(1);
     al_flip_display();
 
+    if(win)
     al_rest(7.1);
+    else al_rest(2.1);
     music->playMenu();
 }
 
@@ -248,7 +252,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     if(music->getMenu())
     {
         music->stopMenu();  
-        music->playLevel1();  
+        music->playLevel();  
     }
 
     // inizializzazione dell'event_queue, Serpente, Buffer, Rana
@@ -274,6 +278,8 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     // tempo di fine/in corso
     double end = start;
    
+    int bv = (puntiGioco/BONUSVITA) + 1;
+
     /* 
         il livello continua fino a quando:
             non succede una fine particolare a seconda della modalita (finisce tempo/mosse)
@@ -298,7 +304,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
                 if(music->getMenu())
                 {
                     music->stopMenu();
-                    music->playLevel1();
+                    music->playLevel();
                 }
             }
             else // se sparo col mouse
@@ -327,8 +333,9 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
             serpy->stampa();
             
             // bonus vite
-            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint() % BONUSVITA == 0 )
+            if(puntiGioco + serpy->getPoint() != puntiAttuali &&  puntiGioco + serpy->getPoint() !=0 && puntiGioco + serpy->getPoint()>BONUSVITA*bv  )
             {
+                bv++;
                 puntiAttuali = puntiGioco + serpy->getPoint();
                 vita++;
                 stampaBonus = 1;
@@ -359,7 +366,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
                         if(music->getMenu())
                         {
                             music->stopMenu();
-                            music->playLevel1();
+                            music->playLevel();
                         }  
                     }
                     else
@@ -386,7 +393,7 @@ int Livello::livello_base(Suono*& music ,const int& modalita, const int& numero)
     ESITO r = TORNAMENU;    
     if(!sceltaMenu)
     {
-        music->stopLevel1();
+        music->stopLevel();
         al_rest(0.5);
 
         if(serpy->empty())
